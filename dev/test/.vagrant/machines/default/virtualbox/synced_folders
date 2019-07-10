@@ -1,0 +1,1 @@
+{"virtualbox":{"/mnt/localshare":{"guestpath":"/mnt/localshare","hostpath":"/home/ubuntu/lab/estack/dev/test/shared","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/ubuntu/lab/estack/dev/test","disabled":false,"__vagrantfile":true}}}
