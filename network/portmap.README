@@ -1,0 +1,32 @@
+Programmable Port Requirements
+
+What is a portmap?
+
+Portmap is a collection of portmap attributes and array of switches.
+A s
+
+Comment
+Copyright
+Rack Attributes
+	Rack id
+	Rack role: Starter, Compute expansion, Storage expansion
+Array of switches
+	Switch id: Unique identifier for port
+	Switch role: Data, Management
+	Array of OOBM 
+		OOBM port-id: Unique identifier for OOBM port
+		OOBM MAC: OOBM port MAC
+		OOBM IP: OOBM IP
+	Array of ports
+		Port id: Unique identifier for port
+		Port string: Description of port
+		Port speed: Actual port speed
+		Port effective speed: Effective port speed
+		Port cable: Cable connected to this port
+		Port destination: Server, Peer Switch, Uplink
+		Port destination-id: Unique identifier for destination
+		Port destination-port: Port on destination
+		Port role: Role of port
+		Port comments: Additional comments
+
+
