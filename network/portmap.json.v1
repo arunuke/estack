@@ -1,0 +1,131 @@
+{
+  "_Comment": "Machine readable port map v 0.1",
+  "Copyright": "HPE Telco Team",
+  "Version": "0.1",
+  "PortMap": {
+    "Rack": {
+      "Id": "Discworld-1",
+      "Role": "Core 9 Startker Kit"
+    },
+    "Switch": {
+      "SwitchDetails" : [
+        {
+          "Name": "Discworld-switch-1",
+          "Role": "Data switch",
+          "Oobm": [
+            {	     
+              "Id": "1",
+              "Mac": "0a:2a:18:ea:ab:8e",
+              "Ip": "10.1.15.2"
+            },
+            {	     
+              "Id": "2",
+              "Mac": "0a:2a:18:ea:cd:9f",
+              "Ip": "10.1.15.3"
+            }
+         ],
+          "Port": [
+            {
+              "Id": "1/0/1",
+	      "Cable": "JL276A",
+	      "Role": "Uplink",
+	      "Speed": {
+	        "Actual": "100G",
+	        "Effective": "100G"
+	      },
+	      "ConnectedTo": [
+                {
+                  "Source": "1/0/1",
+	          "Destination": {
+	            "Name": "uplink-router-1",
+	            "Port": "21/0/11"
+	          }
+		}
+	      ]
+            },
+            {
+              "Id": "1/0/6",
+	      "Cable": "JG331A",
+	      "Role": "Downlink",
+	      "Speed": {
+	        "Actual": "100G",
+	        "Effective": "10G"
+	      },
+	      "ConnectedTo": [
+                {
+                  "Source": "1/0/6/1",
+		  "Destination": {
+	            "Name": "DL-NPS-01",
+	            "Port": "FLR-1"
+		  }
+	        },
+                {
+                  "Source": "1/0/6/2",
+		  "Destination": {
+	            "Name": "DL-VIM-01",
+	            "Port": "FLR-1"
+		  }
+	        },
+                {
+                  "Source": "1/0/6/3",
+		  "Destination": {
+	            "Name": "DL-VIM-02",
+	            "Port": "FLR-1"
+		  }
+	        },
+                {
+                  "Source": "1/0/6/4",
+		  "Destination": {
+	            "Name": "DL-VIM-03",
+	            "Port": "FLR-1"
+		  }
+	        }
+	      ]
+            },
+            {
+              "Id": "1/0/11",
+	      "Cable": "JL283A",
+	      "Role": "Downlink",
+	      "Speed": {
+	        "Actual": "100G",
+	        "Effective": "25G"
+	      },
+	      "ConnectedTo": [
+                {
+                  "Source": "1/0/11/1",
+		  "Destination": {
+	            "Name": "DL-COM-01",
+	            "Port": "PCI-1-1"
+		  }
+	        },
+                {
+                  "Source": "1/0/11/2",
+		  "Destination": {
+	            "Name": "DL-COM-01",
+	            "Port": "PCI-2-1"
+		  }
+	        },
+                {
+                  "Source": "1/0/11/3",
+		  "Destination": {
+	            "Name": "DL-COM-02",
+	            "Port": "PCI-1-1"
+		  }
+	        },
+                {
+                  "Source": "1/0/11/4",
+		  "Destination": {
+	            "Name": "DL-COM-02",
+	            "Port": "PCI-2-1"
+		  }
+	        }
+	      ]
+            }
+          ]
+        }
+      ]
+    },
+    "ItemCount": 4
+  }, 
+  "ItemCount": 1
+}

@@ -1,122 +1,180 @@
 {
-  "_Comment": "Machine readable port map v 0.1",
+  "_Comment": "Machine readable port map v 0.2",
   "Copyright": "HPE Telco Team",
-  "Version": "0.1",
+  "Version": "0.2",
   "PortMap": {
     "Rack": {
-      "Id": "Discworld-1",
-      "Role": "Core 9 Startker Kit"
+      "RackId": "Discworld-1",
+      "RackRole": "Core 9 Startker Kit"
     },
     "Switch": {
       "SwitchDetails" : [
         {
-          "Name": "Discworld-switch-1",
-          "Role": "Data switch",
-          "Oobm": [
+          "SwitchName": "Discworld-switch-01",
+          "SwitchRole": "Data switch",
+          "SwitchOobm": [
             {	     
-              "Id": "1",
-              "Mac": "0a:2a:18:ea:ab:8e",
-              "Ip": "10.1.15.2"
+              "SwitchOobmId": "1",
+              "SwitchOobmMac": "0a:2a:18:ea:ab:8e",
+              "SwitchOobmIp": "10.1.15.2"
             },
             {	     
-              "Id": "2",
-              "Mac": "0a:2a:18:ea:cd:9f",
-              "Ip": "10.1.15.3"
+              "SwitchOobmId": "2",
+              "SwitchOobmMac": "0a:2a:18:ea:cd:9f",
+              "SwitchOobmIp": "10.1.15.3"
             }
          ],
           "Port": [
             {
-              "Id": "1/0/1",
-	      "Cable": "JL276A",
-	      "Role": "Uplink",
-	      "Speed": {
-	        "Actual": "100G",
-	        "Effective": "100G"
+              "PortId": "1/0/1",
+	      "PortCable": "JL276A",
+	      "PortRole": "Uplink",
+	      "PortSpeed": {
+	        "PortSpeedActual": "100G",
+	        "PortSpeedEffective": "100G"
 	      },
-	      "ConnectedTo": [
+	      "PortConnectedTo": [
                 {
-                  "Source": "1/0/1",
-	          "Destination": {
-	            "Name": "uplink-router-1",
-	            "Port": "21/0/11"
+                  "ConnectSource": "1/0/1",
+	          "ConnectDestination": {
+	            "ConnectDestName": "uplink-router-1",
+		    "ConnectDestMgmt": "10.32.0.5",
+		    "ConnectDestMac": "5B-C2-D5-FD-D2-F0",
+	            "ConnectDestPort": "21/0/11"
 	          }
 		}
 	      ]
             },
             {
-              "Id": "1/0/6",
-	      "Cable": "JG331A",
-	      "Role": "Downlink",
-	      "Speed": {
-	        "Actual": "100G",
-	        "Effective": "10G"
+              "PortId": "1/0/6",
+	      "PortCable": "JG331A",
+	      "PortRole": "Downlink",
+	      "PortSpeed": {
+	        "PortSpeedActual": "100G",
+	        "PortSpeedEffective": "10G"
 	      },
-	      "ConnectedTo": [
+	      "PortConnectedTo": [
                 {
-                  "Source": "1/0/6/1",
-		  "Destination": {
-	            "Name": "DL-NPS-01",
-	            "Port": "FLR-1"
+                  "ConnectSource": "1/0/6/1",
+		  "ConnectDestination": {
+	            "ConnectDestName": "DL-NPS-01",
+		    "ConnectDestMgmt": "10.22.0.3",
+		    "ConnectDestMac": "A6-C2-D5-FD-2D-F0",
+	            "ConnectDestPort": "FLR-1"
 		  }
 	        },
                 {
-                  "Source": "1/0/6/2",
-		  "Destination": {
-	            "Name": "DL-VIM-01",
-	            "Port": "FLR-1"
+                  "ConnectSource": "1/0/6/2",
+		  "ConnectDestination": {
+	            "ConnectDestName": "DL-VIM-01",
+		    "ConnectDestMgmt": "10.22.0.4",
+		    "ConnectDestMac": "A7-C2-D5-FD-2D-F0",
+	            "ConnectDestPort": "FLR-1"
 		  }
 	        },
                 {
-                  "Source": "1/0/6/3",
-		  "Destination": {
-	            "Name": "DL-VIM-02",
-	            "Port": "FLR-1"
+                  "ConnectSource": "1/0/6/3",
+		  "ConnectDestination": {
+	            "ConnectDestName": "DL-VIM-02",
+		    "ConnectDestMgmt": "10.22.0.5",
+		    "ConnectDestMac": "B5-C2-D5-FD-2D-F0",
+	            "ConnectDestPort": "FLR-1"
 		  }
 	        },
                 {
-                  "Source": "1/0/6/4",
-		  "Destination": {
-	            "Name": "DL-VIM-03",
-	            "Port": "FLR-1"
+                  "ConnectSource": "1/0/6/4",
+		  "ConnectDestination": {
+	            "ConnectDestName": "DL-VIM-03",
+		    "ConnectDestMgmt": "10.22.0.6",
+		    "ConnectDestMac": "A5-D2-D5-FD-2D-F0",
+	            "ConnectDestPort": "FLR-1"
 		  }
 	        }
 	      ]
             },
             {
-              "Id": "1/0/11",
-	      "Cable": "JL283A",
-	      "Role": "Downlink",
-	      "Speed": {
-	        "Actual": "100G",
-	        "Effective": "25G"
+              "PortId": "1/0/11",
+	      "PortCable": "JL283A",
+	      "PortRole": "Downlink",
+	      "PortSpeed": {
+	        "PortSpeedActual": "100G",
+	        "PortSpeedEffective": "25G"
 	      },
-	      "ConnectedTo": [
+	      "PortConnectedTo": [
                 {
-                  "Source": "1/0/11/1",
-		  "Destination": {
-	            "Name": "DL-COM-01",
-	            "Port": "PCI-1-1"
+                  "ConnectSource": "1/0/11/1",
+		  "ConnectDestination": {
+	            "ConnectDestName": "DL-COM-01",
+		    "ConnectDestMgmt": "10.22.0.8",
+		    "ConnectDestMac": "A5-C2-D5-ED-2D-F0",
+	            "ConnectDestPort": "PCI-1-1"
 		  }
 	        },
                 {
-                  "Source": "1/0/11/2",
-		  "Destination": {
-	            "Name": "DL-COM-01",
-	            "Port": "PCI-2-1"
+                  "ConnectSource": "1/0/11/2",
+		  "ConnectDestination": {
+	            "ConnectDestName": "DL-COM-01",
+		    "ConnectDestMgmt": "10.22.0.8",
+		    "ConnectDestMac": "A5-C2-D5-FE-2D-F0",
+	            "ConnectDestPort": "PCI-2-1"
 		  }
 	        },
                 {
-                  "Source": "1/0/11/3",
-		  "Destination": {
-	            "Name": "DL-COM-02",
-	            "Port": "PCI-1-1"
+                  "ConnectSource": "1/0/11/3",
+		  "ConnectDestination": {
+	            "ConnectDestName": "DL-COM-02",
+		    "ConnectDestMgmt": "10.22.0.9",
+		    "ConnectDestMac": "A5-C2-D5-FD-1D-F0",
+	            "ConnectDestPort": "PCI-1-1"
 		  }
 	        },
                 {
-                  "Source": "1/0/11/4",
-		  "Destination": {
-	            "Name": "DL-COM-02",
-	            "Port": "PCI-2-1"
+                  "ConnectSource": "1/0/11/4",
+		  "ConnectDestination": {
+	            "ConnectDestName": "DL-COM-02",
+		    "ConnectDestMgmt": "10.22.0.9",
+		    "ConnectDestMac": "A5-C2-D5-FD-2D-G0",
+	            "ConnectDestPort": "PCI-2-1"
+		  }
+	        }
+	      ]
+            },
+            {
+              "PortId": "1/0/15",
+	      "PortCable": "JL271A",
+	      "PortRole": "Peer",
+	      "PortSpeed": {
+	        "PortSpeedActual": "100G",
+	        "PortSpeedEffective": "100G"
+	      },
+	      "PortConnectedTo": [
+                {
+                  "ConnectSource": "1/0/15",
+		  "ConnectDestination": {
+	            "ConnectDestName": "Discworld-switch-02",
+		    "ConnectDestMgmt": "NULL",
+		    "ConnectDestMac": "NULL",
+	            "ConnectDestPort": "2/0/15"
+		  }
+	        }
+	      ]
+            },
+            {
+              "PortId": "1/0/47",
+	      "PortCable": "AF595A",
+	      "PortRole": "Management",
+	      "PortSpeed": {
+	        "PortSpeedActual": "1G",
+	        "PortSpeedEffective": "1G"
+	      },
+	      "PortConnectedTo": [
+                {
+                  "ConnectSource": "1/0/47",
+		  "ConnectDestination": {
+	            "ConnectDestName": "Discworld-management-switch-01",
+		    "ConnectDestMgmt": "NULL",
+		    "ConnectDestMac": "NULL",
+	            "ConnectDestPort": "2/0/15"
 		  }
 	        }
 	      ]
@@ -125,7 +183,7 @@
         }
       ]
     },
-    "ItemCount": 4
+    "ItemCount": 6
   }, 
   "ItemCount": 1
 }
