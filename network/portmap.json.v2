@@ -60,8 +60,7 @@
 	            "ConnectDestName": "DL-NPS-01",
 		    "ConnectDestMgmt": "10.22.0.3",
 		    "ConnectDestMac": "A6-C2-D5-FD-2D-F0",
-	            "ConnectDestPort": "FLR-1",
-	            "ConnectDestLoc": "U01"
+	            "ConnectDestPort": "FLR-1"
 		  }
 	        },
                 {
@@ -70,8 +69,7 @@
 	            "ConnectDestName": "DL-VIM-01",
 		    "ConnectDestMgmt": "10.22.0.4",
 		    "ConnectDestMac": "A7-C2-D5-FD-2D-F0",
-	            "ConnectDestPort": "FLR-1",
-	            "ConnectDestLoc": "U02"
+	            "ConnectDestPort": "FLR-1"
 		  }
 	        },
                 {
@@ -80,8 +78,7 @@
 	            "ConnectDestName": "DL-VIM-02",
 		    "ConnectDestMgmt": "10.22.0.5",
 		    "ConnectDestMac": "B5-C2-D5-FD-2D-F0",
-	            "ConnectDestPort": "FLR-1",
-	            "ConnectDestLoc": "U03"
+	            "ConnectDestPort": "FLR-1"
 		  }
 	        },
                 {
@@ -90,8 +87,7 @@
 	            "ConnectDestName": "DL-VIM-03",
 		    "ConnectDestMgmt": "10.22.0.6",
 		    "ConnectDestMac": "A5-D2-D5-FD-2D-F0",
-	            "ConnectDestPort": "FLR-1",
-	            "ConnectDestLoc": "U04"
+	            "ConnectDestPort": "FLR-1"
 		  }
 	        }
 	      ]
@@ -111,8 +107,7 @@
 	            "ConnectDestName": "DL-COM-01",
 		    "ConnectDestMgmt": "10.22.0.8",
 		    "ConnectDestMac": "A5-C2-D5-ED-2D-F0",
-	            "ConnectDestPort": "PCI-1-1",
-	            "ConnectDestLoc": "U04"
+	            "ConnectDestPort": "PCI-1-1"
 		  }
 	        },
                 {
@@ -121,8 +116,7 @@
 	            "ConnectDestName": "DL-COM-01",
 		    "ConnectDestMgmt": "10.22.0.8",
 		    "ConnectDestMac": "A5-C2-D5-FE-2D-F0",
-	            "ConnectDestPort": "PCI-2-1",
-	            "ConnectDestLoc": "U04"
+	            "ConnectDestPort": "PCI-2-1"
 		  }
 	        },
                 {
@@ -131,8 +125,7 @@
 	            "ConnectDestName": "DL-COM-02",
 		    "ConnectDestMgmt": "10.22.0.9",
 		    "ConnectDestMac": "A5-C2-D5-FD-1D-F0",
-	            "ConnectDestPort": "PCI-1-1",
-	            "ConnectDestLoc": "U05"
+	            "ConnectDestPort": "PCI-1-1"
 		  }
 	        },
                 {
@@ -141,8 +134,7 @@
 	            "ConnectDestName": "DL-COM-02",
 		    "ConnectDestMgmt": "10.22.0.9",
 		    "ConnectDestMac": "A5-C2-D5-FD-2D-G0",
-	            "ConnectDestPort": "PCI-2-1",
-	            "ConnectDestLoc": "U05"
+	            "ConnectDestPort": "PCI-2-1"
 		  }
 	        }
 	      ]
@@ -162,8 +154,7 @@
 	            "ConnectDestName": "Discworld-switch-02",
 		    "ConnectDestMgmt": "NULL",
 		    "ConnectDestMac": "NULL",
-	            "ConnectDestPort": "2/0/15",
-	            "ConnectDestLoc": "U25"
+	            "ConnectDestPort": "2/0/15"
 		  }
 	        }
 	      ]
@@ -183,8 +174,7 @@
 	            "ConnectDestName": "Discworld-management-switch-01",
 		    "ConnectDestMgmt": "NULL",
 		    "ConnectDestMac": "NULL",
-	            "ConnectDestPort": "2/0/15",
-	            "ConnectDestLoc": "U35"
+	            "ConnectDestPort": "2/0/15"
 		  }
 	        }
 	      ]
