@@ -12,6 +12,7 @@
         {
           "SwitchName": "Discworld-switch-01",
           "SwitchRole": "Data switch",
+          "SwitchLOC": "U35",
           "SwitchOobm": [
             {	     
               "SwitchOobmId": "1",
