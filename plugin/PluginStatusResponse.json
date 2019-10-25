@@ -1,7 +1,7 @@
 {
 
-	"_comment": "Plugin Status Schema Instance",
-	"Name": "Common Redfish Plugin",
+	"_comment": "Plugin Status Response",
+	"Name": "Common Redfish Plugin Status",
 	"Version": "v0.1",
 	"ID": "990896296",
 	"Ack": "492816236",
@@ -17,7 +17,7 @@
 		"Resources": "yes",
 		"ResourcesCnt": "123",
 		"Subscriptions":"yes",	
-		"SubscriptionsCnt: 2343
+		"SubscriptionsCnt": 2343
 
 	}
 }
