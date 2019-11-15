@@ -1,0 +1,9 @@
+---
+
+- name: Importing kafka common tasks
+  import_tasks: kafka-common.yaml
+  become: yes
+     
+
+
+

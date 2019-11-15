@@ -1,6 +1,29 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
-  config.vm.provider "virtualbox" do |v|
-    v.memory = 8192
+
+  config.vm.define "kafka" do |kafka|
+    kafka.vm.box = "ubuntu/bionic64"
+    kafka.vm.hostname = "kafka"
+    kafka.vm.network "private_network", ip: "192.168.50.51"
+    kafka.vm.provider "virtualbox" do |v|
+      v.memory = 8192
+    end 
+    kafka.vm.provision "file", source: "~/estack/keys/vagrant_vms.pub", destination: "/home/vagrant/.ssh/authorized_keys_2"
+    kafka.vm.provision "shell", inline: "sudo /bin/cp /home/vagrant/.ssh/authorized_keys_2 /home/ubuntu/.ssh/authorized_keys"
+  end
+
+  config.vm.define "producer" do |producer|
+    producer.vm.box = "ubuntu/bionic64"
+    producer.vm.hostname = "producer"
+    producer.vm.network "private_network", ip: "192.168.50.52"
+    producer.vm.provision "file", source: "~/estack/keys/vagrant_vms.pub", destination: "~/.ssh/authorized_keys_2"
+    producer.vm.provision "shell", inline: "sudo /bin/cp /home/vagrant/.ssh/authorized_keys_2 /home/ubuntu/.ssh/authorized_keys"
+  end
+
+  config.vm.define "consumer" do |consumer|
+    consumer.vm.box = "ubuntu/bionic64"
+    consumer.vm.hostname = "consumer"
+    consumer.vm.network "private_network", ip: "192.168.50.53"
+    consumer.vm.provision "file", source: "~/estack/keys/vagrant_vms.pub", destination: "~/.ssh/authorized_keys_2"
+    consumer.vm.provision "shell", inline: "sudo /bin/cp /home/vagrant/.ssh/authorized_keys_2 /home/ubuntu/.ssh/authorized_keys"
   end
 end

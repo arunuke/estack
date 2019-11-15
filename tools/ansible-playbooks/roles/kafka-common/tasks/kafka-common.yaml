@@ -1,0 +1,55 @@
+---
+  - name: Copy resolv.conf
+    copy:
+      src: resolv.conf
+      dest: /run/systemd/resolve/stub-resolv.conf
+      owner: root
+      group: root
+      mode: '0644'
+    become: true
+
+
+  - name: Install pre-requisites
+    apt:
+      name: "{{ item }}"
+      state: present
+    become: true
+    loop:
+      - openjdk-11-jdk
+      - unzip
+
+  - name: Create kafka user
+    user:
+      name: kafka
+      comment: Kafka User 
+      groups: ubuntu, sudo
+      password: $6$H9MQDpFc$Pmn8dvhce2F35XLXvp7wxnYJBwhIbceMx5USNi88QueodopVKDC80mBjc/2/7rjmEjpmaSEM9U.sYMMm7lkuf0
+      append: yes
+    become: true 
+
+  - name: Create kafka user directory artifacts
+    file:
+      path: "{{ item }}"
+      state: directory
+      mode: '0755'
+      owner: kafka
+      group: kafka
+    become: true
+    loop:
+      - ~kafka/.ssh
+      - ~kafka/kafka
+
+#Copying keys from the ansible controller
+#Helps in having Kafka user ansible ready 
+#TODO: Generate and copy keys to authorized_keys file of user
+  - name: Copy keys for kafka user 
+    copy:
+      src: authorized_keys
+      dest: ~kafka/.ssh/authorized_keys
+      owner: kafka
+      group: kafka
+      mode: '0644'
+    become: true
+
+
+
