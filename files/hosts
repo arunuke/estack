@@ -1,0 +1,22 @@
+127.0.0.1 localhost
+
+192.168.50.3 bootstrap
+192.168.50.31 master
+192.168.50.32 worker1
+192.168.50.33 worker2
+
+192.168.50.51 kafka
+192.168.50.52 producer
+192.168.50.53 consumer
+
+192.168.50.61 apiserver
+192.168.50.62 apiclient
+192.168.50.63 db
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts

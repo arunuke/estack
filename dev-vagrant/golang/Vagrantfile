@@ -1,3 +1,29 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
+
+  config.vm.define "apiserver" do |apiserver|
+    apiserver.vm.box = "ubuntu/bionic64"
+    apiserver.vm.hostname = "apiserver"
+    apiserver.vm.network "private_network", ip: "192.168.50.61"
+    apiserver.vm.provider "virtualbox" do |v|
+      v.memory = 8192
+    end 
+    apiserver.vm.provision "file", source: "~/estack/keys/vagrant_vms.pub", destination: "/home/vagrant/.ssh/authorized_keys_2"
+    apiserver.vm.provision "shell", inline: "sudo /bin/cp /home/vagrant/.ssh/authorized_keys_2 /home/ubuntu/.ssh/authorized_keys"
+  end
+
+  config.vm.define "apiclient" do |apiclient|
+    apiclient.vm.box = "ubuntu/bionic64"
+    apiclient.vm.hostname = "apiclient"
+    apiclient.vm.network "private_network", ip: "192.168.50.62"
+    apiclient.vm.provision "file", source: "~/estack/keys/vagrant_vms.pub", destination: "~/.ssh/authorized_keys_2"
+    apiclient.vm.provision "shell", inline: "sudo /bin/cp /home/vagrant/.ssh/authorized_keys_2 /home/ubuntu/.ssh/authorized_keys"
+  end
+
+  config.vm.define "db" do |db|
+    db.vm.box = "ubuntu/bionic64"
+    db.vm.hostname = "db"
+    db.vm.network "private_network", ip: "192.168.50.63"
+    db.vm.provision "file", source: "~/estack/keys/vagrant_vms.pub", destination: "~/.ssh/authorized_keys_2"
+    db.vm.provision "shell", inline: "sudo /bin/cp /home/vagrant/.ssh/authorized_keys_2 /home/ubuntu/.ssh/authorized_keys"
+  end
 end
