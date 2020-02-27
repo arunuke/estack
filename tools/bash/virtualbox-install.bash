@@ -1,12 +1,12 @@
-#Add line to source
-echo "deb https://download.virtualbox.org/virtualbox/debian bionic contrib" >> /etc/apt/sources.list
 
-#Download virtualbox code
-wget https://download.virtualbox.org/virtualbox/6.0.12/virtualbox-6.0_6.0.12-133076~Ubuntu~bionic_amd64.deb
+
+#Add line to source
+echo 'deb https://download.virtualbox.org/virtualbox/debian bionic contrib' | sudo tee -a /etc/apt/sources.list
 
 #Add keys
-sudo apt-key add oracle_vbox_2016.asc
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 
 #Install virtualbox
 sudo apt-get update
-sudo apt-get install virtualbox-6.0
+sudo apt-get install virtualbox-6.1

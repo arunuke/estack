@@ -1,8 +1,10 @@
-#Install vagrant on the host
+#Install vagrant on the host 
 
-
-wget https://releases.hashicorp.com/vagrant/2.2.5/vagrant_2.2.5_linux_amd64.zip
-unzip vagrant_2.2.5_linux_amd64.zip
+VAGRANT_REPO=https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_linux_amd64.zip
+VAGRANT_FILE=vagrant.zip
+wget $VAGRANT_REPO -O $VAGRANT_FILE
+sudo apt-get install zip unzip
+unzip $VAGRANT_FILE
 sudo mv vagrant /usr/local/bin
-rm vagrant_2.2.5_linux_amd64.zip
+rm $VAGRANT_FILE
 
