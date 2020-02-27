@@ -1,0 +1,9 @@
+---
+
+#ansible-playbook lxd-compute.yaml --extra-args openstack_compute_mgmt_ip=<mgmt ip> --tags "apt_config,os_compute"
+
+- hosts: openstack-compute-lxd
+  roles:
+    - sources
+    - { role: openstack-common } 
+    - { role: openstack-compute, tags: ['os_compute'] } 

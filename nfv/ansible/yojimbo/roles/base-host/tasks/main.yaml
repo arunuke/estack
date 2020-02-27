@@ -1,0 +1,14 @@
+---
+
+- include: setup-packages.yaml
+  tags:
+    - base_host_packages
+- include: setup-networks.yaml
+  tags:
+    - base_host_network
+- include: setup-images.yaml
+  tags:
+    - base_host_images
+- include: setup-keys.yaml
+  tags:
+    - base_host_keys

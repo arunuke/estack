@@ -1,0 +1,16 @@
+./all_rsa
+./roles/common/files/sesame_rsa
+./roles/common/files/cerebrus_rsa
+./roles/ansible-user/files/sesame_rsa
+./roles/ansible-user/files/cerebrus_rsa
+./roles/seed-node/files/sesame_rsa
+./roles/seed-node/files/cerebrus_rsa
+./roles/multi-nic-vhost/files/sesame_rsa
+./roles/multi-nic-vhost/files/cerebrus_rsa
+./roles/base-host/files/all-nodes/sesame_rsa
+./roles/base-host/files/all-nodes/cerebrus_rsa
+./roles/base-host/files/sesame_rsa
+./roles/base-host/files/cerebrus_rsa
+./roles/git-client/files/cerebrus_rsa
+./roles/base-vm/files/sesame_rsa
+./roles/base-vm/files/cerebrus_rsa

@@ -1,0 +1,24 @@
+---
+
+- name: install chrony
+  apt:
+    name: chrony
+    state: present
+    update_cache: yes
+  become: true
+
+- name: copy chrony file for clients
+  copy:
+    src: chrony.conf
+    dest: /etc/chrony/chrony.conf
+    owner: root
+    group: root 
+    mode: 0644
+  become: true
+
+- name: restart chrony
+  service: 
+    state: restarted
+    name: chrony
+  become: true
+ 

@@ -1,0 +1,11 @@
+---
+- include: clear-openstack-vhosts.yaml
+  tags: openstack
+- include: clear-gluster-vhosts.yaml
+  tags: gluster
+- include: clear-nfv-vhosts.yaml
+  tags: nfv
+- include: clear-docker-vhosts.yaml
+  tags: docker
+- include: clear-seed-vhosts.yaml
+  tags: seed

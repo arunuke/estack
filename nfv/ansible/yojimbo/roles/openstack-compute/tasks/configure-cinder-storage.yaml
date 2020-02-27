@@ -1,0 +1,75 @@
+---
+#pass IP address of ocmpute node as argument to playbook openstack_compute_mgmt_ip
+
+- name: install cinder storage packages (if standalone)
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - "{{ cinder_storage_packages }}"
+
+
+ #TODO combine configuration of all config files into a single task
+# use subelements
+#
+- name: configure neutron compute api config file
+  ini_file:
+    path: "{{ neutron_compute_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'DEFAULT', option: 'transport_url', value: "rabbit://openstack:{{ openstack_commonpass }}@{{ openstack_controller }}" }
+    - { section: 'DEFAULT', option: 'auth_strategy', value: 'keystone' }
+    - { section: 'keystone_authtoken', option: 'auth_uri', value: "http://{{ openstack_controller }}:5000" }
+    - { section: 'keystone_authtoken', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" }
+    - { section: 'keystone_authtoken', option: 'memcached_servers', value: "{{ openstack_controller }}:11211" }
+    - { section: 'keystone_authtoken', option: 'auth_type', value: 'password' }
+    - { section: 'keystone_authtoken', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" }
+    - { section: 'keystone_authtoken', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" }
+    - { section: 'keystone_authtoken', option: 'project_name', value: 'service' }
+    - { section: 'keystone_authtoken', option: 'username', value: 'neutron' }
+
+- name: configure nova api compute config file for neutron
+  ini_file:
+    path: "{{ nova_compute_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'neutron', option: 'url', value: "http://{{ openstack_controller }}:9696" }
+    - { section: 'neutron', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" }
+    - { section: 'neutron', option: 'auth_type', value: 'password' }
+    - { section: 'neutron', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" }
+    - { section: 'neutron', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" }
+    - { section: 'neutron', option: 'region_name', value: "{{ openstack_region }}" }
+    - { section: 'neutron', option: 'project_name', value: 'service' }
+    - { section: 'neutron', option: 'username', value: 'neutron' }
+    - { section: 'neutron', option: 'password', value: "{{ openstack_commonpass }}" }
+
+
+- name: restart neutron compute services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - "{{ neutron_compute_services }}"
+    - "{{ nova_compute_services }}"
+  become: true
+
+- name: configure linuxbridge agent config file for neutron
+  ini_file:
+    path: "{{ neutron_compute_lbr_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'linux_bridge', option: 'physical_interface_mappings', value: "provider:{{ neutron_compute_data_interface }}" }
+    - { section: 'vxlan', option: 'enable_vxlan', value: 'false' }
+    - { section: 'securitygroup', option: 'enable_security_group', value: 'true' }
+    - { section: 'securitygroup', option: 'firewall_driver', value: 'neutron.agent.linux.iptables_firewall.IptablesFirewallDriver' }
+

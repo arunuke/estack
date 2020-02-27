@@ -1,0 +1,45 @@
+---
+
+openstack_common_packages:
+  - chrony
+  - software-properties-common
+  - python-openstackclient
+  - python3-software-properties
+  - python-software-properties
+  - whois
+openstack_release_archive:
+  - cloud-archive:ocata
+openstack_release_repo:
+  - deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/ocata main
+
+openstack_db_packages:
+  - mariadb-server
+  - python-pymysql
+  - python-mysqldb
+
+openstack_mq_packages:
+  - rabbitmq-server
+
+rabbit_pass: nfv
+openstack_mq_user: openstack
+openstack_mq_pwd: "{{ rabbit_pass }}"
+
+openstack_mem_packages:
+  - memcached
+  - python-memcache 
+
+openstack_controller_hostname: controller
+
+
+openstack_admin_user: arunt
+openstack_admin_user_home: "/home/{{ openstack_admin_user }}/"
+
+db_server_config_file: /etc/mysql/mariadb.conf.d/50-server.cnf
+db_client_config_file: /etc/mysql/mariadb.conf.d/50-client.cnf
+db_mysql_client_config_file: /etc/mysql/mariadb.conf.d/50-mysql-clients.cnf
+
+ubuntu_keyserver: keyserver.ubuntu.com
+ubuntu_public_key: 5EDB1B62EC4926EA
+
+http_proxy: http://16.85.88.10:8080
+https_proxy: https://16.85.88.10:8080

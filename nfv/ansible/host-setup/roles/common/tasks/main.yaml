@@ -1,0 +1,5 @@
+---
+#common for all VMs
+- name: common role:- install nginx
+  apt: name=nginx state=present
+  become: true

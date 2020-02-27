@@ -1,0 +1,17 @@
+Artifacts
+===========
+
+XML : 
+
+- XML for VM with 1 'default' network and 1 'macvtap' network
+- XML for VM with 1 'mgmt', 1 'data', and 1 'external' network
+- XML for VM with 1 'mgmt', 1 'data', 1 'external' and 1 'default' network
+
+
+Design : 
+
+- For every playbook that configures something, have a play that resets it
+- cloud-init
+  - set user name and password for default
+  - edit interfaces file to provide for new networks
+

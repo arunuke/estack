@@ -1,0 +1,15 @@
+---
+webserver_packages:
+  - apache2
+
+webserver_services:
+  - apache2
+
+webserver_home: /var/www/html/web-repo
+
+ubuntu_img_url: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
+ubuntu_img_dst: ubuntu-1604.img.distro
+oneview_img_url: http://ci-nexus.vse.rdlabs.hpecorp.net//Fusion/release/1.20.06/QCow2/SSH/HPOneView-SSH_1.20.06_218064_RC1-qcow2.tar.gz
+
+system_proxy: http://16.85.88.10:8080
+

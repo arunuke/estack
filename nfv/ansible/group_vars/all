@@ -1,0 +1,39 @@
+#path variables
+git_path: /home/arunt/git-files/nfv-tools-git
+libvirt_path: "{{ git_path }}/libvirt-files"
+net_xml_path: "{{ libvirt_path }}/networking"
+stack_xml_path: "{{ libvirt_path }}/openstack-xmls"
+master_xml_path: "{{ libvirt_path }}/xmls"
+vhost_xml_path: "{{ libvirt_path }}/nested-xmls"
+
+#image variables
+ubuntu_img_url: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
+rfc_url: https://www.ietf.org/rfc/rfc791.txt
+ubuntu_img_dir: /home/arunt/lab/image-repo
+openstack_dir: /home/arunt/lab/openstack
+gluster_dir: /home/arunt/lab/gluster
+
+ubuntu_img_dst: ubuntu-1604.img.distro
+ubuntu_img_dst_xpand: ubuntu-1604.img.xpand
+ubuntu_img_dst_base: ubuntu-1604.img.base
+test_dir: "{{ ubuntu_img_dir }}/test_dir_vbl"
+
+sys_packages:
+  - apache2
+  - python-lxml
+  - python-libvirt
+  - kvm
+  - cloud-utils
+  - genisoimage
+  - sysfsutils
+  - attr
+
+lxd_packages:
+  - lxd
+  - zfsutils-linux
+  - btrfs-tools
+
+
+#system variables
+system_proxy: https://16.85.88.10:8080
+http_proxy: http://16.85.88.10:8080

@@ -1,0 +1,43 @@
+---
+
+#not using script, trying to actually copy the files so that I can run local tests
+# and verify
+- name: create directory for maas artifacts
+  file:
+    path: "{{ maas_user_dir }}"
+    state: directory
+    mode: 0755
+
+- name: copy script files
+  copy:
+    src: maas_machine_create.bash
+    dest: "{{ maas_user_dir }}"
+    mode: 0744
+
+- name: create api key file
+  shell: "maas-region apikey --username={{ maas_user }} > {{ maas_api_key }}"
+  become: true
+  tags:
+    - apikey
+
+- name: login as maas user
+  shell: maas login {{ maas_user }} {{  maas_url }} - < {{ maas_api_key }}
+  become: true
+
+#- name: create nodes as bash
+#  shell: "{{ maas_user_dir }}/maas_machine_create.bash > comm_maas.log"
+#  tags: maas_bash_deploy
+
+- name: create nodes as plays
+  command: 
+           maas "{{ maas_user }}" machines create \
+           architecture="{{ item.value.arch }}" \
+           mac_addresses="{{ item.value.mac }}" \
+           power_type="{{ item.value.power }}" \
+           power_parameters_power_address="{{ item.value.poweraddr }}" \
+           power_parameters_power_user="{{ item.value.poweruser }}" \
+           power_parameters_power_pass="{{ item.value.powerpass }}" \
+           power_parameters_power_driver="{{ item.value.powerdrv }}"
+           hostname="{{ item.key }}"
+  with_dict: "{{ maas_host_vars }}"
+  tags: maas_play_deploy

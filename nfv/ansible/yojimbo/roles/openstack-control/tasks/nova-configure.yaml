@@ -1,0 +1,89 @@
+
+#nova packages installed and database created at this time
+
+- name: install nova packages (if standalone)
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - "{{ nova_packages }}"
+
+
+ #TODO combine configuration of all config files into a single task
+# use subelements
+#       
+- name: configure nova api config file
+  ini_file:
+    path: "{{ nova_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'keystone_authtoken', option: 'auth_uri', value: "http://{{ openstack_controller }}:5000" } 
+    - { section: 'keystone_authtoken', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" } 
+    - { section: 'keystone_authtoken', option: 'memcached_servers', value: "{{ openstack_controller }}:11211" } 
+    - { section: 'keystone_authtoken', option: 'auth_type', value: 'password' } 
+    - { section: 'keystone_authtoken', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'project_name', value: 'service' } 
+    - { section: 'keystone_authtoken', option: 'username', value: 'nova' } 
+    - { section: 'keystone_authtoken', option: 'password', value: "{{ openstack_commonpass }}" } 
+    - { section: 'api', option: 'auth_strategy', value: 'keystone' } 
+    - { section: 'DEFAULT', option: 'transport_url', value: "rabbit://openstack:{{ openstack_commonpass }}@{{ openstack_controller }}" } 
+    - { section: 'DEFAULT', option: 'my_ip', value: "{{ openstack_controller_ip }}" } 
+    - { section: 'DEFAULT', option: 'use_neutron', value: 'true' } 
+    - { section: 'DEFAULT', option: 'firewall_driver', value: 'nova.virt.firewall.NoopFirewallDriver' } 
+    - { section: 'api_database', option: 'connection', value: "mysql+pymysql://nova:{{ openstack_commonpass }}@{{ openstack_controller }}/nova_api" }
+    - { section: 'database', option: 'connection', value: "mysql+pymysql://nova:{{ openstack_commonpass }}@{{ openstack_controller }}/nova" }
+    - { section: 'vnc', option: 'enabled', value: 'true' } 
+    - { section: 'vnc', option: 'vncserver_listen', value: "{{ openstack_controller_ip }}" } 
+    - { section: 'vnc', option: 'vncserver_proxyclient_address', value: "{{ openstack_controller_ip }}" } 
+    - { section: 'glance', option: 'api_servers', value: "http://{{ openstack_controller_ip }}:9292" } 
+    - { section: 'oslo_concurrency', option: 'lock_path', value: '/var/lib/nova/tmp' } 
+    - { section: 'placement', option: 'os_region_name', value: "{{ openstack_region }}" } 
+    - { section: 'placement', option: 'auth_url', value: "http://{{ openstack_controller }}:35357/v3" } 
+    - { section: 'placement', option: 'memcached_servers', value: "{{ openstack_controller }}:11211" } 
+    - { section: 'placement', option: 'auth_type', value: 'password' } 
+    - { section: 'placement', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" } 
+    - { section: 'placement', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" } 
+    - { section: 'placement', option: 'project_name', value: 'service' } 
+    - { section: 'placement', option: 'username', value: 'placement' } 
+    - { section: 'placement', option: 'password', value: "{{ openstack_commonpass }}" } 
+
+- name: create nova user, service and endpoints
+  shell: "{{ openstack_admin_user_home }}/comm_services.bash {{ item.key }} {{ item.value.domain }} {{ item.value.svc_pass }} {{ item.value.svc_descr }} {{ item.value.svc_name }} {{ openstack_region }} {{ openstack_controller }} {{ item.value.port }}"
+  with_dict : "{{ openstack_services_config }}"
+  when: item.key == "nova"
+
+- name: create placement user, service and endpoints
+  shell: "{{ openstack_admin_user_home }}/comm_services.bash {{ item.key }} {{ item.value.domain }} {{ item.value.svc_pass }} {{ item.value.svc_descr }} {{ item.value.svc_name }} {{ openstack_region }} {{ openstack_controller }} {{ item.value.port }}"
+  with_dict : "{{ openstack_services_config }}"
+  when: item.key == "placement"
+
+- name: configure nova api database
+  command: nova-manage api_db sync
+  become: true
+
+- name: Register Cell0 Database
+  command: nova-manage cell_v2 map_cell0
+  become: true
+
+- name: create cell1 cell
+  command: nova-manage cell_v2 create_cell --name=cell1 --verbose
+  become: true
+  tags: nova_cell1_create
+
+
+- name: configure nova database
+  command: nova-manage db sync
+  become: true
+
+- name: restart nova services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - "{{ nova_services }}"
+ 

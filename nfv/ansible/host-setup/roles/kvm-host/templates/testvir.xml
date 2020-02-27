@@ -1,0 +1,16 @@
+
+<network>
+  <name>testvir</name>
+  <uuid>faf2e33e-3761-4137-8cec-9fde54c3275a</uuid>
+  <forward dev='macvtap0' mode='nat'>
+    <interface dev='macvtap0'/>
+  </forward>
+  <bridge name='virbr4' stp='on' delay='0'/>
+  <mac address='52:54:00:ba:b3:01'/>
+  <domain name='testvir'/>
+  <ip address='192.168.100.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.100.128' end='192.168.100.254'/>
+    </dhcp>
+  </ip>
+</network>

@@ -1,0 +1,7 @@
+---
+
+#Run from the kvm host to configure git foro the seed node
+
+- hosts: container-seed
+  roles:
+    - git-client

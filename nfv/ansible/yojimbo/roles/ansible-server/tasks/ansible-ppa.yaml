@@ -1,0 +1,59 @@
+---
+
+- name: get common software properties
+  apt: 
+    name: software-properties-common
+    state: present
+  become: true
+
+- name: add https information to sudo
+  lineinfile: 
+    dest: /etc/sudoers
+    line: "Defaults env_keep=\"https_proxy\""
+  become: true
+
+- name: set ansible ppa
+  apt_repository: 
+    repo: ppa:ansible/ansible
+    state: present
+    update_cache: yes
+  environment: 
+    http_proxy: "{{ http_proxy }}"
+    https_proxy: "{{ http_proxy }}"
+  become: true
+    
+- name: install ansible
+  apt:
+    name: ansible
+    state: present
+  become: true 
+
+- name: create group_vars
+  file:
+    path: /etc/ansible/group_vars 
+    state: directory
+  become: true
+
+#- name: add "key to all doors" to ansible's global variables
+#  copy:
+#    src: ansible-files/group_vars/all
+#    dest: /etc/ansible/group_vars/all 
+#  become: true
+
+- name: add ansible hosts file
+  copy:
+    src: ansible-files/hosts
+    dest: /etc/ansible/hosts
+  become: true
+
+#- name: copy hosts file to /etc/ansible/hosts
+
+#- name: add "key to the source" to ssh config file to be used as private key to login to git
+#  copy: 
+#    src: ssh/config
+#    dest: .ssh
+
+#- name: get on to git, check out new branch based on stable
+# needs to be in the git-server role
+
+

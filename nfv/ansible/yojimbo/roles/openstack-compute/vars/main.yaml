@@ -1,0 +1,40 @@
+---
+#Hosts
+openstack_controller: controller
+openstack_glance_controller: controller
+
+#Passwords
+openstack_commonpass: nfv
+openstack_adminpass: nfv
+
+#OpenStack parameters
+openstack_region: RegionOne
+openstack_project_domain_name: default
+openstack_user_domain_name: default 
+openstack_virt_agent: qemu
+#openstack_compute_mgmt_ip: 10.165.224.56
+
+#Nova parameters
+nova_compute_mgmt_ip: "{{ openstack_compute_mgmt_ip }}"
+nova_compute_api_config_file: /etc/nova/nova.conf
+nova_compute_client_config_file: /etc/nova/nova-compute.conf
+nova_compute_packages:
+  - nova-compute
+nova_lxd_compute_packages:
+  - nova-compute-lxd
+nova_compute_services:
+  - nova-compute
+
+#Neutron parameters
+neutron_compute_mgmt_ip: "{{ openstack_compute_mgmt_ip }}"
+neutron_compute_data_interface: eth1
+neutron_compute_api_config_file: /etc/neutron/neutron.conf
+neutron_compute_lbr_config_file: /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+neutron_compute_packages:
+  - neutron-linuxbridge-agent
+neutron_compute_services:
+  - neutron-linuxbridge-agent
+
+#Cinder parameters
+cinder_storage_packages:
+  - lvm2

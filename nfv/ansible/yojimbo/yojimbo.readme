@@ -1,0 +1,153 @@
+TOC
+~~~~~
+
+1. Manual tasks on yojimbo host
+2. Common base host tasks
+3. Cloud configurations
+3.1. Supersonic: Uses pre-configured VMs
+3.2  Bullet Train: Uses default VMs, additional NICs and disks can be configured through roles
+3.3  Ferrari: PXE booted VMs
+4. Configure roles
+5. Using Yojimbo, deploying NFV System
+
+Manual tasks on yojimbo host : 
+===============================
+
+1. install sesame ssh key from build server in authorized keys manually to get ansible going
+2. install python2.7 and create a symbolic link in /usr/bin/python if not pre-installed
+3. add sudo for user 'arunt' to work without password
+4. check to see if cd-rom is listed in /etc/apt.sources.list and remove if present
+5. install cerebrus ssh key
+6. install ansible
+
+
+Common base host tasks
+========================
+1. Configure base host (base-host)
+   install required packages
+   configure linux bridge based networks for data, storage, management and external
+   create directory structure and download upstream ubuntu images and store in repository
+   Run with --skip-tags network,fedora_image if networking is already configured and we dont
+     need Fedora
+     ansible-playbook configure-base-host.yaml --skip-tags "base_host_network,base_host_fedora_image"
+   TODO: Check for networking and pass if already configured
+   TODO: Check to see how group_vars is created. Right now, there is a group_vars directory
+         inside group_vars which causes errors 
+
+2. Configure base host as maas node (maas-node)
+   Perform manual tasks for subnets and enable dhcp
+
+Supersonic
+============
+
+From yojimbo host : 
+1. Create targeted VMs (create-jane-vms)
+   This would create the following VMs by default
+   1 Seed VM
+   1 OpenStack Controller, 1 OpenStack Network, 2 OpenStack Compute
+   1 Docker Controller, 2 Docker Computes
+   3 Storage Nodes (for gluster or ceph)
+   
+   TODO: cleanup script for jane vms, will remove entries in "default"
+         xml
+   
+
+Bullet Train
+===============
+From yojimbo host : 
+
+1. Create base VMs (base-vm)
+   use seed_host_vars as command line argument
+   cleanup any existing files
+   create base VM qcow2 from upstream ubuntu image
+   create base VM cloud-init qcow2 from vhost_user_data
+   create a VM with one interface on default network
+
+2. Add NICs (corp-net) or disks (storage-nodes) as applicable
+   provide the name of the list that requires corp connectivity 
+   add a new interface on corp network
+   IP address is optional, currently manual (ip link set dev <device> up;
+    ip addr add <IP:mask> dev <device>
+
+3. Add ansible packages (ansible-client)
+
+
+Ferrari
+=========
+
+From yojimbo host:
+
+1. Create PXE bootable vm templates (pxe-node)
+2. Add NICs (corp-net) or disks (storage-nodes) as applicable
+   provide the name of the list that requires corp connectivity 
+   add a new interface on corp network
+   IP address is optional, currently manual (ip link set dev <device> up;
+    ip addr add <IP:mask> dev <device>
+3. Add ansible user arunt/ubuntu/nfvuser (ansible-user)
+
+
+Configure roles 
+================
+
+From Yojimbo host, configure seed VM
+
+1. configure ansible client (ansible-client)
+   install python and create a symoblic link
+
+2. configure ansible server (ansible-server)
+ 
+3. Configure git client (git-client)
+   copy ssh keys cerebrus 
+   configure git to use cerebrus for git by copying config file
+
+From remote seed: 
+
+1. Configure seed (seed-node)
+   Copy sesame key from git location on to .ssh to login to kvm host
+
+Using Yojimbo to deploy NFV System
+===================================
+1. MAAS should run in seed node instead of yojimbo host
+
+Things to do
+
+===============
+
+1. Also add host information of KVM host in /etc/hosts
+2. in cleanup, shutdown VM only if it is running before
+3. Add new user arunt, enable sudo access without password
+4. Re-write apt proxy and sudo to use .d directories (apt.conf.d and sudoers.d)
+   instead of writing into file directly 
+
+
+
+MAAS
+============
+
+1. do not run DHCP if running alongside others. 
+2. install maas, create admin user
+3. in the "Subnet" page, for the subnet in question, for gateway IP field, 
+   use the IP address of the maas node on that subnet.
+4. enable ip forwarding in the maas node
+5. add dns of the hpe lab to the dns information in the DNS field
+
+Networking Configuration
+=========================
+
+1. Prepare slide for altoline lab in houston with three DLs 
+
+New Roles
+=========
+1. OpenStack controllers and computes
+2. Docker UCP controllers
+3. MQ 
+4. Database
+5. ODL
+6. ONOS
+7. XOS
+8. Switch configuration
+
+========================
+
+fresh-start-yojimbo.yaml
+

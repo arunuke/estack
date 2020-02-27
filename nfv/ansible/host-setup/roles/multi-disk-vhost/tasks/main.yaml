@@ -1,0 +1,5 @@
+---
+
+- include: create-gluster-vm-files.yaml
+- include: start-gluster-vms.yaml
+

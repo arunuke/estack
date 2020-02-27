@@ -1,0 +1,62 @@
+0. clear all VMs
+
+cleanup-vms.yaml 
+//clears all multi nic and multi disk VMs on a remote host
+
+1. configure all the controller hosts
+
+create-multi-nic-vhosts.yaml
+// same procedure for NFV Control nodes running OpenSAF
+
+2. configure all the gluster hosts
+
+create-multi-disk-vhosts.yaml
+// same for CEPH and VSA nodes
+
+3. check if "neo", the seed node is visible. neo connects to all
+nodes and neo is the onlyone with a macvtap interface. To create
+all interfaces with macvtap, modify the plays.
+
+Only reason to do this with no macvtap is to save IPs on the
+10.206 net.
+
+run verify-connectivity-seed.bash
+run setup-ssh-known-host-seed.bash
+
+4. run python2.7 install script against all nodes
+run setup-for-ansible.bash
+
+5. setup seed node by copying ssh profiles, changng permissions, installing
+ansible and setting up git
+
+4. configure the gluster backends
+
+configure-gluster-nodes.yaml
+
+5. configure the gluster server
+
+configure-gluster-server.yaml
+note: use host based extensions (like groups.gluster_node[0] for gluster-2 etc.
+
+--Now gluster is up and running and ready to be mounted on the hosts
+
+6. configure the gluster clients
+
+configure-gluster-clients.yaml
+
+--gluster volumes are still not mounted on 
+run verify-shared-storage.bash
+note : add this as a play, echo $hostname to hostname.txt file in shared storage
+
+7. configure the controllers to move the data to shaerd storage and start the VMs
+
+configure-nested-vhosts.yaml
+
+- Now VMs are being started
+
+8. now configure shared VMs
+
+
+9. TODO: OVS
+
+10. Configure a hosted VM

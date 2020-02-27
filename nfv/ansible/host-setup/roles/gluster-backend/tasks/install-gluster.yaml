@@ -1,0 +1,15 @@
+---
+- name: install gluster packages
+  apt: name={{ item }} state=present update_cache=yes
+  become: true
+  with_items:
+    - glusterfs-server
+    - attr
+
+- name: start gluster service
+  service: name=glusterfs-server state=restarted
+  become: true
+
+- name: enable persistent gluster service
+  service: name=glusterfs-server enabled=yes
+  become: true

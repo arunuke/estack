@@ -1,0 +1,4 @@
+---
+
+- include: install-gluster.yaml
+- include: create-filesystem.yaml

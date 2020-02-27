@@ -1,0 +1,4 @@
+
+1. Deploy a barebones VM with only default network. Call this Seed VM.
+
+2. Within Seed VM, add additional NICs

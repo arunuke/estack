@@ -1,0 +1,44 @@
+---
+
+- name: add proxy information to apt.conf
+  copy:
+    src: 90-apt-proxy
+    dest: /etc/apt/apt.conf.d/90-apt-proxy
+  become: true
+
+- name: accept key information for ubuntu keyserver
+  apt_key:
+    keyserver: "{{ ubuntu_keyserver }}"
+    id: "{{ ubuntu_public_key }}"
+  environment:
+    http_proxy: "{{ http_proxy }}"
+    https_proxy: "{{ https_proxy }}"
+  become: true
+
+- name: update keys
+  command: "apt-key update"
+  become: true
+
+- name: update cache
+  apt:
+    update_cache: yes
+  become: true
+
+- name: do a dist upgrade
+  apt:
+    upgrade: dist
+  become: true
+  ignore_errors: yes
+  tags: apt_dist_upgrade
+
+- name: add openstack release repo
+  apt_repository:
+    repo:  deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/ocata main
+    state: present
+    update_cache: yes
+  environment:
+    http_proxy: "{{ http_proxy }}"
+    https_proxy: "{{ http_proxy }}"
+  become: true
+  tags: apt_add_repo
+

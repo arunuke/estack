@@ -1,0 +1,32 @@
+---
+- name: create testbed directory
+  file: path={{ vhost_lab }} state=directory
+
+- name: fetch ubuntu cloud image
+  get_url: url={{ ubuntu_img_url }} dest={{ vhost_lab }}//{{ ubuntu_img_dst }} use_proxy=yes validate_certs=no
+  environment:
+    https_proxy: "{{ system_proxy }}"
+
+- name: expand distro image to a local copy to be used as backing file
+  command: qemu-img convert -O qcow2 {{ ubuntu_img_dst }} {{ ubuntu_img_dst_base }} chdir={{ vhost_lab }}
+  become: true
+
+- name: resize backing file
+  command: qemu-img resize {{ ubuntu_img_dst_base }} +50G chdir={{ vhost_lab }}
+  become: true
+
+- name: create delta disk for nested VM
+  command: qemu-img create -f qcow2 -b {{ ubuntu_img_dst_base }} "{{ vhost_nest_dom }}.qcow2" chdir={{ vhost_lab }}
+  become: true
+
+- name: copy the base cloudinit userdata file
+  copy:
+    src: "{{ vhost_user_data }}"
+    dest: "{{ vhost_lab }}"
+
+- name: copy user metadata and generate specific cloudinit file
+  command: cloud-localds -H {{ vhost_nest_dom }} "{{ vhost_nest_dom }}-ud.qcow2" "{{ vhost_user_data }}" chdir={{ vhost_lab }}
+  become: true
+
+
+

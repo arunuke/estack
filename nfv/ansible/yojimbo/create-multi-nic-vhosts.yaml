@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  roles: 
+     - multi-nic-vhost

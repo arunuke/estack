@@ -1,0 +1,56 @@
+---
+  - name: create system directory for docker to use http proxy
+    file: 
+      path: "{{ docker_systemd_dir }}" 
+      state: directory
+    become: true
+
+  - name: create system file for docker to use http proxy
+    blockinfile: 
+      dest: "{{ docker_systemd_file }}"
+      block: |
+        [Service]
+        Environment="HTTP_PROXY=http://16.85.88.10:8080/"
+    become: true
+
+
+  - name: create docker group to bypass sudo requirements
+    group:
+      name: "{{ docker_group }}"
+      state: present
+
+  - name: add user to docker group to bypass sudo requirements
+    user:
+      name: "{{ docker_user }}"
+      group: "{{ docker_group }}"
+    become: true
+
+
+  - name: configure ufw to forward packets
+    lineinfile:
+      dest: "{{ ufw_settings_file }}"
+      regexp: ^DEFAULT_FORWARD_POLICY
+      line: DEFAULT_FORWARD_POLICY="ACCEPT"
+    become: true
+
+  - name: reload ufw
+    ufw:
+      state: enabled
+    become: true
+
+  - name: allow docker traffic to be forwarded
+    ufw:
+      rule: allow
+      port: 2375
+    become: true
+  
+  - name: restart all services
+    systemd:
+      daemon_reload: yes
+      name: "{{ item }}"
+      state: restarted
+      enabled: yes
+    with_items:
+      - ufw
+      - docker
+     

@@ -1,0 +1,4 @@
+---
+
+- include: setup-docker-repos.yaml
+- include: configure-docker.yaml

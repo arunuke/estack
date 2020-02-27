@@ -1,0 +1,16 @@
+---
+
+- name: install apache2 
+  apt: 
+    name: "{{ item }}"
+    state: present
+  become: true 
+  with_items: "{{ webserver_packages }}"
+
+- name: restart service
+  systemd: 
+    name: "{{ item }}" 
+    enabled: yes
+  become: true 
+  with_items:
+    - "{{ webserver_services }}"

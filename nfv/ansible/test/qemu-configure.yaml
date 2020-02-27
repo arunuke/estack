@@ -1,0 +1,17 @@
+---
+
+  - hosts: network
+
+    vars: 
+      tst_user: "arunt"
+      tst_group: "arunt"
+
+    tasks: 
+
+      - name: add a new line to qemu.conf to indicate only specific group can start VMs
+        lineinfile: 
+          dest: /etc/libvirt/qemu.conf 
+          line: "group = {{ tst_group }}"
+        become: true
+
+

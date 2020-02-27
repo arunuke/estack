@@ -1,0 +1,16 @@
+---
+
+- name: create new openstack user and home directory
+  user:
+    name: "{{ openstack_admin_user }}"
+    comment: "OpenStack administrative user"
+  become: true
+         
+- name: Set authorized key took from file
+  authorized_key:
+    user: "{{ openstack_admin_user }}"
+    state: present
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+  become: true
+ 
+

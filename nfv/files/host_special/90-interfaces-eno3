@@ -1,0 +1,6 @@
+auto eno3
+iface eno3 inet static
+  address 10.71.4.38
+  netmask 255.254.0.0
+  gateway 10.71.0.1
+  dns-nameservers 10.255.0.10

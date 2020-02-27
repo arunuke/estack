@@ -1,0 +1,16 @@
+---
+
+  - name: remove all earlier delta disk images
+    file: 
+      path: "{{ openstack_dir}}/{{ item.value.name }}.qcow2"
+      state: absent
+    with_dict: "{{ dict_var }}"  
+    become: true
+
+  - name: remove all earlier cloud initdisk images
+    file: 
+      path: "{{ openstack_dir}}/{{ item.value.name }}-ud.qcow2"
+      state: absent
+    with_dict: "{{ dict_var }}"  
+    become: true
+

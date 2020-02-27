@@ -1,0 +1,19 @@
+---
+docker_keyserver: hkp://keyserver.ubuntu.com:80
+docker_key: 58118E89F3A912897C070ADBF76221572C52609D
+docker_repo: 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' 
+docker_source: 'docker'
+docker_systemd_dir: '/etc/systemd/system/docker.service.d/'
+docker_systemd_file: '/etc/systemd/system/docker.service.d/http-proxy.conf'
+docker_user: arunt
+docker_group: docker
+docker_package: 
+ - docker-engine
+docker_prereqs:
+ - ca-certificates
+ - apt-transport-https
+ - linux-image-extra-4.2.0-16-generic
+ - linux-image-extra-virtual
+
+ufw_settings_file: /etc/default/ufw
+# - linux-image-extra-4.4.0-34-generic

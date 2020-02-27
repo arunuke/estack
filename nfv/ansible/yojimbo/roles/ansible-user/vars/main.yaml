@@ -1,0 +1,9 @@
+---
+
+new_ansible_user: arunt
+new_ansible_user_ssh: /home/arunt/.ssh
+new_ansible_sudoers: /etc/sudoers.d/50-ansible-users
+key_all_doors: sesame_rsa
+key_all_doors_public: sesame_rsa.pub
+
+target_release: 16.04

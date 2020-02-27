@@ -1,0 +1,12 @@
+---
+
+- include: apt-configure.yaml
+  tags: 
+    - apt_config
+- include: install-openstack-common.yaml
+- include: db-configure.yaml
+- include: mq-configure.yaml
+- include: mem-configure.yaml
+- include: user-configure.yaml
+  tags:
+    - openstack_admin_user

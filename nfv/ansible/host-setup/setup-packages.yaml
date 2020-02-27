@@ -1,0 +1,23 @@
+---
+- hosts: remote-nodes
+  tasks:
+#Pre-req
+# User arunt needs to be sudo capable without passwords
+
+#TODO
+#  - name: copy security keys from build server to remote host
+
+#  - name: setup git clone in remote host
+#    git: repo=https://arun.thulasi:{{ token }}@github.hpe.com/arun-thulasi/nfv-tools-git.git dest={{ git_dest }}
+
+#TODO
+#  - name: copy variable files and host files to /etc/ansible on the target host
+
+  - name: install apache on target node
+    apt: name={{ item }} state=present
+    become: yes
+    with_list:
+      - "{{ sys_packages }}"
+
+
+

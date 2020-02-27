@@ -1,0 +1,20 @@
+---
+- hosts: remote-nodes
+  tasks:
+#  - name: copy security keys from build server to remote host
+
+#  - name: remove packages
+#    apt: name={{ item }} state=absent
+#    with_list: "{{ sys_packages }}"
+#    become: yes	
+
+#  - name: list networks
+#    virt_net: command=list_nets
+
+  - name: reset all networks
+    virt_net: command=undefine name={{ item.value.name }} xml={{lookup("template","{{ item.value.location }}")}}
+    with_dict: "{{ vm_vars }}"
+
+
+#TODO 
+# print list of networks

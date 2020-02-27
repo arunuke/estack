@@ -1,0 +1,56 @@
+0. clear all VMs
+
+[better do it separate. issues being observed when done back to back]
+
+1. configure all the controller hosts
+
+create-multi-nic-vhosts.yaml
+
+// same procedure for NFV Control nodes running OpenSAF
+
+2. configure all the gluster hosts
+
+create-multi-disk-vhosts.yaml
+
+// same for CEPH and VSA nodes
+
+[optional : clear known_hosts on build and remote node, 
+ssh into each machine to see if they are fine ]
+
+run verify-connectivity.bash
+run setup-ssh-known-host.bash
+
+3. run python2.7 install script against all nodes
+run setup-for-ansible.bash
+
+4. configure the gluster backends
+
+configure-gluster-nodes.yaml
+
+5. configure the gluster server
+
+configure-gluster-server.yaml
+note: use host based extensions (like groups.gluster_node[0] for gluster-2 etc.
+
+--Now gluster is up and running and ready to be mounted on the hosts
+
+6. configure the gluster clients
+
+configure-gluster-clients.yaml
+
+--gluster volumes are still not mounted on 
+run verify-shared-storage.bash
+note : add this as a play, echo $hostname to hostname.txt file in shared storage
+
+7. configure the controllers to move the data to shaerd storage and start the VMs
+
+configure-nested-vhosts.yaml
+
+- Now VMs are being started
+
+8. now configure shared VMs
+
+
+9. TODO: OVS
+
+10. TODO: Configure a hosted VM

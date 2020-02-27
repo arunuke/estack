@@ -1,0 +1,7 @@
+---
+
+ #ansible-playbook configure-base-host.yaml --skip-tags "base_host_network,base_host_fedora_image"
+
+- hosts: localhost
+  roles:
+    - base-host

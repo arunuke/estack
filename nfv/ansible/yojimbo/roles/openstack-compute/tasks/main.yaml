@@ -1,0 +1,8 @@
+---
+
+- include_tasks: install-nova-compute.yaml 
+  when: openstack_compute_mode == 'kvm'
+- include_tasks: install-nova-compute-lxd.yaml 
+  when: openstack_compute_mode == 'lxd'
+- include_tasks: configure-nova-compute.yaml 
+- include_tasks: configure-neutron-compute.yaml 

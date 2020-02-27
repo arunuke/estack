@@ -1,0 +1,13 @@
+---
+
+#Pre-req
+# User arunt needs to be sudo capable without passwords
+
+- name: install apache on target node
+  apt: name={{ item }} state=present
+  become: yes
+  with_list:
+    - "{{ sys_packages }}"
+
+
+

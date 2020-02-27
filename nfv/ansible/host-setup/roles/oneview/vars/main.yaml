@@ -1,0 +1,11 @@
+---
+vhost_oneview_dir: /home/arunt/lab
+vhost_oneview_file: oneview.qcow2.tar.gz
+vhost_webserver: http://192.168.122.244
+oneview_img_url: "{{ vhost_webserver }}/web-repo/HPOneView-SSH_1.20.06_218064_RC1-qcow2.tar.gz"
+oneview_img_url_global: http://ci-nexus.vse.rdlabs.hpecorp.net//Fusion/release/1.20.06/QCow2/SSH/HPOneView-SSH_1.20.06_218064_RC1-qcow2.tar.gz
+vhost_oneview_qcow2: HPOneView-SSH_1.20.06_218064-disk1.qcow2
+
+vhost_mgmt_net: nest-net
+vhost_oneview_dom: oneview
+vhost_oneview_path: "{{ vhost_oneview_dir }}//{{ vhost_oneview_qcow2 }}"

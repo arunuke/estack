@@ -1,0 +1,28 @@
+
+
+- default password is 'nfv'
+
+- need to add public key for keyserver.ubuntu.com
+sudo apt-key adv --keyserver-options http-proxy=http://16.85.88.10:8080 --keyserver keyserver.ubuntu.com --recv-keys 5EDB1B62EC4926EA
+sudo apt-key update
+sudo apt-get update
+
+- install python-mysqldb
+
+- Installation of python-pymysql uses "allow_unauthenticated"
+- openstack.cnf file for maria-db uses controller hostname as bind address 
+  instead of IP
+- maria-db is run in a unsecure fashion
+
+- rabbit-mq uses password
+
+
+
+TODO:
+
+- combine memcached, mysql and message queue into a single role 
+- Use 17.04 box for libvirt
+- Use 17.04 box for virtualbox
+- Add play for ansible-server role to do a dist-upgrade so that 
+  Ansible 2.3 is installed (needed for allow_unauthenticated)
+

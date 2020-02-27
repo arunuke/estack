@@ -1,0 +1,26 @@
+---
+
+- name: create new database
+  mysql_db:
+    name: "{{ item.key }}"
+    state: present
+  with_dict: "{{ openstack_services_db }}"
+
+- name: add user with privileges for localhost
+  mysql_user:
+    name: "{{ item.value.primary_own }}" 
+    password: "{{ item.value.pwd }}"
+    priv: '*.*:ALL'
+    state: present
+  with_dict: "{{ openstack_services_db }}"
+  
+  
+- name: add user with privileges for %
+  mysql_user:
+    name: "{{ item.value.primary_own }}" 
+    password: "{{ item.value.pwd }}"
+    priv: '*.*:ALL'
+    host: "%"
+    state: present
+  with_dict: "{{ openstack_services_db }}"
+

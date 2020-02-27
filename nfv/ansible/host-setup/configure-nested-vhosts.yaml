@@ -1,0 +1,7 @@
+---
+
+#- hosts: nfv-control-nodes
+- hosts: ovs-test-nodes
+  roles:
+    - kvm-host
+

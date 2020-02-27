@@ -1,0 +1,10 @@
+---
+
+- name: remove host from /etc/hosts file
+  lineinfile:
+    dest: /etc/hosts
+    line: '{{ item.value.def_net_ip }}  {{ item.value.name }}'
+    state: absent
+  become: true
+  with_dict: "{{ dict_var }}"
+

@@ -1,0 +1,12 @@
+---
+
+#ansible-playbook lxd-controller.yaml --skip-tags "maas_server,maas_user,apt_dist_upgrade,ntp-server,glance_config,nova_config,neutron_config"
+
+- hosts: openstack-control
+  roles:
+    - sources
+    - { role: maas, tags: ['maas_server'] } 
+    - { role: apache, tags: ['apache'] }
+    - { role: ntp-server, tags: ['ntp_server'] }
+    - { role: openstack-common, tags: ['oscommon'] }
+    - { role: openstack-control, tags: ['oscontrol'], become: true }

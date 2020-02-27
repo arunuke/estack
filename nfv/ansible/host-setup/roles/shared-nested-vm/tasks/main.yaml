@@ -1,0 +1,32 @@
+---
+
+
+- name: copy base qcow2 file into shared folder
+  copy: remote_src=True src={{ vhost_nested_base }} dest={{ shared_vhost_shared_base }}
+  become: true
+
+- name: use base qcow2 file as backing file and create new image file for shared storage VM
+  command: qemu-img create -f qcow2 -b {{ shared_vhost_shared_base }} {{ shared_vhost_shared_delta }}
+  become: true
+
+#instead of copying cloud init file, use user-data and cloud-localds
+- name: copy cloud init file
+  copy: remote_src=True src={{ vhost_nested_ci }} dest={{ shared_vhost_shared_ci }}
+  become: true 	
+
+- name: start using virt-install
+  command:  virt-install \
+    --network=bridge:{{ vhost_lb_bridge }} \
+    --name={{ shared_vhost_dom }} \
+    --disk path={{ shared_vhost_shared_delta }},format=qcow2,cache=none \
+    --disk path={{ shared_vhost_shared_ci }},format=qcow2,cache=none \
+    --ram {{ vhost_nest_ram }} \
+    --vcpus={{ vhost_nest_vcpu }} \
+    --os-type linux \
+    --autostart \
+    --boot hd \
+    --noautoconsole \
+    --nographics
+  become: true
+
+

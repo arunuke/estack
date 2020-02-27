@@ -1,0 +1,8 @@
+---
+- hosts: compute-1
+  tasks:
+  - name: install gpg
+    apt_key: keyserver=keyserver.ubuntu.com id=58118E89F3A912897C070ADBF76221572C52609D
+    become: true
+    environment: 
+      http_proxy: http://16.85.88.10:8080

@@ -1,0 +1,13 @@
+---
+
+def_vars:
+  - web: 
+    packages:
+      - apache2
+  - message: 
+    packages:
+      - rabbitmq
+  - ipmi:
+    packages:
+    ipmiutil
+  virtual: [kvm,guestfish]

@@ -1,0 +1,35 @@
+---
+
+- name: install apache2 
+  apt: 
+    name: "{{ item }}"
+    state: present
+  become: true 
+  with_items: "{{ webserver_packages }}"
+
+- name: restart service
+  service: 
+    name: "{{ item }}" 
+    enabled: yes
+  become: true 
+  with_items: "{{ webserver_packages }}"
+
+- name: setup web repo directory
+  file: 
+    path: "{{ webserver_home }}"
+    state: directory
+  become: true
+
+- name: fetch ubuntu cloud image
+  get_url: url={{ ubuntu_img_url }} dest={{ webserver_home }}//{{ ubuntu_img_dst }} use_proxy=yes validate_certs=no
+  become: true
+  environment:
+    https_proxy: "{{ system_proxy }}"
+
+- name: fetch oneview image
+  get_url: url={{ oneview_img_url }} dest={{ webserver_home }} use_proxy=yes validate_certs=no
+  become: true
+  environment:
+    https_proxy: "{{ system_proxy }}"
+
+

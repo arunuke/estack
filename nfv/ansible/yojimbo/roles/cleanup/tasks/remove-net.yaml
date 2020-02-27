@@ -1,0 +1,8 @@
+---
+
+
+- name: remove entry from default net
+  command: virsh net-update {{ item.value.def_net }} delete ip-dhcp-host --xml "<host mac='{{ item.value.def_net_mac }}' ip='{{ item.value.def_net_ip }}' />" --live --config
+  with_dict: "{{ dict_var }}"
+
+

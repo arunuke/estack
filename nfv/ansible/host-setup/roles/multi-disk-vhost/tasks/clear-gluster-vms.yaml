@@ -1,0 +1,11 @@
+---
+  - name: stop domains, ignore errors if they do not exist
+    virt: name={{ item.value.name }} command=shutdown
+    with_dict: "{{ gluster_vars }}"
+    ignore_errors: True
+
+  - name: undefine existing domains domains, ignore errors if they do not exist
+    virt: name={{ item.value.name }} command=undefine 
+    with_dict: "{{ gluster_vars }}"
+    ignore_errors: True
+

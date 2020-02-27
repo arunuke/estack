@@ -1,0 +1,6 @@
+---
+
+- name: mount glusterfs on directory
+  mount: name={{ vhost_shared_storage }} src={{ gluster_server }} state=mounted fstype=glusterfs
+  become: true
+

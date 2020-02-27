@@ -1,0 +1,16 @@
+---
+#Todo: check if this VM is already up. if so, skip creating the VM
+- name: instantiate nest vm
+  command: virt-install \
+    --network=bridge:{{ vhost_lb_bridge }} \
+    --name={{ vhost_nest_dom }} \
+    --disk path={{ vhost_nest_path }},format=qcow2,cache=none \
+    --disk path={{ vhost_nest_path_ci }},format=qcow2,cache=none \
+    --ram {{ vhost_nest_ram }} \
+    --vcpus={{ vhost_nest_vcpu }} \
+    --os-type linux \
+    --autostart \
+    --boot hd \
+    --noautoconsole \
+    --nographics
+  become: true

@@ -1,0 +1,19 @@
+---
+
+- name: copy all artificats to openstack admin user directory
+  copy: 
+    src: "{{ item }}"
+    dest: "~{{ openstack_admin_user }}"
+    mode: 0777
+    owner: "{{ openstack_admin_user }}"
+    group: "{{ openstack_admin_user }}"
+  with_items:
+    - "{{ artifacts }}"
+
+#- name: copy all artificats to ansible user directory
+#  copy: 
+#    src: "{{ item }}"
+#    dest: "~{{ ansible_primary_user }}"
+#    mode: 0777
+#  with_items:
+#    - "{{ artifacts }}"

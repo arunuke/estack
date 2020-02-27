@@ -1,0 +1,10 @@
+---
+
+- include: install-maas.yaml
+  tags: [install_maas]
+- include: bash-configure-maas.yaml
+  tags: [configure_maas]
+- include: create-nodes.yaml
+  tags: [create_maas_nodes]
+- include: deploy-nodes.yaml
+  tags: [deploy_maas_nodes]

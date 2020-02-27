@@ -1,0 +1,11 @@
+---
+
+- name: add new interfaces to existing VM on host
+  command: virsh attach-interface \ 
+           --domain "{{ item.value.name }}" \ 
+           --type network \ 
+           --source "{{ ovs_host_net }}" \ 
+           --mac "{{ item.value.mac1 }}" \
+           --config \ 
+           --live
+  with_dict: "{{ seed_vm_vars }}"

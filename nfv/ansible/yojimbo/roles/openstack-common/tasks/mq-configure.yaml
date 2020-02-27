@@ -1,0 +1,14 @@
+---
+
+
+- name: configure rabbit mq user
+  rabbitmq_user: 
+    user: "{{ openstack_mq_user }}"
+    password: "{{ openstack_mq_pwd }}"
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
+  become: true
+
