@@ -1,0 +1,29 @@
+README for maas node configuration
+
+
+1. For configuring maas to PXE boot VMs for Project Jane
+
+Host will have a 'maas' network on which all PXE bootable VMs will have a port. This is different
+from how normal VMs are booted, with a port on the 'default' network.
+
+The 'maas' network does not have DHCP. The IP address will be provided by MAAS.
+
+The host will get a new 'maas' user through which the ssh will work
+
+On the MAAS gui, go to subnets and pick the 'vlan' to enable dhcp. Then, go to the 'subnet'
+and set gateway and DNS to 10.10.60.1 (ie, the bridge IP on the host)
+
+On the MAAS gui, add the public key to be included in authorized_hosts
+
+While adding nodes, choose virsh as power.
+
+For Power Address, even if it is local host, choose qemu+ssh://arunt@10.10.60.1/system. The
+user (arunt) needs to be part of the kvm and libvirtd groups. The IP address (10.10.60.1)
+should be the gateway IP address for that bridge through which the host is reachable to the 
+guests
+
+Add mac addresses for hosts with a host name to commission. once commissioned, allocate and
+deploy.
+
+Once deployed, check out IP address from the node's page. Login from host as user ubuntu.
+Ensure the private key for the public key previously provided to maas gui is used

@@ -1,0 +1,8 @@
+
+- name: install nova compute packages (if standalone)
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - "{{ nova_lxd_compute_packages }}"

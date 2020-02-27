@@ -1,0 +1,62 @@
+---
+#pass IP address of ocmpute node as argument to playbook openstack_compute_mgmt_ip
+
+ #TODO combine configuration of all config files into a single task
+# use subelements
+#
+- name: configure nova compute api config file
+  ini_file:
+    path: "{{ nova_compute_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'DEFAULT', option: 'transport_url', value: "rabbit://openstack:{{ openstack_commonpass }}@{{ openstack_controller }}" }
+    - { section: 'api', option: 'auth_strategy', value: 'keystone' }
+    - { section: 'keystone_authtoken', option: 'auth_uri', value: "http://{{ openstack_controller }}:5000" }
+    - { section: 'keystone_authtoken', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" }
+    - { section: 'keystone_authtoken', option: 'memcached_servers', value: "{{ openstack_controller }}:11211" }
+    - { section: 'keystone_authtoken', option: 'auth_type', value: 'password' }
+    - { section: 'keystone_authtoken', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" }
+    - { section: 'keystone_authtoken', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" }
+    - { section: 'keystone_authtoken', option: 'project_name', value: 'service' }
+    - { section: 'keystone_authtoken', option: 'username', value: 'nova' }
+    - { section: 'keystone_authtoken', option: 'password', value: "{{ openstack_commonpass }}" }
+    - { section: 'DEFAULT', option: 'my_ip', value: "{{ nova_compute_mgmt_ip }}" }
+    - { section: 'DEFAULT', option: 'use_neutron', value: 'true' }
+    - { section: 'DEFAULT', option: 'firewall_driver', value: 'nova.virt.firewall.NoopFirewallDriver' }
+    - { section: 'vnc', option: 'vncserver_listen', value: '0.0.0.0' }
+    - { section: 'vnc', option: 'vncserver_proxyclient_address', value: "{{ nova_compute_mgmt_ip }}" }
+    - { section: 'vnc', option: 'novncproxy_base_url', value: "http://{{ openstack_controller }}:6080/vnc_auto.html" }
+    - { section: 'glance', option: 'api_servers', value: "http://{{ openstack_glance_controller }}:9292" }
+    - { section: 'oslo_concurrency', option: 'lock_path', value: '/var/lib/nova/tmp' }
+    - { section: 'placement', option: 'region_name', value: "{{ openstack_region }}"  }
+    - { section: 'placement', option: 'os_region_name', value: "{{ openstack_region }}"  }
+    - { section: 'placement', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" }
+    - { section: 'placement', option: 'project_name', value: 'service' }
+    - { section: 'placement', option: 'auth_type', value: 'password' }
+    - { section: 'placement', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" }
+    - { section: 'placement', option: 'auth_url', value: "http://{{ openstack_controller }}:35357/v3" }
+    - { section: 'placement', option: 'username', value: 'placement' }
+    - { section: 'placement', option: 'password', value: "{{ openstack_commonpass }}" }
+
+- name: configure nova compute client config file
+  ini_file:
+    path: "{{ nova_compute_client_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'libvirt', option: 'virt_type', value: "{{ openstack_virt_agent }}" }
+  when: openstack_compute_mode == 'kvm'
+
+- name: restart nova compute services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - "{{ nova_compute_services }}"
+  become: true
+

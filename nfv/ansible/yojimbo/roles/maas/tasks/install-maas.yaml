@@ -1,0 +1,74 @@
+---
+
+- name: install maas packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  become: true
+  with_items: "{{ maas_packages }}" 
+
+- name: create maas admin user
+  command: maas createadmin --username {{ maas_user }} --password {{ maas_pass }} --email {{ maas_email }}
+  become: true
+  tags:
+    - maas_user
+
+#create maas user and copy credentials to host
+- name: create maas user
+  user:
+    name: maas
+    shell: /bin/bash
+  become: true
+
+- name: copy sesame_rsa to maas user
+  copy:
+    src: "{{ item }}"
+    dest: /home/maas/.ssh/
+    owner: maas
+    group: maas
+    mode: "u+rw,g-rwx,o-rwx"
+  with_items:
+    - "{{ key_all_doors }}"
+  become: true
+
+- name: use sysctl to enable ip_forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: yes
+  become: true
+
+- name: copy curtin file to preseed
+  copy:
+    src: "{{ item }}"
+    dest: /etc/maas/preseeds/
+  become: true
+  with_items:
+    - "{{ preseed_ubuntu }}"  
+   
+- name: create directory for maas artifacts
+  file:
+    path: "{{ maas_user_dir }}"
+    state: directory
+    mode: 0755
+
+- name: copy script files
+  copy:
+    src: maas_common_config.bash
+    dest: "{{ maas_user_dir }}"
+    mode: 0744
+
+- name: copy script files
+  copy:
+    src: maas_machine_create.bash
+    dest: "{{ maas_user_dir }}"
+    mode: 0744
+
+- name: copy script files
+  copy:
+    src: maas_machine_deploy.bash
+    dest: "{{ maas_user_dir }}"
+    mode: 0744

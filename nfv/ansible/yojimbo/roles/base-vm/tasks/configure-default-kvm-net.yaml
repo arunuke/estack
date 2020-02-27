@@ -1,0 +1,5 @@
+---
+
+- name: add static IP address for VM
+  command: virsh net-update {{ item.value.def_net }} add-last ip-dhcp-host --xml "<host mac='{{ item.value.def_net_mac }}' ip='{{ item.value.def_net_ip }}' />" --live --config
+  with_dict: "{{ dict_var }}"

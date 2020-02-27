@@ -1,0 +1,14 @@
+---
+
+  - name: stop domains, ignore errors if they do not exist
+    virt: name={{ item }} command=shutdown
+    with_items: 
+      - "{{ nfv_vhost_vars }}"
+    ignore_errors: True
+
+  - name: undefine existing domains domains, ignore errors if they do not exist
+    virt: name={{ item }} command=undefine 
+    with_items: 
+      - "{{ nfv_vhost_vars }}"
+    ignore_errors: True
+

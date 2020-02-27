@@ -1,0 +1,372 @@
+  1 {
+  2   "definitions": {},
+  3   "$schema": "http://json-schema.org/draft-07/schema#",
+  4   "$id": "http://example.com/root.json",
+  5   "type": "object",
+  6   "title": "The Root Schema",
+  7   "required": [
+  8     "_Comment",
+  9     "Copyright",
+ 10     "Version",
+ 11     "PortMap",
+ 12     "ItemCount"
+ 13   ],
+ 14   "properties": {
+ 15     "_Comment": {
+ 16       "$id": "#/properties/_Comment",
+ 17       "type": "string",
+ 18       "title": "The _comment Schema",
+ 19       "default": "",
+ 20       "examples": [
+ 21         "Machine readable port map v 0.2"
+ 22       ],
+ 23       "pattern": "^(.*)$"
+ 24     },
+ 25     "Copyright": {
+ 26       "$id": "#/properties/Copyright",
+ 27       "type": "string",
+ 28       "title": "The Copyright Schema",
+ 29       "default": "",
+ 30       "examples": [
+ 31         "HPE Telco Team"
+ 32       ],
+ 33       "pattern": "^(.*)$"
+ 34     },
+ 35     "Version": {
+ 36       "$id": "#/properties/Version",
+ 37       "type": "string",
+ 38       "title": "The Version Schema",
+ 39       "default": "",
+ 40       "examples": [
+ 41         "0.2"
+ 42       ],
+ 43       "pattern": "^(.*)$"
+ 44     },
+ 45     "PortMap": {
+ 46       "$id": "#/properties/PortMap",
+ 47       "type": "object",
+ 48       "title": "The Portmap Schema",
+ 49       "required": [
+ 50         "Rack",
+ 51         "Switch",
+ 52         "ItemCount"
+ 53       ],
+ 54       "properties": {
+ 55         "Rack": {
+ 56           "$id": "#/properties/PortMap/properties/Rack",
+ 57           "type": "object",
+ 58           "title": "The Rack Schema",
+ 59           "required": [
+ 60             "RackId",
+ 61             "RackRole"
+ 62           ],
+ 63           "properties": {
+ 64             "RackId": {
+ 65               "$id": "#/properties/PortMap/properties/Rack/properties/RackId",
+ 66               "type": "string",
+ 67               "title": "The Rackid Schema",
+ 68               "default": "",
+ 69               "examples": [
+ 70                 "Discworld-1"
+ 71               ],
+ 72               "pattern": "^(.*)$"
+ 73             },
+ 74             "RackRole": {
+ 75               "$id": "#/properties/PortMap/properties/Rack/properties/RackRole",
+ 76               "type": "string",
+ 77               "title": "The Rackrole Schema",
+ 78               "default": "",
+ 79               "examples": [
+ 80                 "Core 9 Startker Kit"
+ 81               ],
+ 82               "pattern": "^(.*)$"
+ 83             }
+ 84           }
+ 85         },
+ 86         "Switch": {
+ 87           "$id": "#/properties/PortMap/properties/Switch",
+ 88           "type": "object",
+ 89           "title": "The Switch Schema",
+ 90           "required": [
+ 91             "SwitchDetails"
+ 92           ],
+ 93           "properties": {
+ 94             "SwitchDetails": {
+ 95               "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails",
+ 96               "type": "array",
+ 97               "title": "The Switchdetails Schema",
+ 98               "items": {
+ 99                 "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items",
+100                 "type": "object",
+101                 "title": "The Items Schema",
+102                 "required": [
+103                   "SwitchName",
+104                   "SwitchRole",
+105                   "SwitchLOC",
+106                   "SwitchOobm",
+107                   "Port"
+108                 ],
+109                 "properties": {
+110                   "SwitchName": {
+111                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/SwitchName",
+112                     "type": "string",
+113                     "title": "The Switchname Schema",
+114                     "default": "",
+115                     "examples": [
+116                       "Discworld-switch-01"
+117                     ],
+118                     "pattern": "^(.*)$"
+119                   },
+120                   "SwitchRole": {
+121                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/SwitchRole",
+122                     "type": "string",
+123                     "title": "The Switchrole Schema",
+124                     "default": "",
+125                     "examples": [
+126                       "Data switch"
+127                     ],
+128                     "pattern": "^(.*)$"
+129                   },
+130                   "SwitchLOC": {
+131                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/SwitchLOC",
+132                     "type": "string",
+133                     "title": "The Switchloc Schema",
+134                     "default": "",
+135                     "examples": [
+136                       "U35"
+137                     ],
+138                     "pattern": "^(.*)$"
+139                   },
+140                   "SwitchOobm": {
+141                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/SwitchOobm",
+142                     "type": "array",
+143                     "title": "The Switchoobm Schema",
+144                     "items": {
+145                       "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/SwitchOobm/items",
+146                       "type": "object",
+147                       "title": "The Items Schema",
+148                       "required": [
+149                         "SwitchOobmId",
+150                         "SwitchOobmMac",
+151                         "SwitchOobmIp"
+152                       ],
+153                       "properties": {
+154                         "SwitchOobmId": {
+155                           "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/SwitchOobm/items/properties/SwitchOobmId",
+156                           "type": "string",
+157                           "title": "The Switchoobmid Schema",
+158                           "default": "",
+159                           "examples": [
+160                             "1"
+161                           ],
+162                           "pattern": "^(.*)$"
+163                         },
+164                         "SwitchOobmMac": {
+165                           "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/SwitchOobm/items/properties/SwitchOobmMac",
+166                           "type": "string",
+167                           "title": "The Switchoobmmac Schema",
+168                           "default": "",
+169                           "examples": [
+170                             "0a:2a:18:ea:ab:8e"
+171                           ],
+172                           "pattern": "^(.*)$"
+173                         },
+174                         "SwitchOobmIp": {
+175                           "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/SwitchOobm/items/properties/SwitchOobmIp",
+176                           "type": "string",
+177                           "title": "The Switchoobmip Schema",
+178                           "default": "",
+179                           "examples": [
+180                             "10.1.15.2"
+181                           ],
+182                           "pattern": "^(.*)$"
+183                         }
+184                       }
+185                     }
+186                   },
+187                   "Port": {
+188                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port",
+189                     "type": "array",
+190                     "title": "The Port Schema",
+191                     "items": {
+192                       "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items",
+193                       "type": "object",
+194                       "title": "The Items Schema",
+195                       "required": [
+196                         "PortId",
+197                         "PortCable",
+198                         "PortRole",
+199                         "PortSpeed",
+200                         "PortConnectedTo"
+201                       ],
+202                       "properties": {
+203                         "PortId": {
+204                           "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortId",
+205                           "type": "string",
+206                           "title": "The Portid Schema",
+207                           "default": "",
+208                           "examples": [
+209                             "1/0/1"
+210                           ],
+211                           "pattern": "^(.*)$"
+212                         },
+213                         "PortCable": {
+214                           "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortCable",
+215                           "type": "string",
+216                           "title": "The Portcable Schema",
+217                           "default": "",
+218                           "examples": [
+219                             "JL276A"
+220                           ],
+221                           "pattern": "^(.*)$"
+222                         },
+223                         "PortRole": {
+224                           "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortRole",
+225                           "type": "string",
+226                           "title": "The Portrole Schema",
+227                           "default": "",
+228                           "examples": [
+229                             "Uplink"
+230                           ],
+231                           "pattern": "^(.*)$"
+232                         },
+233                         "PortSpeed": {
+234                           "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortSpeed",
+235                           "type": "object",
+236                           "title": "The Portspeed Schema",
+237                           "required": [
+238                             "PortSpeedActual",
+239                             "PortSpeedEffective"
+240                           ],
+241                           "properties": {
+242                             "PortSpeedActual": {
+243                               "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortSpeed/properties/PortSpeedActual",
+244                               "type": "string",
+245                               "title": "The Portspeedactual Schema",
+246                               "default": "",
+247                               "examples": [
+248                                 "100G"
+249                               ],
+250                               "pattern": "^(.*)$"
+251                             },
+252                             "PortSpeedEffective": {
+253                               "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortSpeed/properties/PortSpeedEffective",
+254                               "type": "string",
+255                               "title": "The Portspeedeffective Schema",
+256                               "default": "",
+257                               "examples": [
+258                                 "100G"
+259                               ],
+260                               "pattern": "^(.*)$"
+261                             }
+262                           }
+263                         },
+264                         "PortConnectedTo": {
+265                           "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortConnectedTo",
+266                           "type": "array",
+267                           "title": "The Portconnectedto Schema",
+268                           "items": {
+269                             "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortConnectedTo/items",
+270                             "type": "object",
+271                             "title": "The Items Schema",
+272                             "required": [
+273                               "ConnectSource",
+274                               "ConnectDestination"
+275                             ],
+276                             "properties": {
+277                               "ConnectSource": {
+278                                 "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortConnectedTo/items/properties/ConnectSource",
+279                                 "type": "string",
+280                                 "title": "The Connectsource Schema",
+281                                 "default": "",
+282                                 "examples": [
+283                                   "1/0/1"
+284                                 ],
+285                                 "pattern": "^(.*)$"
+286                               },
+287                               "ConnectDestination": {
+288                                 "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortConnectedTo/items/properties/ConnectDestination",
+289                                 "type": "object",
+290                                 "title": "The Connectdestination Schema",
+291                                 "required": [
+292                                   "ConnectDestName",
+293                                   "ConnectDestMgmt",
+294                                   "ConnectDestMac",
+295                                   "ConnectDestPort"
+296                                 ],
+297                                 "properties": {
+298                                   "ConnectDestName": {
+299                                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortConnectedTo/items/properties/ConnectDestination/properties/ConnectDestName",
+300                                     "type": "string",
+301                                     "title": "The Connectdestname Schema",
+302                                     "default": "",
+303                                     "examples": [
+304                                       "uplink-router-1"
+305                                     ],
+306                                     "pattern": "^(.*)$"
+307                                   },
+308                                   "ConnectDestMgmt": {
+309                                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortConnectedTo/items/properties/ConnectDestination/properties/ConnectDestMgmt",
+310                                     "type": "string",
+311                                     "title": "The Connectdestmgmt Schema",
+312                                     "default": "",
+313                                     "examples": [
+314                                       "10.32.0.5"
+315                                     ],
+316                                     "pattern": "^(.*)$"
+317                                   },
+318                                   "ConnectDestMac": {
+319                                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortConnectedTo/items/properties/ConnectDestination/properties/ConnectDestMac",
+320                                     "type": "string",
+321                                     "title": "The Connectdestmac Schema",
+322                                     "default": "",
+323                                     "examples": [
+324                                       "5B-C2-D5-FD-D2-F0"
+325                                     ],
+326                                     "pattern": "^(.*)$"
+327                                   },
+328                                   "ConnectDestPort": {
+329                                     "$id": "#/properties/PortMap/properties/Switch/properties/SwitchDetails/items/properties/Port/items/properties/PortConnectedTo/items/properties/ConnectDestination/properties/ConnectDestPort",
+330                                     "type": "string",
+331                                     "title": "The Connectdestport Schema",
+332                                     "default": "",
+333                                     "examples": [
+334                                       "21/0/11"
+335                                     ],
+336                                     "pattern": "^(.*)$"
+337                                   }
+338                                 }
+339                               }
+340                             }
+341                           }
+342                         }
+343                       }
+344                     }
+345                   }
+346                 }
+347               }
+348             }
+349           }
+350         },
+351         "ItemCount": {
+352           "$id": "#/properties/PortMap/properties/ItemCount",
+353           "type": "integer",
+354           "title": "The Itemcount Schema",
+355           "default": 0,
+356           "examples": [
+357             6
+358           ]
+359         }
+360       }
+361     },
+362     "ItemCount": {
+363       "$id": "#/properties/ItemCount",
+364       "type": "integer",
+365       "title": "The Itemcount Schema",
+366       "default": 0,
+367       "examples": [
+368         1
+369       ]
+370     }
+371   }
+372 }

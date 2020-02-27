@@ -1,0 +1,24 @@
+127.0.0.1	localhost
+10.206.1.28	prince.atg	prince
+
+192.168.122.207	seed
+
+192.168.122.184	control
+192.168.122.242	network
+192.168.122.195	compute-1
+192.168.122.234	compute-2
+
+192.168.122.238	swarm
+192.168.122.52	docker-1
+192.168.122.194	docker-2
+
+192.168.122.51	nfv-1
+192.168.122.246	nfv-2
+192.168.122.16	nfv-3
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+#/etc/hosts file from Prince, copied by Arun T

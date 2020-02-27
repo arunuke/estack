@@ -1,0 +1,9 @@
+---
+#default dict_var uses seed host for startup
+#over ride it by using specific dict_var when invoking playbook
+#ex: ansible-playbook create-base-vm.yaml --extra-vars "dict_var={{ services_vhost_vars }}"
+- hosts: localhost
+  roles:
+    - base-vm
+  vars:
+    dict_var: "{{ openstack_vhost_vars }}" 

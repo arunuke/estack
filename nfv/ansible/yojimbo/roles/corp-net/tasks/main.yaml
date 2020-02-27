@@ -1,0 +1,5 @@
+---
+
+- name: add a new corp net interface to VM
+  command: virsh attach-interface {{ item.value.name }} --type direct --source {{ direct_net }} --mac {{ item.value.macv_net_mac }} --config --live
+  with_dict: "{{ dict_var }}"

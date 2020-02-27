@@ -1,0 +1,9 @@
+1. use the --keyserver-options http-proxy=<> to set the proxy to get the 
+certificates.
+
+2. add docker repo
+
+
+
+4. Use http://docs.master.dockerproject.org/engine/admin/systemd/#http-proxy to configure
+http proxy for docker

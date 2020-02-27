@@ -1,0 +1,15 @@
+---
+
+- name: create openvswitch bridge
+  openvswitch_bridge: 
+    bridge: "{{ ovs_host_bridge }}"
+    state: present
+  become: true
+
+- name: add a new NIC as a port
+  openvswitch_port:
+    bridge: "{{ ovs_host_bridge }}"
+    port: "{{ ovs_mgmt_port }}"
+    state: present
+  become: true
+

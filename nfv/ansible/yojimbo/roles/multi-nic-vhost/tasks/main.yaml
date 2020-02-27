@@ -1,0 +1,65 @@
+---
+
+- include: cleanup-vm-files.yaml
+  vars:
+      dict_var: "{{ openstack_vhost_vars }}"
+  tags:
+    - openstack
+- include: cleanup-vm-files.yaml
+  vars:
+      dict_var: "{{ seed_vhost_vars }}"
+  tags:
+    - seed
+- include: cleanup-vm-files.yaml
+  vars:
+      dict_var: "{{ nfv_vhost_vars }}"
+  tags:
+    - nfv
+- include: cleanup-vm-files.yaml
+  vars:
+      dict_var: "{{ docker_vhost_vars }}"
+  tags:
+    - docker
+- include: cleanup-vm-files.yaml
+  vars:
+      dict_var: "{{ services_vhost_vars }}"
+  tags:
+    - services
+- include: cleanup-vm-files.yaml
+  vars:
+      dict_var: "{{ randomvm_vhost_vars }}"
+  tags:
+    - random
+- include: create-base-ci-file.yaml
+- include: create-openstack-vm-files.yaml 
+  vars:
+      dict_var: "{{ openstack_vhost_vars }}"
+  tags:
+    - openstack
+- include: create-openstack-vm-files.yaml 
+  vars:
+      dict_var: "{{ services_vhost_vars }}"
+  tags:
+    - services
+- include: create-openstack-vm-files.yaml 
+  vars:
+      dict_var: "{{ seed_vhost_vars }}"
+  tags:
+    - seed 
+- include: create-openstack-vm-files.yaml 
+  vars:
+      dict_var: "{{ nfv_vhost_vars }}"
+  tags:
+    - nfv
+- include: create-openstack-vm-files.yaml 
+  vars:
+      dict_var: "{{ docker_vhost_vars }}"
+  tags:
+    - docker
+- include: create-openstack-vm-files.yaml 
+  vars:
+      dict_var: "{{ randomvm_vhost_vars }}"
+  tags:
+    - random
+- include: start-openstack-vms.yaml
+

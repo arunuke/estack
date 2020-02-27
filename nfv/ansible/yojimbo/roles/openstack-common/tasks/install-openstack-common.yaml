@@ -1,0 +1,15 @@
+---
+
+
+- name: install common openstack packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  become: true
+  with_list: 
+    - "{{ openstack_common_packages }}"
+    - "{{ openstack_db_packages }}"
+    - "{{ openstack_mq_packages }}"
+    - "{{ openstack_mem_packages }}"
+

@@ -1,0 +1,4 @@
+---
+KAFKA_DST: ~/kafka/
+KAFKA_URL: http://apache.osuosl.org/kafka/2.3.0/kafka_2.12-2.3.0.tgz
+KAFKA_CONFIG: ~/kafka/config/server.properties

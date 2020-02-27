@@ -1,0 +1,13 @@
+---
+
+- name: install gluster client packages
+  apt: name={{ item }} state=present update_cache=yes
+  become: true	
+  with_items:
+    - glusterfs-client
+    - attr
+
+- name: create mount directory
+  file: path={{ vhost_shared_storage }} state=directory
+  become: true
+

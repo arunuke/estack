@@ -1,0 +1,60 @@
+Host:
+
+- initialize lxd
+  sudo lxd init
+- set config proxy value to http proxy
+  lxc config set core.proxy_http http://16.85.88.10:8080
+  lxc config set core.proxy_https http://16.85.88.10:8080
+- upgrade lxc from https://launchpad.net/~ubuntu-lxc/+archive/ubuntu/lxd-stable
+
+- create various loopback devices to be used as secondary device for storage nodes
+- create lxc network for data, external
+
+- create base lxd container
+- customize container
+  - install python2.7 and create symbolic link
+  - run 'ansible-user' playbook
+  	- manually add public key to root's authorized_keys using lxc bash
+  	- add user arunt
+- create snapshot of base with custom
+- create controller from custom
+- create compute from custom
+- create storage from custom
+
+
+=========
+
+Security issue with keyservers when adding apt-repos
+
+ - get keys from key server
+   sudo gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
+
+ - Add proxy information to profile
+ - when using sudo to add repo, use -E option
+
+
+==========
+
+Image tree
+
+   first-machine
+   |
+   |
+   |
+   |---------add authorized key for root, run ansible-user playbook (arunt)
+             Image: base
+   |
+   |---------add two NICs (data, external) and storage drive (volume/object)
+             lxc network attach databr0 scratch-pad default eth1
+	     lxc config device add scratch-pad data-disk disk source=/dev/loop0 path=/mnt/abc
+             Image: OpenStack Compute/Storage
+   |
+   |----------update bashrc to include http proxy, include all keys, install newest ansible version
+
+   
+LXD OVS networking (same network)
+=====================================
+
+ovs-vsctl add-br <bridge> 
+lxc config device add <container> <interface> nic parent=<bridge> nictype=bridged
+

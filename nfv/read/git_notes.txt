@@ -1,0 +1,29 @@
+
+1. Using enteprise git (via github) since it provides the look and feel of github.
+
+
+2. github password : 5b024cc089401460f7a05ae3caec9f072edc08ba
+created using the personal access token link (username is arun.thulasi)
+
+
+3. For url_get, always use "environment" where you can set proxy. disable
+certificate validation
+
+
+4. proxy
+
+
+[arunt.ARUNT3] ➤ nslookup 16.85.88.10
+
+Name:      16.85.88.10
+Address 1: 16.85.88.10 proxy-llb-cce02.us.hpecorp.net
+
+5. git clone notes
+
+- created a new key called cerebrus
+- keep cerebrus as a separate key (not id_rsa) in the system
+- add this as the key to use for git by creating a config file in .ssh of ~
+arunt@neo:~/.ssh$ cat config
+Host github.hpe.com
+  IdentityFile /home/arunt/.ssh/cerebrus_rsa
+

@@ -1,0 +1,11 @@
+---
+
+- name: copy sesame and cerebrus keys to the .ssh directory of user
+  copy: 
+    src: "{{ item }}"
+    dest: .ssh
+    mode: "u+rw,g-rwx,o-rwx" 
+  with_items:
+    - "{{ key_all_doors }}"
+    - "{{ key_the_source }}"
+

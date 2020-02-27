@@ -1,0 +1,6 @@
+---
+
+- hosts: control
+  roles:
+#    - kvm-host
+    - ovs-host

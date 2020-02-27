@@ -1,0 +1,5 @@
+---
+#- hosts: primary-shared-host
+- hosts: network
+  roles:
+    - shared-nested-vm

@@ -1,0 +1,23 @@
+---
+
+#Todo: use jinja templates instead of hard-coded template
+- name: configure OVS networking for multiple vlans
+  virt_net:
+    command: define
+    name: "{{ ovs_host_net }}"
+    xml: "{{lookup('template','{{ ovs_host_net_dom }}')}}"
+  become: true
+
+- name: mark new network for autostart
+  virt_net:
+    autostart: yes
+    name: "{{ ovs_host_net }}"
+  become: true
+   
+
+- name: start new network
+  virt_net:
+    command: create
+    name: "{{ ovs_host_net }}"
+  become: true
+

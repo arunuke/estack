@@ -1,0 +1,137 @@
+
+#dashboard packages installed and database created at this time
+
+- name: install neutron packages (if standalone)
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - "{{ neutron_packages }}"
+
+
+ #TODO combine configuration of all config files into a single task
+# use subelements
+#       
+- name: configure neutron api config file
+  ini_file:
+    path: "{{ neutron_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'keystone_authtoken', option: 'auth_uri', value: "http://{{ openstack_controller }}:5000" } 
+    - { section: 'keystone_authtoken', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" } 
+    - { section: 'keystone_authtoken', option: 'memcached_servers', value: "{{ openstack_controller }}:11211" } 
+    - { section: 'keystone_authtoken', option: 'auth_type', value: 'password' } 
+    - { section: 'keystone_authtoken', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'project_name', value: 'service' } 
+    - { section: 'keystone_authtoken', option: 'username', value: 'neutron' } 
+    - { section: 'keystone_authtoken', option: 'password', value: "{{ openstack_commonpass }}" } 
+    - { section: 'DEFAULT', option: 'auth_strategy', value: 'keystone' } 
+    - { section: 'DEFAULT', option: 'transport_url', value: "rabbit://openstack:{{ openstack_commonpass }}@{{ openstack_controller }}" } 
+    - { section: 'DEFAULT', option: 'service_plugins', value: '' } 
+    - { section: 'DEFAULT', option: 'core_plugin', value: "{{ neutron_core_plugin }}" } 
+    - { section: 'DEFAULT', option: 'notify_nova_on_port_status_changes', value: 'true' } 
+    - { section: 'DEFAULT', option: 'notify_nova_on_port_data_changes', value: 'true' } 
+    - { section: 'database', option: 'connection', value: "mysql+pymysql://neutron:{{ openstack_commonpass }}@{{ openstack_controller }}/neutron" }
+    - { section: 'nova', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" } 
+    - { section: 'nova', option: 'auth_type', value: 'password' } 
+    - { section: 'nova', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" } 
+    - { section: 'nova', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" } 
+    - { section: 'nova', option: 'region_name', value: "{{ openstack_region }}"  } 
+    - { section: 'nova', option: 'project_name', value: 'service' } 
+    - { section: 'nova', option: 'username', value: 'nova' } 
+    - { section: 'nova', option: 'password', value: "{{ openstack_commonpass }}" } 
+
+- name: configure ml2 plugin-in file
+  ini_file:
+    path: "{{ neutron_ml2_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'ml2', option: 'type_drivers', value: "flat,vlan" } 
+    - { section: 'ml2', option: 'tenant_network_types', value: "" } 
+    - { section: 'ml2', option: 'mechanism_drivers', value: 'linuxbridge' } 
+    - { section: 'ml2', option: 'extension_drivers', value: 'port_security' } 
+    - { section: 'ml2_type_flat', option: 'flat_networks', value: 'provider' } 
+    - { section: 'securitygroup', option: 'enable_ipset', value: 'true' } 
+
+- name: configure dhcp
+  ini_file:
+    path: "{{ neutron_dhcp_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'DEFAULT', option: 'interface_driver', value: 'linuxbridge' } 
+    - { section: 'DEFAULT', option: 'dhcp_driver', value: 'neutron.agent.linux.dhcp.Dnsmasq' } 
+    - { section: 'DEFAULT', option: 'enable_isolated_metadata', value: 'true' } 
+
+- name: configure linuxbridge agent
+  ini_file:
+    path: "{{ neutron_lbr_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'linux_bridge', option: 'physical_interface_mappings', value: "provider:{{ neutron_data_interface }}" } 
+    - { section: 'vxlan', option: 'enable_vxlan', value: 'false' } 
+    - { section: 'securitygroup', option: 'enable_security_group', value: 'true' } 
+    - { section: 'securitygroup', option: 'firewall_driver', value: 'neutron.agent.linux.iptables_firewall.IptablesFirewallDriver' } 
+
+- name: configure metadata agent
+  ini_file:
+    path: "{{ neutron_metadata_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'DEFAULT', option: 'nova_metadata_ip', value: "{{ openstack_controller }}" } 
+    - { section: 'DEFAULT', option: 'metadata_proxy_shared_secret', value: "{{ openstack_commonpass }}" } 
+
+- name: configure nova api config file for neutron
+  ini_file:
+    path: "{{ nova_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'neutron', option: 'url', value: "http://{{ openstack_controller }}:9696" } 
+    - { section: 'neutron', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" } 
+    - { section: 'neutron', option: 'auth_type', value: 'password' } 
+    - { section: 'neutron', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" } 
+    - { section: 'neutron', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" } 
+    - { section: 'neutron', option: 'project_name', value: 'service' } 
+    - { section: 'neutron', option: 'username', value: 'neutron' } 
+    - { section: 'neutron', option: 'password', value: "{{ openstack_commonpass }}" } 
+    - { section: 'neutron', option: 'service_metadata_proxy', value: 'true' } 
+    - { section: 'neutron', option: 'metadata_proxy_shared_secret', value: "{{ openstack_commonpass }}" } 
+
+- name: create neutron user, service and endpoints
+  shell: "{{ openstack_admin_user_home }}/comm_services.bash {{ item.key }} {{ item.value.domain }} {{ item.value.svc_pass }} {{ item.value.svc_descr }} {{ item.value.svc_name }} {{ openstack_region }} {{ openstack_controller }} {{ item.value.port }}"
+  with_dict : "{{ openstack_services_config }}"
+  when: item.key == "neutron"
+
+- name: initialize database
+  command: "neutron-db-manage --config-file {{ neutron_api_config_file }} --config-file {{ neutron_ml2_config_file }} upgrade head"
+  become: true
+
+
+- name: restart neutron services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  become: true
+  with_items:
+    - "{{ neutron_services }}"
+    - "{{ nova_services }}"
+ 

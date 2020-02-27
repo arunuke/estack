@@ -1,0 +1,64 @@
+--- 
+
+#path variables
+git_path: /home/arunt/git-files/nfv-tools-git
+libvirt_path: "{{ git_path }}/libvirt-files"
+net_xml_path: "{{ libvirt_path }}/networking"
+stack_xml_path: "{{ libvirt_path }}/openstack-xmls"
+master_xml_path: "{{ libvirt_path }}/xmls"
+
+#git variables
+git_username: arun.thulasi
+git_dest: /home/arunt/tst_git
+token: 5b024cc089401460f7a05ae3caec9f072edc08ba
+
+#image variables
+ubuntu_img_url: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img 
+rfc_url: https://www.ietf.org/rfc/rfc791.txt
+ubuntu_img_dir: /home/arunt/lab/image-repo
+openstack_dir: /home/arunt/lab/openstack
+gluster_dir: /home/arunt/lab/gluster
+
+ubuntu_img_dst: ubuntu-1604.img.distro
+ubuntu_img_dst_xpand: ubuntu-1604.img.xpand
+ubuntu_img_dst_base: ubuntu-1604.img.base
+test_dir: "{{ ubuntu_img_dir }}/test_dir_vbl"
+
+
+#network variables
+net_vars:
+  data_net: 
+    location: "{{ net_xml_path }}/data.xml"
+    name: data
+  ext_net: 
+    location: "{{ net_xml_path }}/external.xml"
+    name: external
+  mgmt_net: 
+    location: "{{ net_xml_path }}/mgmt.xml"
+    name: mgmt
+
+#package variables
+sys_packages:
+  - apache2
+  - python-lxml
+  - python-libvirt
+  - kvm
+  - cloud-utils
+  - genisoimage
+  - sysfsutils
+
+lxd_packages:
+  - lxd
+  - zfsutils-linux
+  - btrfs-tools
+
+#openstack controller backing files
+qcow2list:
+  - v1.qcow2
+  - control.qcow2
+  - network.qcow2
+  - compute-1.qcow2
+  - compute-2.qcow2
+
+#system variables
+system_proxy: https://16.85.88.10:8080

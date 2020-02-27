@@ -1,0 +1,15 @@
+---
+
+- name: replace sources.list file
+  copy:
+    src: sources.list
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+#- name: refresh apt-key and apt-get
+#  apt:
+#    update_cache: yes
+#  become: true 

@@ -1,0 +1,7 @@
+---
+
+- hosts: localhost
+  roles: 
+    - corp-net
+  vars:
+    dict_var: "{{ openstack_vhost_vars }}"

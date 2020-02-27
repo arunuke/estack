@@ -1,0 +1,23 @@
+{
+
+	"_comment": "Plugin Status Response",
+	"Name": "Common Redfish Plugin Status",
+	"Version": "v0.1",
+	"ID": "990896296",
+	"Ack": "492816236",
+	"Status": {
+		"IP": "10.205.10.2",
+		"Port":"30001",
+		"Available": "yes",
+		"Uptime": "2019-10-18T15:31:22.300Z",
+		"TimeStamp": "2019-10-23T18:25:43.511Z"
+
+	},
+	"Stats": {
+		"Resources": "yes",
+		"ResourcesCnt": "123",
+		"Subscriptions":"yes",	
+		"SubscriptionsCnt": "2343"
+
+	}
+}

@@ -1,0 +1,54 @@
+---
+
+
+- name: copy maria db config file
+  copy:
+    src: 99-openstack.cnf
+    dest: /etc/mysql/mariadb.conf.d/99-openstack.cnf
+  become: true 
+
+- name: configure character set server config for maria db
+  ini_file:
+    path: "{{ db_server_config_file }}"
+    section: mysqld
+    option: character-set-server
+    value: utf8
+  become: true
+
+- name: configure collation server config for maria db
+  ini_file:
+    path: "{{ db_server_config_file }}"
+    section: mysqld
+    option: collation-server
+    value: utf8_general_ci
+  become: true
+
+- name: configure default char config for mysql
+  ini_file:
+    path: "{{ db_client_config_file }}"
+    section: client
+    option: default-character-set
+    value: utf8
+  become: true
+
+- name: configure default char config for maria db
+  ini_file:
+    path: "{{ db_mysql_client_config_file }}"
+    section: mysql
+    option: default-character-set
+    value: utf8
+  become: true
+
+- name: restart maria-db
+  service:
+    name: mysql
+    state: restarted
+  become: true
+
+#make custom mysql configs as specified under
+#https://bugs.launchpad.net/openstack-manuals/+bug/1575688
+#- name: secure mariadb
+#   ini_file:
+
+
+

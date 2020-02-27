@@ -1,0 +1,84 @@
+---
+
+#create maas user and copy credentials to host
+- name: create new user
+  user:
+    name: "{{ item }}"
+    shell: /bin/bash
+  become: true
+  with_items:
+    - "{{ new_ansible_user }}"
+
+- name: copy sesame_rsa to new user
+  copy:
+    src: "{{ item }}"
+    dest: "{{ new_ansible_user_ssh }}/"
+    owner: "{{ new_ansible_user }}"
+    group: "{{ new_ansible_user }}"
+    mode: "u+rw,g-rwx,o-rwx"
+  become: true
+  with_items:
+    - "{{ key_all_doors }}"
+    - "{{ key_all_doors_public }}"
+
+- name: copy sesame to authorized_hosts file to enable seed vm to connect
+  copy:
+    src: "{{ item }}"
+    dest: "{{ new_ansible_user_ssh }}/authorized_keys"
+    mode: "u+rw,g-rwx,o-rwx"
+    owner: "{{ new_ansible_user }}"
+    group: "{{ new_ansible_user }}"
+  become: true
+  with_items:
+    - "{{ key_all_doors_public }}"
+
+- name: copy sesame to authorized_hosts file to enable seed vm to connect
+  copy:
+    src: "{{ item }}"
+    dest: "{{ new_ansible_user_ssh }}/id_rsa.pub"
+    mode: "u+rw,g-rwx,o-rwx"
+    owner: "{{ new_ansible_user }}"
+    group: "{{ new_ansible_user }}"
+  become: true
+  with_items:
+    - "{{ key_all_doors_public }}"
+
+- name: create new sudo file for new user
+  file: 
+    path: "{{ new_ansible_sudoers }}"
+    state: touch
+    mode: "u+rw,g-rwx,o-rwx"
+  become: true
+  tags: pw
+
+- name: add sudo permission for user
+  #command: echo '"{{ new_ansible_user }}" ALL=(ALL) NOPASSWD:ALL' >> "{{ new_ansible_sudoers }}"
+  lineinfile:
+    dest: "{{ new_ansible_sudoers }}"
+    line: '{{ new_ansible_user }} ALL=(ALL) NOPASSWD:ALL'
+  become: true
+  tags: pw
+
+- name: change permission for sudo file
+  file: 
+    path: "{{ new_ansible_sudoers }}"
+    state: touch
+    mode: "u+r,g-rwx,o-rwx"
+  become: true
+
+#16.10 onwards, no libvirtd group; only libvirt and libvirt-qemu
+- name: add user to key groups
+  user:
+    name: "{{ new_ansible_user }}"
+    groups: sudo,adm,dialout,cdrom,floppy,audio,dip,video,plugdev,netdev,lxd,libvirt,libvirt-qemu
+    append: yes
+  become: true
+  when: target_release == "17.04"
+
+- name: add user to key groups
+  user:
+    name: "{{ new_ansible_user }}"
+    groups: sudo,adm,dialout,cdrom,floppy,audio,dip,video,plugdev,netdev,lxd,libvirtd
+    append: yes
+  become: true
+  when: target_release == "16.04"

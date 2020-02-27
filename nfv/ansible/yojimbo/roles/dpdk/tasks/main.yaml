@@ -1,0 +1,34 @@
+---
+
+- name: install dpdk packages
+#dpdk dpdk-dev libdpdk-dev openvswitch-switch-dpdk
+
+- name: list NIC information
+# run dpdk_nic_bind --status to list NIC information
+
+
+- name: add NIC to DPDK interfaces file
+# grep for active NIC in dpdk_nic_bind and pick up pci address
+
+
+- name: enable huge pages
+#make changes to dpdk.conf
+
+- name: reboot host
+
+
+
+- name: verify NIC information
+
+
+- name: configure OVS DPDK as primary
+#use update-alternatives to start ovs dpdk everytime ovs is restarted 
+
+
+- name: set ovs dpdk options specific to ubuntu
+#setting DPDK_OPTS in /etc/default/openvswtich-switch file
+
+- name: restart OVS
+
+
+- name: create dpdk bridge and add dpdk port

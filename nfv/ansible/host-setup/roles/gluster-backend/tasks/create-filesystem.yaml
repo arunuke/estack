@@ -1,0 +1,19 @@
+---
+
+- name: use a local disk and create an ext4 file system on it
+  filesystem: fstype={{ gluster_fstype }} dev={{ gluster_backend }}
+  become: true
+
+- name: create a directory to mount the local filesystem
+  file: path={{ gluster_mnt }} state=directory 
+  become: true
+
+- name: mount gluster directory
+  mount: src={{ gluster_backend }} name={{ gluster_mnt }} state=mounted fstype={{ gluster_fstype }}
+  become: true
+
+- name: create gluster brick under the mounted directory
+  file: path={{ gluster_brick }} state=directory
+  become: true
+
+

@@ -1,0 +1,19 @@
+---
+
+- include: artifacts-configure.yaml
+- include: dbs-configure.yaml 
+  tags: database_config
+- include: svcs-configure.yaml
+- include: keystone-configure.yaml
+  tags: keystone_config
+- include: glance-configure.yaml
+  tags: glance_config
+- include: nova-configure.yaml
+  tags: nova_config
+- include: neutron-configure.yaml
+  tags: neutron_config
+- include: dashboard-configure.yaml
+  tags: dashboard_config
+- include: cinder-configure.yaml
+  become: true
+  tags: cinder_config

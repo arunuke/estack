@@ -1,0 +1,93 @@
+README
+=======
+
+How to configure the FRISCO deployer
+--------------------------------------
+
+To use the MAAS playbooks to boot your infrastructure, do the following
+
+1. Set your MAAS packages (changes are not common)
+
+This installs packages and sets up the environment for further 
+configuration. 
+
+2. Set your MAAS administrative variables. 
+
+This would be primary user name and password used to login to the MAAS
+web portal. This would also be the profile used across various MAAS CLI
+calls.
+
+3. Set your MAAS configuration variables (changes are not common)
+
+This provides MAAS configuration variables for endpoints and API keys
+
+4. Set your MAAS networking variables
+
+This provides the basic networking configuration elements for MAAS
+deployment. It maps to CND (Control Network Datacenter) in the FRISCO
+environment. Set the DNS, subnet and gateway information for CND.
+Proxy is optional depending on where your environment is hosted.
+
+5. Set your cloud information
+
+Include information about each of your hosts into an ansible dictionary
+For every new entry, modify only the MAC address (of the interface that
+it will PXE boot on) and the IP address of iLO. 
+
+Changing anything else is purely optional. 
+
+6. Playbook Common Variables (changes are not common)
+
+Internal variables
+
+
+How to deploy the FRISCO infrastructure
+-----------------------------------------
+
+ansible-playbook maas_tst.yml --tags "install_maas,configure_maas"
+
+Note: Syncing of message typically takes 3-5 minutes
+Validate: Login into http://<maas server>:5240/MAAS 
+Manual: Go to subnet, enable "Active Mapping", Click on "Take Action" 
+and choose "Map Subnet"; Click Ok; [[ This has been automated ]]
+
+Go to cat /etc/bind/maas/named.conf.options.inside.maas and add
+dnssec-enable no; dnssec-validation no;
+Restart bind9 [[ This has been automated ]]
+
+ansible-playbook maas_tst.yml --tags "create_maas_nodes" 
+Validate: On the GUI, click no nodes; Check if nodes are "Commissioning"
+
+Wait for 10 minutes to ensure all nodes are commissioned
+[[ Took 6 minutes for a node to be commissioned ]]
+
+ansible-playbook maas_tst.yml --tags "deploy_maas_nodes"
+
+Wait for 15 minutes to ensure all nodes are deployed
+[[ Took 11-13 minutes for a node to be deployed ]]
+
+How to configure the FRISCO seed
+------------------------------------
+#ansible-playbook configure-base-image.yaml --skip-tags "network,fedora_image"
+#ansible-playbook configure-ansible-user.yaml --extra-vars "ansible_user=ubuntu"
+#ansible-playbook configure-git-node.yaml
+#ansible-playbook configure-ansible-server.yaml
+#ansible-playbook configure-base-host.yaml --skip-tags "base_host_network,base_host_fedora_image"
+#ansible-playbook create-base-vm.yaml
+#ansible-playbook configure-nics.yaml
+
+ansible-playbook configure-seed.yaml --skip-tags "base_host_network,base_host_fedora_image" --extra-vars "ansible_user=ubuntu" --tags "base_setup"
+ansible-playbook configure-seed.yaml --skip-tags "base_host_network,base_host_fedora_image" --extra-vars "ansible_user=arunt" --tags "seed_setup"
+
+Optionall, to cleanup, run: ansible-playbook cleanup.yaml
+
+ansible-playbook configure-ansible-client.yaml
+
+Manual, if installer is not localhost:
+Configure IP address from CND
+
+ansible-playbook configure-git-node.yaml
+
+ansible-playbook configure-ansible-server.yaml
+
+ansible-playbook 

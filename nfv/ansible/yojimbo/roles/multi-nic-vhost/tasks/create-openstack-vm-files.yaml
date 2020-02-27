@@ -1,0 +1,23 @@
+---
+
+  - name: create delta disk for all images in qcow2 list
+    command: qemu-img create -f qcow2 -b {{ ubuntu_img_dst_base }} "{{ item.value.name }}.qcow2" chdir={{ openstack_dir }}
+    with_dict: "{{ dict_var }}"
+
+#All the cloudinit files have, among other keys, "sesame" which opens all VMs
+#Seed role will ensure that "sesame" private key is embedded in the user role
+  - name: copy user metadata and generate specific cloudinit file
+    command: cloud-localds -H {{ item.value.name }} "{{ item.value.name }}-ud.qcow2" "{{ vhost_user_data }}" chdir={{ openstack_dir }}
+    with_dict: "{{ dict_var }}"
+
+  - name: add static IP address for VM
+    command: virsh net-update {{ item.value.def_net }} add-last ip-dhcp-host --xml "<host mac='{{ item.value.def_net_mac }}' ip='{{ item.value.def_net_ip }}' />" --live --config
+    with_dict: "{{ dict_var }}"
+
+  - name: add host to /etc/hosts file
+    lineinfile:
+      dest: /etc/hosts
+      line: '{{ item.value.def_net_ip }}  {{ item.value.name }}'
+    become: true
+    with_dict: "{{ dict_var }}"
+

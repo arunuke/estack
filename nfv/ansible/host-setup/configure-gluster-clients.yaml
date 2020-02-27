@@ -1,0 +1,4 @@
+---
+- hosts: nfv-control-nodes
+  roles:
+    - gluster-client

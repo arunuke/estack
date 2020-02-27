@@ -1,0 +1,12 @@
+---
+#ansible-playbook configure-seed.yaml --skip-tags "base_host_network,base_host_fedora_image" --extra-vars "ansible_user=ubuntu"
+
+- hosts: openstack-control
+  roles:
+    - { role: base-host, remote_user: arunt, tags: seed_setup }
+#TODO: Rewrite using pip method from https://github.com/ansible/ansible/issues/24322
+    - { role: ansible-server, remote_user: arunt, tags: seed_setup }
+    - { role: git-client, remote_user: arunt, tags: seed_setup }
+    - { role: base-vm, remote_user: arunt, dict_var: "{{ services_vhost_vars }}", tags: seed_setup }
+    - { role: corp-net, remote_user: arunt, dict_var: "{{ services_vhost_vars }}", tags: seed_setup }
+#    - { role: vagrant, remote_user: arunt, tags: base_vagrant }

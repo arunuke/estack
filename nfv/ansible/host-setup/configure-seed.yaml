@@ -1,0 +1,5 @@
+---
+- hosts: seed-node
+  roles:
+    - seed
+    - ansible-server

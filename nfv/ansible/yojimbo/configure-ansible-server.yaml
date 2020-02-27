@@ -1,0 +1,5 @@
+---
+
+- hosts: container-seed
+  roles:
+    - ansible-server

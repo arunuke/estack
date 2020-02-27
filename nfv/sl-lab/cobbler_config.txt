@@ -1,0 +1,109 @@
+Configuring any node
+======================
+1. virtual machine 
+2. ssh 
+3. apache2 and nginx
+4. libguestfs-tools
+5. guestmount
+6. qemu-kvm
+7. libvirt-bin
+8. virt-manager
+9. chromium-broswer
+10. ssh keys
+
+1. Configure wget to use proxy
+
+
+Configuring Ansible
+=====================
+1. Install latest ansible by including the Ubuntu PPAs, updating and then
+installing ansible
+
+
+
+Configuring Cobbler
+====================
+
+1. Install cobbler cobbler-common koan 
+
+Ensure cobbler 2.4 is not installed. Many issues. To install 2.6.5-1, use 
+http://springerpe.github.io/tech/2014/09/09/Installing-Cobbler-2.6.5-on-Ubuntu-14.04-LTS.html
+
+2. Install apache2 apache2-docs apache2-utils
+3. Install isc-dhcp-server
+4. cobbler check
+5. cobbler sync
+
+Configuring Vagrant
+====================
+1. Install vagrant. Download the latest package from the vagrant downloads page (latest)
+and not the stock debian version which is typically older.
+2. Setup http_proxy and https_proxy environment variables before trying to install any plugin
+3. Install vagrant-libvirt and vagrant-proxyconf plugins
+
+Apache troubleshooting
+======================
+
+Cobbler troubleshooting
+========================
+
+1. Ran into the "httpd not found error". Root cause was that the IPs in 
+/etc/cobbler/settings were incorrect. next_server and server need to be
+set to IPs on the localhost.
+
+Configuring SSH Gateway
+========================
+
+ssh -L <port on local host>:<target server>:<port on target server> <username@remotehost>
+
+
+eg: ssh -L 10010:10.206.1.16:80 arunt@16.79.29.6
+
+allows me to access the web browser (80) on 10.201.1.16 from my localhost (laptop)using
+localhost:10010 via tunneling it through 16.79.29.6.
+
+In essence, I am asking a local port forward from 10010 to port 80 on 10.206.1.16
+via the intermediate nfvbits server at 16.79.29.6
+
+Configuring virt-manager
+=========================
+virt-manager is not, for some reason, available from the default ubuntu repos. 
+
+- Get keys for getdeb.net and add to current system
+- add getdeb repo to apt sources.list
+- do an apt-get update and pull the packages
+
+http://linuxg.net/how-to-install-virt-manager-1-0-1-on-ubuntu-14-04-linux-mint-17-elementary-os-0-3-deepin-2014-and-other-ubuntu-14-04-derivatives/
+
+Configuring webvirtmgr
+========================
+On server hosting webvirtmgr do
+- install packages
+- Setup supervisor, forget nginx, use ssh tunneling to access the web page 
+
+On all client servers do
+- https://www.webvirtmgr.net/docs/
+
+Configuring git
+================
+
+When doing clone, use https instead of git since firewalls might not allow non https ports
+
+Use --proxy=<http proxy> for all pip installs
+
+
+
+ssh troubleshooting
+====================
+
+/var/log/auth.log for sshd logs
+After virt-sysprep
+
+Configuring Ruby
+=================
+
+1. Use gem install with the -p option specifying the https proxy. Thisaddresses the 
+"not in gzip format" error.
+
+2. If require mkmf error is encountered, install the ruby-dev package for the ruby
+installation in question. Add zlib1g-dev for zlib missing errors

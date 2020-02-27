@@ -1,0 +1,14 @@
+---
+
+- name: destroy given VM based on arguments passed
+  virt: 
+    name: "{{ item.value.name }}" 
+    command: destroy
+  with_dict: "{{ dict_var }}" 
+  
+- name: undefine given VM based on arguments passed
+  virt: 
+    name: "{{ item.value.name }}" 
+    command: undefine
+  with_dict: "{{ dict_var }}" 
+

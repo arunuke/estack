@@ -1,0 +1,4 @@
+
+
+- Had to change configuration variables in mysql config files
+https://bugs.launchpad.net/openstack-manuals/+bug/1575688

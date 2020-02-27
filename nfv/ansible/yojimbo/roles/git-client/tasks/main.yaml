@@ -1,0 +1,10 @@
+---
+#needs IP address of VM(s)
+
+#- name: execute git script for VM(s) 
+#  command: bash "{{ home_path }}/setup-for-git.bash" {{ item.value.def_net_ip }} {{ key_the_source }} {{ ssh_home }}
+#  with_dict: "{{ dict_var }}"
+
+# you can run this against the seed VM 
+- include: git-keys.yaml
+- include: configure-repo.yaml

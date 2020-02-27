@@ -1,0 +1,41 @@
+---
+
+- name: create testbed directory
+  file: path={{ item }} state=directory
+  with_items: 
+      - "{{ lab_path }}"
+      - "{{ openstack_dir }}"
+      - "{{ ubuntu_img_dir }}"
+      - "{{ gluster_dir }}"
+
+- name: fetch ubuntu cloud image
+  get_url: url={{ ubuntu_img_url }} dest={{ ubuntu_img_dir }}//{{ ubuntu_img_dst }} use_proxy=yes validate_certs=no
+  environment: 
+      https_proxy: "{{ https_proxy }}"
+      http_proxy: "{{ system_proxy }}"
+
+- name: fetch fedora cloud image
+  get_url: url={{ fedora_img_url }} dest={{ ubuntu_img_dir }}//{{ fedora_img_dst }} use_proxy=yes validate_certs=no
+  environment: 
+      https_proxy: "{{ system_proxy }}"
+      http_proxy: "{{ system_proxy }}"
+  tags: base_host_fedora_image
+
+- name: expand distro image to a local copy to be used as backing file
+  command: qemu-img convert -O qcow2 {{ ubuntu_img_dst }} {{ ubuntu_img_dst_base }} chdir={{ ubuntu_img_dir }}
+
+- name: resize backing file
+  command: qemu-img resize {{ ubuntu_img_dst_base }} +50G chdir={{ ubuntu_img_dir }}
+
+- name: copy backing file to openstack lab directory
+  copy: src={{ ubuntu_img_dir }}//{{ ubuntu_img_dst_base }} dest={{ item }} remote_src=true
+  with_items:
+      - "{{ gluster_dir }}"
+      - "{{ openstack_dir }}"
+
+- name: copy fedora image to openstack lab directory
+  copy: src={{ ubuntu_img_dir }}//{{ fedora_img_dst }} dest={{ item }} remote_src=true
+  with_items:
+      - "{{ gluster_dir }}"
+      - "{{ openstack_dir }}"
+  tags: base_host_fedora_image

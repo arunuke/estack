@@ -1,0 +1,10 @@
+---
+
+- name: copy oneview file from web
+  get_url: url={{ oneview_img_url }} dest={{ vhost_oneview_dir }}//{{ vhost_oneview_file }} use_proxy=yes validate_certs=no
+  environment:
+    https_proxy: "{{ system_proxy }}"
+#unarchive with web fetch works only in 2.2, until then use command
+  #command: tar zxvf {{ vhost_oneview_file }} chdir={{ vhost_oneview_dir }}
+- name: gunzip and untar the file
+  command: tar zxvf {{ vhost_oneview_file }} chdir={{ vhost_oneview_dir }}

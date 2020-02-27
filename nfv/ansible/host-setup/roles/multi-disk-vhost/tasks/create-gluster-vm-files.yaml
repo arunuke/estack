@@ -1,0 +1,20 @@
+---
+  - name: create delta disk for all images in qcow2 list
+    command: qemu-img create -f qcow2 -b {{ ubuntu_img_dst_base }} "{{ item.value.name }}.qcow2" chdir={{ gluster_dir }}
+    with_dict: "{{ multi_disk_vars }}"
+    become: true
+
+  - name: create gluster backend data disk for all domains in list
+    command: qemu-img create -f qcow2 "{{ item.value.name }}-data.qcow2" 8G chdir={{ gluster_dir }}
+    with_dict: "{{ multi_disk_vars }}"
+    become: true
+
+  - name: copy the base cloudinit userdata file
+    copy:
+      src: "{{ multi_disk_user_data }}" 
+      dest: "{{ gluster_dir }}"
+
+  - name: copy user metadata and generate specific cloudinit file
+    command: cloud-localds -H {{ item.value.name }} "{{ item.value.name }}-ud.qcow2" "{{ multi_disk_user_data }}" chdir={{ gluster_dir }}
+    with_dict: "{{ multi_disk_vars }}"
+    become: true

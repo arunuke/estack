@@ -1,0 +1,73 @@
+---
+
+# Copy sesame key and cerebrus keys
+# Sesame used to login to all hosts created
+# Cerebrus used to login to github. Only seed VM needs to be able to do that
+# Copy cerebrus into git VM (seed VM) so that it can automatically get access to git
+
+# the base host already has sesame_rsa.pub in authorized_keys added manually
+
+- name: copy sesame and cerebrus keys to kvm host
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ssh_home }}"
+    mode: "u+rw,g-rwx,o-rwx"
+  with_items:
+    - "{{ key_all_doors }}"
+    - "{{ key_the_source }}"
+
+- name: copy sesame as id_rsa key to enable easy login to other nodes
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ssh_home }}/id_rsa"
+    mode: "u+rw,g-rwx,o-rwx"
+  with_items:
+    - "{{ key_all_doors }}"
+
+
+- name: copy config file so that base host can connect to git
+  copy:
+    src: config
+    dest: "{{ ssh_home }}/config"
+    mode: "u+rw,g-rwx,o-rwx"
+
+- name: copy setup-for-ansible file to home directory
+  copy:
+    src: setup-for-ansible.bash
+    dest: ~/
+    mode: "u+rwx,g-rwx,o-rwx"
+
+- name: copy setup-for-git file to home directory
+  copy:
+    src: setup-for-git.bash
+    dest: ~/
+    mode: "u+rwx,g-rwx,o-rwx"
+  
+- name: copy ansible hosts file
+  copy:
+    src: hosts.ansible
+    dest: /etc/ansible/hosts
+    mode: "u+rw,g+r,o+r"
+  become: true
+
+- name: copy ansible variables file
+  copy:
+    src: group_vars
+    dest: /etc/ansible/group_vars
+    mode: "u+rw,g+r,o+r"
+  become: true
+
+- name: copy common host files such as private/public keys
+  copy:
+    src: all-nodes/
+    dest: /etc/ansible/group_vars/all-nodes/
+    mode: "u+rw,g+r,o+r"
+  become: true
+
+- name: copy sesame to authorized_hosts file to enable seed vm to connect
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ssh_home }}/authorized_keys"
+    mode: "u+rw,g-rwx,o-rwx"
+  with_items:
+    - "{{ key_all_doors_public }}"

@@ -1,0 +1,308 @@
+#path variables
+home_path: /home/arunt
+git_path: "{{ home_path }}/nfv-tools-git"
+lab_path: "{{ home_path }}/lab"
+net_xml_path: "{{ git_path }}/libvirt-files/networking"
+ssh_home: "{{ home_path }}/.ssh"
+
+#image variables
+ubuntu_img_url: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
+fedora_img_url: https://mirrors.kernel.org/fedora-alt/atomic/stable/Fedora-Atomic-25-20161121.0/CloudImages/x86_64/images/Fedora-Atomic-25-20161121.0.x86_64.qcow2
+
+rfc_url: https://www.ietf.org/rfc/rfc791.txt
+ubuntu_img_dir: "{{ lab_path }}/image-repo"
+openstack_dir: "{{ lab_path }}/openstack"
+gluster_dir: "{{ lab_path }}/gluster"
+
+ubuntu_img_dst: ubuntu-1604.img.distro
+ubuntu_img_dst_xpand: ubuntu-1604.img.xpand
+ubuntu_img_dst_base: ubuntu-1604.img.base
+test_dir: "{{ ubuntu_img_dir }}/test_dir_vbl"
+
+fedora_img_dst: fedora-25.img.distro
+fedora_img_dst_xpand: fedora-25.img.xpand
+fedora_img_dst_base: fedora-25.img.base
+
+sys_packages:
+  - qemu-kvm
+  - libvirt-bin
+  - ubuntu-vm-builder
+  - bridge-utils
+  - virtinst
+  - openvswitch-switch
+  - sanlock
+  - libsanlock-client1
+  - cloud-utils
+  - genisoimage
+  - sysfsutils
+  - attr
+  - apache2
+  - python-lxml
+  - python-libvirt
+  - cpuid
+  - ansible
+
+lxd_packages:
+  - lxd
+  - zfsutils-linux
+  - btrfs-tools
+
+
+#system variables
+system_proxy: https://16.85.88.10:8080
+http_proxy: http://16.85.88.10:8080
+
+key_all_doors: sesame_rsa
+key_all_doors_public: "{{ key_all_doors }}.pub"
+key_the_source: cerebrus_rsa
+
+
+#network variables
+net_vars:
+  data_net: 
+    location: "{{ net_xml_path }}/data.xml"
+    name: data
+  ext_net: 
+    location: "{{ net_xml_path }}/external.xml"
+    name: external
+  mgmt_net: 
+    location: "{{ net_xml_path }}/mgmt.xml"
+    name: mgmt
+  sto_net: 
+    location: "{{ net_xml_path }}/storage.xml"
+    name: storage
+
+#VM variables
+
+vhost_user_data: vhost-user-data
+
+ram_default: 1024
+cpu_default: 2
+cpu_model: IvyBridge
+
+seed_ram: 16384
+seed_cpu: 4
+
+large_ram: 16384
+large_cpu: 16
+
+def_net: default
+mgmt_net: mgmt
+data_net: data
+ext_net: external
+sto_net: storage
+mac_net: direct
+direct_net: eno3
+
+#VM variables
+openstack_vhost_vars:
+  control:
+    name: control
+    uuid: 9b2351dd-e856-436a-a460-f0ea1f3489b6 
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 2e:28:74:44:22:c4
+    mgmt_net_mac: ba:a5:99:33:96:48
+    data_net_mac: 70:a4:e1:0b:56:06
+    ext_net_mac: 58:b0:57:c4:e8:8a
+    sto_net_mac: 3a:ed:02:ef:69:87
+    macv_net_mac: 20:3e:48:84:b4:db
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  network:
+    name: network
+    uuid: f62b96c4-c59a-4586-b15b-f992d8bf24a0 
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 60:c9:55:9b:ae:0c
+    mgmt_net_mac: b6:fd:a4:b7:48:09
+    data_net_mac: 50:30:e4:ee:3d:28
+    ext_net_mac: 40:08:55:d2:44:c6
+    sto_net_mac: 18:4d:81:20:fb:50
+    macv_net_mac: 46:51:e4:55:42:8f
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  compute-1:
+    name: compute-1
+    uuid: 7fed7748-76a2-4303-b2c5-b1d9163ea36a 
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: c4:5a:0d:c1:19:0c
+    mgmt_net_mac: a0:c9:2e:f6:52:8b
+    data_net_mac: 90:35:2f:2a:2c:3a
+    ext_net_mac: ec:e6:03:5d:65:83
+    sto_net_mac: 40:6c:ee:13:4e:a4
+    macv_net_mac: b0:fc:fc:9f:5c:34
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  compute-2:
+    name: compute-2
+    uuid: c3ed69a7-ca92-4ae9-aba1-ed8ff0ad616f 
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 0e:64:96:0e:00:bc
+    mgmt_net_mac: d0:5c:e4:d6:60:47
+    data_net_mac: ec:cb:8e:09:60:29
+    ext_net_mac: b0:e0:33:91:69:58
+    sto_net_mac: 08:25:10:ec:2c:ec
+    macv_net_mac: 12:46:c1:22:43:94
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+docker_vhost_vars:
+  swarm:
+    name: swarm
+    uuid: 1a7e3715-c0f3-46b3-8738-fa2cad0dc257 
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 00:32:bd:0e:45:6f
+    mgmt_net_mac: d2:0d:dd:7b:e2:3b
+    data_net_mac: 6e:fc:d2:3c:54:eb
+    ext_net_mac: ca:d2:41:ec:ea:24
+    sto_net_mac: d6:54:8b:81:6e:40
+    macv_net_mac: 00:d8:7d:4e:bc:ef
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  docker-1:
+    name: docker-1
+    uuid: eb3e8c49-7298-4b5f-a73b-fbf8fb13d2e7 
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: f8:23:79:74:eb:c5 
+    mgmt_net_mac: 66:92:48:11:3e:7e
+    data_net_mac: e0:a2:75:bd:7e:b8
+    ext_net_mac: 90:55:d7:43:92:45
+    sto_net_mac: d0:0d:04:f2:ec:cb
+    macv_net_mac: c0:9a:31:20:e8:97
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  docker-2:
+    name: docker-2
+    uuid: c1ebf40d-47c6-4488-b83f-973aeef751f3 
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 20:c5:83:65:52:55
+    mgmt_net_mac: 80:a5:2b:48:06:2b
+    data_net_mac: f4:41:17:11:92:e8
+    ext_net_mac: 20:f7:00:5c:38:7a
+    sto_net_mac: 90:8e:70:e6:e9:35
+    macv_net_mac: 18:b0:70:98:d3:fa
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+nfv_vhost_vars:
+  npos-1:
+    name: npos-1
+    uuid: 2bb6860c-900f-45d0-9181-d3f94bdbc3de
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 06:da:01:f8:7e:fe
+    mgmt_net_mac: 18:d1:92:79:54:4d
+    data_net_mac: 98:cd:0b:20:1f:b2
+    ext_net_mac: 16:7d:a5:f8:53:44
+    sto_net_mac: 80:50:a3:f8:99:66
+    macv_net_mac: 00:2f:a7:28:d0:ec
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  npos-2:
+    name: npos-2
+    uuid: 9dddd1c2-f6c5-48f2-ac54-4a74a0de7c5a
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: b0:b9:af:bf:fe:39 
+    mgmt_net_mac: 30:b5:06:e4:ee:e5
+    data_net_mac: 10:53:c5:ac:fa:cb
+    ext_net_mac: 60:77:be:ac:c5:a8
+    sto_net_mac: 7e:9f:5d:a1:67:85
+    macv_net_mac: 5a:cd:65:40:08:49
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  npos-3:
+    name: npos-3
+    uuid: a6055aac-6867-4f41-86e8-bcb9cde017b6
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 24:d5:24:c8:95:6b 
+    mgmt_net_mac: 92:b4:75:e2:d9:1e
+    data_net_mac: a2:f7:ec:a5:85:15
+    ext_net_mac: 10:71:a2:89:67:8a
+    sto_net_mac: 1e:d0:8f:1a:69:ec
+    macv_net_mac: 50:95:db:dc:3f:9e
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+seed_vhost_vars:
+  neo:
+    name: neo
+    uuid: 2c127fb8-7604-4433-bf4c-6f6ae8fc85ba
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 70:7b:4f:77:ef:2d
+    mgmt_net_mac: 1a:24:dc:ed:83:48
+    data_net_mac: 8e:2b:2b:5c:e7:7b
+    ext_net_mac: 0a:06:40:e4:65:1e
+    sto_net_mac: 22:38:8a:27:c8:9e
+    macv_net_mac: 52:30:79:66:48:fc
+    ram: "{{ seed_ram }}"
+    vcpu: "{{ seed_cpu }}"
+services_vhost_vars:
+  gateway:
+    name: gateway
+    uuid: 7efeca9e-8b4f-4daf-9408-2159beddd1eb
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    data_net: "{{ data_net }}"
+    ext_net: "{{ ext_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 50:d2:68:e3:fe:6f
+    def_net_ip: 192.168.122.25
+    mgmt_net_mac: 80:da:9c:fc:aa:98
+    data_net_mac: b0:40:08:71:91:7a
+    ext_net_mac: d0:78:b4:97:0c:ac
+    sto_net_mac: ca:3b:3c:bd:a4:89
+    macv_net_mac: 80:47:a5:c6:16:a9
+    ram: "{{ seed_ram }}"
+    vcpu: "{{ seed_cpu }}"
+nfvseedvm_vhost_vars:

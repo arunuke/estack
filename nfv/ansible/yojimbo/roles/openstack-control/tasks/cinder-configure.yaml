@@ -1,0 +1,69 @@
+
+#cinder packages installed and database created at this time
+
+- name: install cinder packages (if standalone)
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ cinder_packages }}"
+
+
+ #TODO combine configuration of all config files into a single task
+# use subelements
+#       
+- name: configure cinder api config file
+  ini_file:
+    path: "{{ cinder_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { section: 'database', option: 'connection', value: "mysql+pymysql://cinder:{{ openstack_commonpass }}@{{ openstack_controller }}/cinder" }
+    - { section: 'DEFAULT', option: 'transport_url', value: "rabbit://openstack:{{ openstack_commonpass }}@{{ openstack_controller }}" } 
+    - { section: 'DEFAULT', option: 'auth_strategy', value: 'keystone' } 
+    - { section: 'DEFAULT', option: 'my_ip', value: "{{ openstack_controller_ip }}" } 
+    - { section: 'oslo_currency', option: 'lock_path', value: '/var/lib/cinder/tmp' } 
+    - { section: 'keystone_authtoken', option: 'auth_uri', value: "http://{{ openstack_controller }}:5000" } 
+    - { section: 'keystone_authtoken', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" } 
+    - { section: 'keystone_authtoken', option: 'memcached_servers', value: "{{ openstack_controller }}:11211" } 
+    - { section: 'keystone_authtoken', option: 'auth_type', value: 'password' } 
+    - { section: 'keystone_authtoken', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'project_name', value: 'service' } 
+    - { section: 'keystone_authtoken', option: 'username', value: 'cinder' } 
+    - { section: 'keystone_authtoken', option: 'password', value: "{{ openstack_commonpass }}" } 
+
+
+- name: configure nova api config file for neutron
+  ini_file:
+    path: "{{ nova_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { section: 'cinder', option: 'os_region_name', value: "{{ openstack_region }}" } 
+
+- name: create neutron user, service and endpoints
+  shell: "{{ openstack_admin_user_home }}/comm_services.bash {{ item.key }} {{ item.value.domain }} {{ item.value.svc_pass }} {{ item.value.svc_descr }} {{ item.value.svc_name }} {{ openstack_region }} {{ openstack_controller }} {{ item.value.port }}"
+  with_dict : "{{ openstack_services_config }}"
+  when: item.key == "volumev2"
+
+- name: create neutron user, service and endpoints
+  shell: "{{ openstack_admin_user_home }}/comm_services.bash {{ item.key }} {{ item.value.domain }} {{ item.value.svc_pass }} {{ item.value.svc_descr }} {{ item.value.svc_name }} {{ openstack_region }} {{ openstack_controller }} {{ item.value.port }}"
+  with_dict : "{{ openstack_services_config }}"
+  when: item.key == "volumev3"
+
+- name: initialize database
+  command: "cinder-manage db sync"
+
+
+- name: restart cinder, nova and web services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - "{{ cinder_services }}"
+    - "{{ nova_services }}"
+    - apache2
+ 

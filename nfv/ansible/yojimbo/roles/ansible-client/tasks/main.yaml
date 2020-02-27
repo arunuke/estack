@@ -1,0 +1,6 @@
+---
+#needs IP address of VM(s)
+- name: execute ansible script for VM(s) 
+  command: bash "{{ home_path }}/setup-for-ansible.bash" {{ item.value.def_net_ip }}
+  with_dict: "{{ dict_var }}"
+

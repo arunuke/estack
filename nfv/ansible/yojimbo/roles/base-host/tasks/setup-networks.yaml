@@ -1,0 +1,30 @@
+---
+#Pre-req
+# User arunt needs to be sudo capable without passwords
+
+
+- name: list existing network
+  virt_net: command=list_nets
+
+- name: pick up xml files and create various network domains 
+  virt_net: 
+    command: define 
+    name: "{{ item.value.name }}"
+    xml: "{{lookup('template','{{ item.value.location }}')}}"
+  with_dict: "{{ net_vars }}"
+
+- name: mark all networks as autostart
+  virt_net: autostart=yes name={{ item.value.name }} 
+  with_dict: "{{ net_vars }}"
+
+- name: start all networks
+  virt_net: command=create name={{ item.value.name }} 
+  with_dict: "{{ net_vars }}"
+
+
+
+
+
+
+
+

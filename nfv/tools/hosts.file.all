@@ -1,0 +1,13 @@
+control
+network
+compute-1
+compute-2
+swarm
+docker-1
+docker-2
+npos-1
+npos-2
+npos-3
+gluster-1
+gluster-2
+gluster-3

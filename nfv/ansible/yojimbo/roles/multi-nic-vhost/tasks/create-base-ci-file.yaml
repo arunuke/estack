@@ -1,0 +1,8 @@
+---
+
+
+  - name: copy the base cloudinit userdata file 
+    copy:
+      src: "{{ vhost_user_data }}"
+      dest: "{{ openstack_dir }}"
+

@@ -1,0 +1,20 @@
+---
+
+ovs_host_bridge: br-ovs-control
+ovs_host_net: ovs-control-net
+ovs_host_net_dom: "{{ ovs_host_net }}.xml"
+ovs_mgmt_port: ens3
+
+vlan_vars:
+  ovs_default_vlan: 
+    name: vlan-def
+    tag: 1
+  ovs_ncp_vlan:
+    name: vlan-ncp
+    tag: 2
+  ovs_clm_vlan:
+    name: vlan-clm
+    tag: 3
+
+seed_vm_dom: nest-1
+  

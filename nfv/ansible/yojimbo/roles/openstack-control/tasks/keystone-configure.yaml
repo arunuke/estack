@@ -1,0 +1,33 @@
+---
+
+- name: install keystone packages (if standalone)
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - keystone
+
+- name: configure keystone config file
+  ini_file:
+    path: "{{ keystone_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'database', option: 'connection', value: "mysql+pymysql://keystone:{{ openstack_commonpass }}@controller/keystone" }
+
+- name: set fernet token
+  ini_file:
+    path: "{{ item.value.conf }}"
+    section: token
+    option: provider
+    value: fernet
+  with_dict: "{{ openstack_keystone_config }}"
+  become: true
+
+ 
+- name: initialize keystone db
+  shell: "{{ openstack_admin_user_home }}/op_services.bash ks_bootstrap {{ openstack_adminpass }} {{ openstack_controller }} {{ openstack_region }} {{ item.value.admin }} {{ item.value.internal }} {{ item.value.public }}"
+  with_dict: "{{ openstack_keystone_config }}" 

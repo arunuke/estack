@@ -1,0 +1,29 @@
+
+Variables
+==========
+
+Use variables as often as possible. Define them in 
+/etc/ansible/group_vars/<group name> or /etc/ansible/host_vars/<host name>
+
+
+Loops
+=======
+
+
+
+YAML validation
+================
+
+
+
+sudo password
+==============
+
+
+1.edit sudoers file (this can be present in /etc/sudoers.d/file_name)
+
+sudo visudo -f /etc/sudoers
+2.Add line at the end of the file
+
+arunt ALL=(ALL) NOPASSWD:ALL
+3.save file

@@ -1,0 +1,5 @@
+---
+
+- include: remove-vms.yaml
+- include: remove-net.yaml
+- include: remove-host.yaml

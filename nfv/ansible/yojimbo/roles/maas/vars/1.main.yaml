@@ -1,0 +1,54 @@
+---
+
+#MAAS Packages
+
+maas_packages:
+  - maas
+  - bzr
+  - ipmitool
+  - ipmiutil
+  - curtin
+  - libvirt-bin
+
+#MAAS Administration variables
+maas_user: arunt
+maas_pass: nfv
+maas_email: arunt@maas.com
+
+#MAAS Configuration Variables
+preseed_ubuntu: curtin_userdata_ubuntu
+maas_api_key: api.key
+maas_api_server: localhost
+maas_url: http://localhost/MAAS/api/2.0
+maas_user_dir: ~/maas-user-dir
+maas_ntp: ntp.hpecorp.net
+maas_rack_control: potter
+
+#MAAS Networking Variables
+maas_dns: 10.255.0.10
+maas_proxy: http://16.85.88.10:8080
+maas_subnet: 10.11.2.0/24
+maas_gateway: 10.11.2.11
+maas_dynamic_ip_range_low: 10.11.2.50
+maas_dynamic_ip_range_high: 10.11.2.60
+
+#MAAS Security Variables
+maas_ssh: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Ie5UGnWc1BaDFHMUHHhlk4kX4CCP42a2aFNcjgv1u4FVFg3azcBvVSuFCPCetpqX7fjaOo+o61Z9AmqlHku5Wfz3dCLkrHKqvIXnDe5aAdf1wlrMzvhWmto3hITk42Lr2lqcfMb0l78ccHu4QZ12KoRykBqa7rDw9sI81q5xH8Ydz20Bngt1odfctRLuS7HYppQGSAfleYQ6Up/a4rP6M60V55AgVoVMv7lF21UAadeUOAazGHkNnheyfnKU1a7T2ogUoGNfsShjD7XifYrEyLAWtkkRPVlxwFrzSqLUkqRe+5EAOjPvNLo3RVdUw+8Mw1lZXgRNtKpZ5fGuECvF arunt@sesame"
+
+#Cloud Information
+
+maas_host_vars:
+  granger:
+    arch: "amd64/generic"
+    power: "ipmi"
+    poweruser: "admin"
+    powerpass: "HP1nvent"
+    powerdrv: "LAN_2_0"
+    mac: "3c:a8:2a:0e:58:40"
+    poweraddr: "10.11.0.3"
+    system_id: "empty"
+
+#Playbook Common Variables
+version_file: "{{ lookup('file','/home/shasha/devOps/tests/packageFile.json') | from_json }}"
+
+key_all_doors: sesame_rsa

@@ -1,0 +1,8 @@
+---
+
+- hosts: localhost
+  roles:
+    #- sources
+#    - apache
+#    - ntp-server
+    - maas

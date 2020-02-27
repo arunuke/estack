@@ -1,0 +1,12 @@
+{
+
+	"_comment": "Plugin Status Request",
+	"Name": "Common Plugin Status Request",
+	"Version": "v0.1",
+	"ID": "990896296",
+	"Stats": {
+		"Resources": "yes",
+		"Subscriptions":"yes"
+
+	}
+}

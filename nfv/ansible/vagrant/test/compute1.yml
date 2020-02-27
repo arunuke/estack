@@ -1,0 +1,8 @@
+---
+
+- hosts: compute1
+  roles:
+    - sources
+    - apache
+    - openstack-common
+    - ntp-client

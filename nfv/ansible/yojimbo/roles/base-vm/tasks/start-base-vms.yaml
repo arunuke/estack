@@ -1,0 +1,18 @@
+---
+  - name: start vhost
+    command: virt-install \
+             --network network:{{ item.value.def_net }},mac={{ item.value.def_net_mac }} \
+             --name={{ item.value.name }} \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}.qcow2,format=qcow2,cache=none \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}-ud.qcow2,format=qcow2,cache=none \
+             --ram={{ item.value.ram }}  \
+             --vcpus={{ item.value.vcpu }} \
+             --hvm \
+             --os-type=linux  \
+             --autostart \
+             --boot hd \
+             --noautoconsole \
+             --nographics
+    with_dict: "{{ dict_var }}"
+    tags: 
+      - seed

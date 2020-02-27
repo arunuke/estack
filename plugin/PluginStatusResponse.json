@@ -1,0 +1,30 @@
+{
+
+	"_comment": "Plugin Status Response",
+	"Name": "Common Redfish Plugin Status",
+	"Version": "v0.2",
+	"Ack": "492816236",
+	"Status": {
+		"Available": "yes",
+		"Uptime": "2019-10-18T15:31:22.300Z",
+		"TimeStamp": "2019-10-23T18:25:43.511Z"
+
+	},
+	"EventMessageBus": {
+		"EmbType": "Kafka",
+		"EmbQueue":[
+			{
+				"EmbQueueName": "RedfishEvents",
+				"EmbQueueDesc": "Queue for Redfish Events"
+			}
+
+		]
+	},
+	"Stats": {
+		"Resources": "yes",
+		"ResourcesCnt": "123",
+		"Subscriptions":"yes",	
+		"SubscriptionsCnt": "2343"
+
+	}
+}
