@@ -1,7 +1,0 @@
----
-- hosts: kafka
-  tasks:
-    - name: create kafka user
-      user:
-        name: kafka
-
