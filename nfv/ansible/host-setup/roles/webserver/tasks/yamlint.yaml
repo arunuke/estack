@@ -1,0 +1,15 @@
+--- 
+- 
+  apt: 
+    name: "{{ item }}"
+    state: present
+  become: true
+  name: "install apache2"
+  with_items: "{{ webserver_packages }}"
+- 
+  become: true
+  name: test
+  systemd: 
+    enabled: true
+    name: apache2
+

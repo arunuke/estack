@@ -1,0 +1,33 @@
+
+#dashboard packages installed and database created at this time
+
+- name: install dashboard packages (if standalone)
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - "{{ dashboard_packages }}"
+
+
+- name: copy local_settings file (temp)
+  copy:
+    src: local_settings.py
+    dest: /etc/openstack-dashboard
+    mode: 0644
+  become: true
+
+- name: change permissions for secret key
+  file: 
+    path: /var/lib/openstack-dashboard/secret_key
+    owner: www-data
+    group: www-data
+    mode: 0644
+  become: true
+    
+
+- name: restart apache2 
+  service:
+    name: apache2
+    state: reloaded
+  become: true

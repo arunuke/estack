@@ -1,0 +1,77 @@
+---
+  - name: start openstack vhosts
+    command: virt-install \
+             --network network:{{ item.value.def_net }},mac={{ item.value.def_net_mac }} \
+             --network network:{{ item.value.mgmt_net }},mac={{ item.value.mgmt_net_mac }} \
+             --network network:{{ item.value.data_net }},mac={{ item.value.data_net_mac }} \
+             --network network:{{ item.value.ext_net }},mac={{ item.value.ext_net_mac }} \
+             --network network:{{ item.value.sto_net }},mac={{ item.value.sto_net_mac }} \
+             --network type=direct,source={{ direct_net }},model=virtio,mac={{ item.value.macv_net_mac }} \
+             --name={{ item.value.name }} \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}.qcow2,format=qcow2,cache=none \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}-ud.qcow2,format=qcow2,cache=none \
+             --ram={{ item.value.ram }}  \
+             --vcpus={{ item.value.vcpu }} \
+             --os-type=linux  \
+             --autostart \
+             --boot hd \
+             --noautoconsole \
+             --nographics
+    with_dict: "{{ openstack_vhost_vars }}"
+  - name: start docker vhosts
+    command: virt-install \
+             --network network:{{ item.value.def_net }},mac={{ item.value.def_net_mac }} \
+             --network network:{{ item.value.mgmt_net }},mac={{ item.value.mgmt_net_mac }} \
+             --network network:{{ item.value.data_net }},mac={{ item.value.data_net_mac }} \
+             --network network:{{ item.value.ext_net }},mac={{ item.value.ext_net_mac }} \
+             --network network:{{ item.value.sto_net }},mac={{ item.value.sto_net_mac }} \
+             --network type=direct,source={{ direct_net }},model=virtio,mac={{ item.value.macv_net_mac }} \
+             --name={{ item.value.name }} \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}.qcow2,format=qcow2,cache=none \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}-ud.qcow2,format=qcow2,cache=none \
+             --ram={{ item.value.ram }}  \
+             --vcpus={{ item.value.vcpu }} \
+             --os-type=linux  \
+             --autostart \
+             --boot hd \
+             --noautoconsole \
+             --nographics
+    with_dict: "{{ docker_vhost_vars }}"
+  - name: start nfv vhosts
+    command: virt-install \
+             --network network:{{ item.value.def_net }},mac={{ item.value.def_net_mac }} \
+             --network network:{{ item.value.mgmt_net }},mac={{ item.value.mgmt_net_mac }} \
+             --network network:{{ item.value.data_net }},mac={{ item.value.data_net_mac }} \
+             --network network:{{ item.value.ext_net }},mac={{ item.value.ext_net_mac }} \
+             --network network:{{ item.value.sto_net }},mac={{ item.value.sto_net_mac }} \
+             --network type=direct,source={{ direct_net }},model=virtio,mac={{ item.value.macv_net_mac }} \
+             --name={{ item.value.name }} \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}.qcow2,format=qcow2,cache=none \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}-ud.qcow2,format=qcow2,cache=none \
+             --ram={{ item.value.ram }}  \
+             --vcpus={{ item.value.vcpu }} \
+             --os-type=linux  \
+             --autostart \
+             --boot hd \
+             --noautoconsole \
+             --nographics
+    with_dict: "{{ nfv_vhost_vars }}"
+  - name: start seed vhost
+    command: virt-install \
+             --network network:{{ item.value.def_net }},mac={{ item.value.def_net_mac }} \
+             --network network:{{ item.value.mgmt_net }},mac={{ item.value.mgmt_net_mac }} \
+             --network network:{{ item.value.data_net }},mac={{ item.value.data_net_mac }} \
+             --network network:{{ item.value.ext_net }},mac={{ item.value.ext_net_mac }} \
+             --network network:{{ item.value.sto_net }},mac={{ item.value.sto_net_mac }} \
+             --network type=direct,source={{ direct_net }},model=virtio,mac={{ item.value.macv_net_mac }} \
+             --name={{ item.value.name }} \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}.qcow2,format=qcow2,cache=none \
+             --disk path={{ openstack_dir }}/{{ item.value.name }}-ud.qcow2,format=qcow2,cache=none \
+             --ram={{ item.value.ram }}  \
+             --vcpus={{ item.value.vcpu }} \
+             --os-type=linux  \
+             --autostart \
+             --boot hd \
+             --noautoconsole \
+             --nographics
+    with_dict: "{{ seed_vhost_vars }}"

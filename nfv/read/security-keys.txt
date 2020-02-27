@@ -1,0 +1,16 @@
+security keys testing
+
+1. opying the same public and private keys from one host to another and checking
+whether i can login to a third host.
+
+ -- A can login to B since it has it's public keys in B's authorized_keys (with 
+    user and hostname of A)
+
+ -- Copy As private and public keys as-is to C
+
+ -- Try logging in to B from C
+
+
+It works. In essence, I could use one set of public/private keys and push it to every
+host and use it as key to login
+

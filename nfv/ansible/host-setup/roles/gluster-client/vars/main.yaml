@@ -1,0 +1,5 @@
+---
+
+vhost_shared_storage: /mnt/shared
+gluster_volume: vm-vols
+gluster_server: "gluster-1:/{{ gluster_volume }}" 

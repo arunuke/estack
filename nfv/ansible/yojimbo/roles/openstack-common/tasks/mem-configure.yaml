@@ -1,0 +1,15 @@
+---
+
+
+- name: change config
+  lineinfile:
+    path: /etc/memcached.conf
+    regexp: '-l 127.0.0.1'
+    line: '-l "{{ openstack_controller_hostname }}"'
+  become: true
+
+- name: restart memcached
+  service:
+    name: memcached
+    state: restarted
+  become: true

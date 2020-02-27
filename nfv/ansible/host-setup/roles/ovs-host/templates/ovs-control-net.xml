@@ -1,0 +1,25 @@
+
+<network>
+  <name>ovs-control-net</name>
+  <forward mode='bridge'/>
+  <bridge name='br-ovs-control'/>
+  <virtualport type='openvswitch'/>
+  <portgroup name='vlan-def' default='yes'>
+  </portgroup>
+  <portgroup name='vlan-ncp'>
+    <vlan>
+      <tag id='2'/>
+    </vlan>
+  </portgroup>
+  <portgroup name='vlan-clm'>
+    <vlan>
+      <tag id='3'/>
+    </vlan>
+  </portgroup>
+  <portgroup name='vlan-all'>
+    <vlan trunk='yes'>
+      <tag id='2'/>
+      <tag id='3'/>
+    </vlan>
+  </portgroup>
+</network>

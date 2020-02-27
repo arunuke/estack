@@ -1,0 +1,5 @@
+---
+
+- name: add new interfaces to existing VM on host
+  command: virsh attach-device "{{ item.value.name }}" 
+  with_dict: "{{ seed_vm_vars }}"

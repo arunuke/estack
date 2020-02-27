@@ -1,0 +1,15 @@
+---
+
+vhost_nested_dir: /home/arunt/lab
+vhost_nested_image: ubuntu-1604.img.base
+vhost_nested_delta: nest-delta-1.qcow2
+vhost_nested_base: "{{ vhost_nested_dir }}//{{ vhost_nested_image }}"
+shared_vhost_dir: /mnt/shared
+shared_vhost_shared_base: "{{ shared_vhost_dir }}//{{ vhost_nested_image }}"
+shared_vhost_shared_delta: "{{ shared_vhost_dir }}//{{ vhost_nested_delta }}"
+vhost_nested_ci: "{{ vhost_nested_dir }}/nest-1-ud.qcow2"
+shared_vhost_shared_ci: "{{ shared_vhost_dir }}/nest-delta-1-ud.qcow2"
+shared_vhost_dom: nest-delta-1
+vhost_lb_bridge: br-lb-vhost
+vhost_nest_ram: 512
+vhost_nest_vcpu: 2

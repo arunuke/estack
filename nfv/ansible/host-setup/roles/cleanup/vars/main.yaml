@@ -1,0 +1,24 @@
+---
+
+openstack_vhost_vars:
+  - control
+  - network
+  - compute-1
+  - compute-2
+docker_vhost_vars:
+  - swarm
+  - docker-1
+  - docker-2
+nfv_vhost_vars:
+  - npos-1
+  - npos-2
+  - npos-3
+seed_vhost_vars:
+  - neo
+services_vhost_vars:
+  - gateway
+
+multi_disk_hosts:
+  - gluster-1
+  - gluster-2
+  - gluster-3

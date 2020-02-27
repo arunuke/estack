@@ -1,0 +1,7 @@
+./roles/common/files/sesame_rsa
+./roles/ansible-user/files/sesame_rsa
+./roles/seed-node/files/sesame_rsa
+./roles/multi-nic-vhost/files/sesame_rsa
+./roles/base-host/files/all-nodes/sesame_rsa
+./roles/base-host/files/sesame_rsa
+./roles/base-vm/files/sesame_rsa

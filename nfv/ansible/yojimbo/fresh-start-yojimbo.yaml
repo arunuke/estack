@@ -1,0 +1,8 @@
+---
+
+- include: cleanup.yaml
+  tags: yojimbo_cleanup
+- include: create-base-vm.yaml
+- include: configure-nics.yaml
+- include: configure-ansible-server.yaml
+- include: configure-ansible-client.yaml

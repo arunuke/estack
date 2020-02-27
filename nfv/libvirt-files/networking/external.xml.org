@@ -1,0 +1,11 @@
+
+<network>
+  <name>external</name>
+  <bridge name='br-lb-ext' stp='on' delay='0'/>
+  <domain name='external'/>
+  <ip address='10.10.30.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='10.10.30.128' end='10.10.30.254'/>
+    </dhcp>
+  </ip>
+</network>

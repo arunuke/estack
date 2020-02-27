@@ -1,0 +1,10 @@
+arunt@ovs-test-seedvm:~$ sudo apt-add-repository ppa:ansible/ansible
+sudo: unable to resolve host ovs-test-seedvm
+Cannot add PPA: 'ppa:~ansible/ubuntu/ansible'.
+ERROR: '~ansible' user or team does not exist.
+arunt@ovs-test-seedvm:~$
+
+Resolution : 
+
+set http and https proxies
+invoke sudo with -E option so that the environment settings are carried forward

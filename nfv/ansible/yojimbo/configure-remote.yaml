@@ -1,0 +1,7 @@
+---
+#ansible-playbook configure-remote.yaml --skip-tags "base_host_network,base_host_fedora_image" --extra-vars "ansible_user=ubuntu"
+
+- hosts: openstack-node 
+  roles:
+    - { role: base-image, remote_user: ubuntu, tags: base_setup }
+    - { role: ansible-user, remote_user: ubuntu, tags: base_setup }

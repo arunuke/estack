@@ -1,0 +1,6 @@
+---
+
+- hosts: gluster-nodes
+  roles:
+    - gluster-backend
+

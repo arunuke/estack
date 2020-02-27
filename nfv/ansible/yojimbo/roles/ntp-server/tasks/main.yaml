@@ -1,0 +1,21 @@
+---
+
+- name: install chrony
+  apt:
+    name: chrony
+    state: present
+    update_cache: yes
+  become: true
+
+#path from 2.3 ansible onwards
+- name: add ntp server
+  lineinfile: 
+    dest: /etc/chrony/chrony.conf
+    line: 'server ntp.hpecorp.net iburst'
+  become: true
+
+- name: service restrt
+  service:
+    name: chrony
+    state: restarted
+  become: true  

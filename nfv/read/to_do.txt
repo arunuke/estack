@@ -1,0 +1,56 @@
+- customize image using cloud-init 
+  by adding proxy information in /etc/wgetrc
+  by adding proxy information in /etc/apt/apt.conf
+  install python 2.7
+  create symbolic link for /usr/bin/python to 2.7 (ansible needs this)
+
+- after boot up
+  create user nfv with password
+  enable ens3 for default bridge
+  enable ens8 for FTC bridge 
+
+- lxd
+  install lxd, btrfs and zfs packages
+  create a file based device as backend
+
+- common VM tasks
+
+
+
+current : 
+
+ - complete cleanup playbook for gluster and openstack vhosts (separate it from create,
+seeing some unexplained errors, tried it still errors)
+
+ - standardize on virt-install
+
+ - start lxd on vhost
+
+ - use OVS instead of linux bridges
+ 
+ - get mount of glusterfs to work using playbooks
+
+ - change permissions of mount directory on gluster nodes to arunt:arunt
+
+
+
+demo storyboard: 
+
+
+- show a sequence of hosts
+- show differences between hosts 
+  gluster host has two disks
+  openstack host has multiple networks
+  container host is fairly lightweight
+  some host has DPDK capable NIC
+- show the master host that can reach and configure all hosts via ansible
+- pick four hosts and crete an openstack cloud
+- pick hosts and do lxc
+- pick hosts and do gluster
+- pick hosts and create gluster
+- pick hosts and create nfs
+- create new compute nodes with various profiles
+- add to existing cloud based on system profiles and scale clouds
+- deploy VNFs based on resource pool
+- deploy VNFs across resource pool based on VNFC needs
+

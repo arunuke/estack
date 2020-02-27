@@ -1,0 +1,14 @@
+---
+
+
+- name: download latest debian bundle
+
+- name: install debian bundle
+
+- name: build dependencies for libvirt
+
+- name: install libvirt tools for vagrant
+
+- name: install libvirt dev components
+
+- name: install libvirt plugin 

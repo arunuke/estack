@@ -1,0 +1,5 @@
+---
+
+- include: configure-vhost-base.yaml
+- include: setup-vhost-images.yaml
+- include: start-nested-vm.yaml

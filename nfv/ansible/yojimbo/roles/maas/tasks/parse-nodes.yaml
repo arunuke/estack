@@ -1,0 +1,11 @@
+---
+
+- name: parse yaml file
+  #set_fact:
+  #  item[0].value.system_id = item[1].system_id
+  debug:
+    msg: "maas {{ item[0].key }} json id {{ item[1].system_id }}"
+  when: item[0].key == item[1].hostname
+  with_nested:
+    - "{{ maas_vhost_vars }}"
+    - "{{ version_file.resources }}" 

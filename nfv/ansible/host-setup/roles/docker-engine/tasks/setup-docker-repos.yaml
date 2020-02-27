@@ -1,0 +1,22 @@
+---
+
+  - name: perform a package update and install https apt
+    apt: update_cache=yes name={{ item }}
+    become: true
+    with_items: "{{ docker_prereqs }}"
+
+#apt-key module does not support proxy, but we need it
+  - name: install gpg
+    apt_key: keyserver={{ docker_keyserver }} id={{ docker_key }}
+    become: true
+    environment: 
+      http_proxy: "{{ http_proxy }}"
+
+  - name: add docker's repo to sources
+    apt_repository: repo={{ docker_repo }} state=present 
+    become: true
+
+  - name: install docker engine
+    apt: state=present name={{ item }}
+    become: true
+    with_items: "{{ docker_package }}"

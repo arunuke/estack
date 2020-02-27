@@ -1,0 +1,7 @@
+---
+
+- name: configure maas
+  shell: "{{ maas_user_dir }}/maas_common_config.bash {{ maas_user }} {{ maas_dns }} {{ maas_proxy }} {{ maas_subnet }} {{ maas_gateway }} {{ maas_dynamic_ip_range_low }} {{ maas_dynamic_ip_range_high }} {{ maas_rack_control }} {{ maas_ntp }}"
+
+- name: configure maas ssh
+  command: maas {{ maas_user }} sshkeys create "key={{ maas_ssh }}"

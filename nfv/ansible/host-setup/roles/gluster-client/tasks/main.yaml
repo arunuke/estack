@@ -1,0 +1,3 @@
+---
+- include: configure-gluster-client-packages.yaml
+- include: mount-gluster-volume.yaml

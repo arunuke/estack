@@ -1,0 +1,16 @@
+---
+
+- name: create git directory
+  file:
+    path: "{{ git_path }}"
+    state: directory
+    mode: 0755
+
+
+- name: configure git repo
+  git:
+    repo: "{{ git_src_repo }}"
+    dest: "{{ git_path }}"
+    clone: yes
+    update: yes
+    accept_hostkey: yes

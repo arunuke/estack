@@ -1,0 +1,4 @@
+#cloud-config
+password: nfv
+chpasswd: { expire: False }
+ssh_pwauth: True

@@ -1,0 +1,9 @@
+#storage variables
+gluster_backend: /dev/sdc
+gluster_mnt: /mnt/gluster-data
+gluster_fstype: ext4
+gluster_brick: "{{ gluster_mnt }}/vms"
+gluster_replicas: 3
+gluster_cluster: "gluster-1,gluster-2,gluster-3"
+gluster_volume: vm-vols
+

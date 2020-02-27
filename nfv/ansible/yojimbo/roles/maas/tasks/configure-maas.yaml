@@ -1,0 +1,100 @@
+---
+
+- name: install maas packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  become: true
+  with_items: "{{ maas_packages }}" 
+
+- name: create maas admin user
+  command: maas createadmin --username {{ maas_user }} --password {{ maas_pass }} --email {{ maas_email }}
+  become: true
+  tags:
+    - maas_user
+
+#create maas user and copy credentials to host
+- name: create maas user
+  user:
+    name: maas
+    shell: /bin/bash
+  become: true
+
+- name: copy sesame_rsa to maas user
+  copy:
+    src: "{{ item }}"
+    dest: /home/maas/.ssh/
+    owner: maas
+    group: maas
+    mode: "u+rw,g-rwx,o-rwx"
+  with_items:
+    - "{{ key_all_doors }}"
+  become: true
+
+- name: use sysctl to enable ip_forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: yes
+  become: true
+
+- name: copy curtin file to preseed
+  copy:
+    src: "{{ item }}"
+    dest: /etc/maas/preseeds/
+  become: true
+  with_items:
+    - "{{ preseed_ubuntu }}"  
+   
+- name: create api key file
+  shell: "maas-region apikey --username={{ maas_user }} > {{ maas_api_key }}"
+  become: true
+  tags: 
+    - apikey
+ 
+- name: login as maas user
+  shell: maas login {{ maas_user }} {{  maas_url }} - < {{ maas_api_key }}
+  become: true
+
+
+- name: set upstream DNS
+  shell: maas {{ maas_user }} maas set-config name=upstream_dns value={{ maas_dns }}
+  become: true
+
+- name: set gateway
+  shell: maas {{ maas_user }} subnet update {{ maas_subnet }} gateway_ip={{ maas_gateway }}
+  become: true
+
+- name: set ssh
+  shell: maas {{ maas_user }} sshkeys create "key={{ maas_ssh }}"
+  become: true
+
+- name: enable proxy
+  shell: maas {{ maas_user }} maas set-config name=enable_http_proxy value=true
+  become: true
+
+- name: set proxy
+  shell: maas {{ maas_user }} maas set-config name=http_proxy value={{ maas_proxy }}
+  become: true
+
+#typically not required, but hit an invalid api key error earlier
+- name: login as maas user before picking up images
+  shell: maas login {{ maas_user }} {{  maas_url }} - < {{ maas_api_key }}
+  become: true
+
+#by default, xenial is ready. just import it.
+- name: import xenial image
+  shell: maas {{ maas_user }} boot-resources import
+
+- name: set subnet DNS
+  shell: maas {{ maas_user }} subnet update {{ maas_subnet }} dns_servers={{ maas_dns }}
+  become: true
+
+#TODO: scan the available subnets, pick up the subnet id and start DHCP
+#- name: start subnet DHCP 
+#  shell: maas {{ maas_user }} vlan update {{ maas_fabric_id }} {{ maas_vlan_tag }} dhcp_on=True \
+          #primary_rack={{ maas_primary_rack }}
+

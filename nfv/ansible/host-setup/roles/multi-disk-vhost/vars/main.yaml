@@ -1,0 +1,83 @@
+--- 
+
+#path variables
+git_path: /home/arunt/git-files/nfv-tools-git
+libvirt_path: "{{ git_path }}/libvirt-files"
+net_xml_path: "{{ libvirt_path }}/networking"
+stack_xml_path: "{{ libvirt_path }}/openstack-xmls"
+gluster_xml_path: "{{ libvirt_path }}/gluster-xmls"
+master_xml_path: "{{ libvirt_path }}/xmls"
+
+#git variables
+git_username: arun.thulasi
+git_dest: /home/arunt/tst_git
+token: 5b024cc089401460f7a05ae3caec9f072edc08ba
+
+#image variables
+ubuntu_img_url: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img 
+rfc_url: https://www.ietf.org/rfc/rfc791.txt
+ubuntu_img_dir: /home/arunt/lab/image-repo
+openstack_dir: /home/arunt/lab/openstack
+gluster_dir: /home/arunt/lab/gluster
+
+ubuntu_img_dst: ubuntu-1604.img.distro
+ubuntu_img_dst_xpand: ubuntu-1604.img.xpand
+ubuntu_img_dst_base: ubuntu-1604.img.base
+test_dir: "{{ ubuntu_img_dir }}/test_dir_vbl"
+multi_disk_user_data: gluster-user-data
+
+ram_default: 1024
+cpu_default: 2
+
+
+def_net: default
+mgmt_net: mgmt
+sto_net: storage
+mac_net: direct
+direct_net: eno1
+
+
+
+#VM variables
+multi_disk_vars:
+  gluster-1:
+    name: gluster-1
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 60:2c:bc:f3:5f:1c
+    mgmt_net_mac: 06:bd:82:25:1b:b9
+    sto_net_mac: 60:a5:10:13:33:f7
+    macv_net_mac: 30:07:6a:e4:fa:57
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  gluster-2:
+    name: gluster-2
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: a0:9d:48:ea:32:59
+    mgmt_net_mac: 40:22:8b:47:83:08
+    sto_net_mac: b0:b4:47:f1:c4:20
+    macv_net_mac: a0:04:f1:a3:15:e7
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+  gluster-3:
+    name: gluster-3
+    def_net: "{{ def_net }}"
+    mgmt_net: "{{ mgmt_net }}"
+    sto_net: "{{ sto_net }}"
+    macv_net: "{{ mac_net }}"
+    def_net_mac: 56:ef:9c:6c:f2:8f
+    mgmt_net_mac: 6e:43:61:cb:73:fa
+    sto_net_mac: e0:f9:6f:89:be:3d
+    macv_net_mac: 86:4f:fd:8f:a1:f2
+    ram: "{{ ram_default }}"
+    vcpu: "{{ cpu_default }}"
+
+
+#storage variables
+gluster_backend: /dev/sdc
+

@@ -1,0 +1,7 @@
+---
+
+- hosts: localhost
+  roles:
+    - cleanup
+  vars:
+    dict_var: "{{ openstack_vhost_vars }}"

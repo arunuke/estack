@@ -1,0 +1,43 @@
+
+
+Setting up a host in the FTC lab, SL cluster
+
+- Get on a gateway jump server through RDP.
+
+  jumpserver 16.79.29.136
+  Username: nfvrdp\arunt
+  Password: HP1nvent
+
+- Go to https://rndwiki.corp.hpecorp.net/confluence/display/NFV/OpenSAF+SL to find out iLO information
+
+- if iLO uses DHCP, use "host <ilo hostname> from jump server to get iLO IP address
+
+- ensure the system has legacy SATA support enabled to install Ubunty 16.04 and above.
+  Go to BIOS mode (F9), choose "System Options", then "SATA Controller Options", then 
+  "Embedded SATA Configuration" and choose the legacy driver "Enable SATA Legacy Support".
+
+- When the system is booting, choose eno1, or the embedded NIC as the primary. That is connected to
+  corp network
+
+- Choose manual IP address, pick one from the IP range provided on the wiki page
+  netmask : 255.254.0.0
+  gateway : 10.207.0.1
+
+- Don't use up all the disk available for the install. Pick 50% capacity in case you have to use it later
+
+- Install the ssh and virtual machine packages
+
+
+After the system installed, perform
+
+- uname -r
+- sudo apt-get update
+- sudo apt-cache search linux-image- (for the latest kernel, also get equivalent cloud-tools, headers, tools) 
+- sudo apt-get install <latest kernel and extra>
+- reboot machine and it will come back up with the latest kernel
+
+
+
+on each host, remove sudo password requiremetn for arunt
+
+run ssh-keygen to create a key, use it for all cloud init files

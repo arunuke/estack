@@ -1,0 +1,13 @@
+---
+- name: start oneview vm
+  command: virt-install \
+    --network=network:{{ vhost_mgmt_net }} \
+    --name={{ vhost_oneview_dom }} \
+    --disk path={{ vhost_oneview_path }},format=qcow2,cache=none \
+    --ram=8192 \
+    --vcpus=4 \
+    --os-type linux \
+    --autostart \
+    --noautoconsole \
+    --boot hd
+

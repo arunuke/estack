@@ -1,0 +1,10 @@
+---
+
+- hosts: controller
+  roles:
+    - sources
+    - { role: maas, tags: ['maas_server'] } 
+    - { role: apache, tags: ['apache'] }
+    - { role: ntp-server, tags: ['ntp_server'] }
+    - { role: openstack-common, tags: ['oscommon'] }
+    - { role: openstack-control, tags: ['oscontrol'], become: true }

@@ -1,0 +1,88 @@
+
+#glance packages installed and database created at this time
+
+- name: install glance packages (if standalone)
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - glance
+
+
+ #TODO combine configuration of api and resitry config files into a single task
+# use subelements
+# element 1: list of glance config files
+# element 2 : disctionary of glance config options
+#       
+- name: configure glance api config file
+  ini_file:
+    path: "{{ glance_api_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'keystone_authtoken', option: 'auth_uri', value: "http://{{ openstack_controller }}:5000" } 
+    - { section: 'keystone_authtoken', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" } 
+    - { section: 'keystone_authtoken', option: 'memcached_servers', value: "{{ openstack_controller }}:11211" } 
+    - { section: 'keystone_authtoken', option: 'auth_type', value: 'password' } 
+    - { section: 'keystone_authtoken', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'project_name', value: 'service' } 
+    - { section: 'keystone_authtoken', option: 'username', value: 'glance' } 
+    - { section: 'keystone_authtoken', option: 'password', value: "{{ openstack_commonpass }}" } 
+    - { section: 'paste_deploy', option: 'flavor', value: 'keystone' } 
+    - { section: 'glance_store', option: 'stores', value: 'file,http' } 
+    - { section: 'glance_store', option: 'default_store', value: 'file' } 
+    - { section: 'glance_store', option: 'filesystem_store_datadir', value: '/var/lib/glance/images' } 
+    - { section: 'database', option: 'connection', value: "mysql+pymysql://glance:{{ openstack_commonpass }}@controller/glance" }
+
+- name: configure glance api registry file
+  ini_file:
+    path: "{{ glance_registry_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  become: true
+  with_items:
+    - { section: 'keystone_authtoken', option: 'auth_uri', value: "http://{{ openstack_controller }}:5000" } 
+    - { section: 'keystone_authtoken', option: 'auth_url', value: "http://{{ openstack_controller }}:35357" } 
+    - { section: 'keystone_authtoken', option: 'memcached_servers', value: "{{ openstack_controller }}:11211" } 
+    - { section: 'keystone_authtoken', option: 'auth_type', value: 'password' } 
+    - { section: 'keystone_authtoken', option: 'project_domain_name', value: "{{ openstack_project_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'user_domain_name', value: "{{ openstack_user_domain_name }}" } 
+    - { section: 'keystone_authtoken', option: 'project_name', value: 'service' } 
+    - { section: 'keystone_authtoken', option: 'username', value: 'glance' } 
+    - { section: 'keystone_authtoken', option: 'password', value: "{{ openstack_commonpass }}" } 
+    - { section: 'paste_deploy', option: 'flavor', value: 'keystone' } 
+    - { section: 'database', option: 'connection', value: "mysql+pymysql://glance:{{ openstack_commonpass }}@controller/glance" }
+
+- name: create glance user, service and endpoints
+  shell: "{{ openstack_admin_user_home }}/comm_services.bash {{ item.key }} {{ item.value.domain }} {{ item.value.svc_pass }} {{ item.value.svc_descr }} {{ item.value.svc_name }} {{ openstack_region }} {{ openstack_controller }} {{ item.value.port }}"
+  with_dict : "{{ openstack_services_config }}"
+  when: item.key == "glance"
+
+- name: db sync for glance
+  command: glance-manage db_sync
+  become: true  
+
+- name: restart glance services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - glance-registry
+    - glance-api
+ 
+- name: download openstack base VM images
+  get_url: 
+    url: "{{ openstack_img_url }}"
+    dest: "{{ openstack_admin_user_home }}/" 
+  with_items:
+    - "{{ openstack_img_url }}"
+    - "{{ cirros_img_url }}"
+    - "{{ lxd_img_url }}"
+#    use_proxy: yes 
+#    validate_certs: no
+

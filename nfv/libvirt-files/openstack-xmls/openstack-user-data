@@ -1,0 +1,20 @@
+#cloud-config
+users:
+  - name: arunt
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEWHCo4gPADolfeHAFMYZz3v8dbQVmFGy+YNnHIRS5Kk0jolqcDCyeKgjKliVZ8syiHxa5Ev0AIz+UphV+KyEz+HKf+wlmb4dD/dgT8+lQcyJR93k1ApO7OFl5WmstVA1yNKLg4ey3IaNevlmtXVSuWY1uDFbF22PNrmw32dwTP4/ZzXPm7Ps0/RA3oA/IPJR7WI0MWFW57/VCJkzBcuFTgMItewvQ+ziyeWvu94sPyj6l26iLn9PEjhYX1zgWdWMnk4Xd3WyLUAfsZNgDOaVIsREtHE2FPLlDdiityzb27yFZFhJNA/vpJtkDRJdfZ1kvuHtbQ2/GwO80yAIOc6Ut arunt@kent
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDh4aQvwBz82iu/i7WNhupowbUadROKrmy98QjhXFr5X0T2aIf8vAEfAmieEzS1YJH7NSaX6NyS7t+JH6qlW2v/qz6W9duI1Imi99WEpd10LC64oARUfHB2EA/0vP12I2K2gX92cxS2UwG0Y9wTOyxaERrQNadSWOFScenSla9UHpfiadlKrZ5j7xQLDwl46TBtci8OSafBx4LpEwYDpF+g6JDqkAUNmM+cytYh2k1BQvkCUb9ysgBeye6mRxowJRYtyUj5Xt3u5SSGy22V0mKgiaSKl0D/FsuZGp0fKnWQ9rBZalwHbBKEsWlW9KJyovWna7U8tN8gKF89Y+rfoUBh arunt@build-server
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8ClgWU4+bN2WixNL9xwptGXw+G0GiwUQ1dO7vmzvu1px6xP7W2keyViGokovNqf9KiEv4uPPhqw2VCPFTglk16nbqd7gw5AYz/Dbxxsxd08XUEEUmDPI63QlW1yCPKMtNmcjiAvxllWGgSKiwpVZqjLi6dWVVtJoLbsnhaDn+3dySVPGNRuaS/03llucG8wnR+/SzazLBfrTB5tAam/2Em8B1Oo2PdwPzY9d2kIU0JgZjOlZZqRDiillpuheU34Xx032NOrJd4jqW5lcCjaZZIV0N5o54UU6FhGBrqLey7i9ZWbZHaU0xTlkOD4TY8NXv9SrrJ2+a50uoauANNfdh arunt@prince
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAKXLEEhJanEgnL2CtamLXgQpBGA2CLYfr/T0yN4thVChf5sTgk1fOfdiRULlwsitYaKB9eoLcX2glPSO38i+OPbNSYkZsYM6pbN8kupjsTXMFs9wqDT+PzCjulFoFvh0IU9Y6QWrEguSX0XahecxumzJNX3IHj0KRUriwEzkYN1IGI9pf7IweoMSJNl14jwTKF/IchAiY+1d2HI23c0AOL8Yw1MVdQdJSA1nPZQdnDNNzvv/vUpb9K3jn3drF2ivhOiDos7x7g0G8U3orJP86w40wJJCWShT6vYO/Q2geTHyn6HbYjXoAdM+4ebnjqgnWo5x72hG7qlMYCwSEcZZX arunt@jordan
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Ie5UGnWc1BaDFHMUHHhlk4kX4CCP42a2aFNcjgv1u4FVFg3azcBvVSuFCPCetpqX7fjaOo+o61Z9AmqlHku5Wfz3dCLkrHKqvIXnDe5aAdf1wlrMzvhWmto3hITk42Lr2lqcfMb0l78ccHu4QZ12KoRykBqa7rDw9sI81q5xH8Ydz20Bngt1odfctRLuS7HYppQGSAfleYQ6Up/a4rP6M60V55AgVoVMv7lF21UAadeUOAazGHkNnheyfnKU1a7T2ogUoGNfsShjD7XifYrEyLAWtkkRPVlxwFrzSqLUkqRe+5EAOjPvNLo3RVdUw+8Mw1lZXgRNtKpZ5fGuECvF arunt@build-server
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: sudo
+    shell: /bin/bash
+runcmd:
+  - /sbin/dhclient ens3
+  - /sbin/dhclient ens8
+  - bash -c 'echo "Acquire::http::Proxy \"http://16.85.88.10:8080\";" > /etc/apt/apt.conf';
+  - sleep 5
+packages:
+  - python2.7
+  

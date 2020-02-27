@@ -1,0 +1,7 @@
+<network>
+  <name>data</name>
+  <bridge name='br-lb-data' stp='on' delay='0'/>
+  <domain name='data'/>
+  <ip address='10.10.20.1' netmask='255.255.255.0'>
+  </ip>
+</network>

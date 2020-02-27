@@ -1,0 +1,8 @@
+---
+
+#- perform allocation and deployment for all nodes
+
+- name: allocate and deploy nodes
+  shell: "{{ maas_user_dir }}/maas_machine_deploy.bash {{ item.key }}" 
+  with_dict: "{{ maas_host_vars }}"
+

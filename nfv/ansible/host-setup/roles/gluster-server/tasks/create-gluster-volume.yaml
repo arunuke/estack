@@ -1,0 +1,10 @@
+---
+
+- name: create gluster volume
+  gluster_volume: state=present name={{ gluster_volume }} bricks={{ gluster_brick }} replicas={{ gluster_replicas }} cluster={{ gluster_cluster }} 
+  run_once: true
+  become: true
+
+- name: start gluster volume
+  gluster_volume: state=started name={{ gluster_volume }}
+  become: true

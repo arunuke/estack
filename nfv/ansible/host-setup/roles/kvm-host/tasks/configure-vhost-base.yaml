@@ -1,0 +1,79 @@
+---
+
+- name: install kvm system packages
+  apt: name={{ item }} state=present update_cache=yes
+  become: true
+  with_items: 
+    - "{{ kvm_host_packages }}"
+    - "{{ kvm_host_networking_packages }}"
+- name: install ancillary system packages
+  apt: name={{ item }} state=present 
+  become: true
+  with_items: 
+    - "{{ kvm_host_locking_packages }}"
+    - "{{ kvm_host_cloud_packages }}"
+    - "{{ kvm_host_python_packages }}"
+    - "{{ kvm_host_misc_packages }}"
+
+- name: add a new line to qemu.conf to indicate virtlockd
+  lineinfile: 
+    dest: /etc/libvirt/qemu.conf 
+    line: "lock_manager = \"{{ vhost_qemu_lock_mgr }}\""
+  become: true
+
+- name: add a new line to qemu.conf to indicate only specific group can start VMs
+  lineinfile: 
+    dest: /etc/libvirt/qemu.conf
+    line: "group = \"{{ vhost_qemu_group  }}\""
+  become: true
+
+- name: add a new line to qemu.conf to indicate only specific user can start VMs
+  lineinfile: 
+    dest: /etc/libvirt/qemu.conf
+    line: "user = \"{{ vhost_qemu_user  }}\""
+  become: true
+
+- name: add a new line to qemu.conf to indicate only specific user can start VMs
+  lineinfile: 
+    dest: /etc/libvirt/qemu.conf
+    line: "dynamic_ownership = 0"
+  become: true
+
+- name: add this user to libvirt/kvm groups
+  user:
+    name: "{{ vhost_qemu_user }}"
+    groups: kvm,libvirtd
+  become: true
+
+- name: enable persisent virtlockd
+  service: name=virtlockd enabled=yes state=started
+  become: true
+
+- name: enable persisent watchdog
+  service: name=wdmd enabled=yes state=started
+  become: true
+
+- name: enable persisent sanlock
+  service: name=sanlock enabled=yes state=started
+  become: true
+
+- name: start libvirt-bin
+  service: name=libvirt-bin enabled=yes state=started
+  become: true
+
+- name: pick up xml files and create various network domains
+  virt_net: 
+    command: define
+    name: "{{ vhost_nest_net }}" 
+    xml: "{{lookup('template','{{ vhost_nest_net_dom }}')}}"
+  become: true
+
+- name: mark all networks as autostart
+  virt_net: autostart=yes name={{ vhost_nest_net }}
+  become: true
+
+- name: start all networks
+  virt_net: command=create name={{ vhost_nest_net }}
+  become: true
+  ignore_errors: True
+

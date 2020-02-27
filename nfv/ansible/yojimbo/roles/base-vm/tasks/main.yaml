@@ -1,0 +1,9 @@
+---
+
+- include: cleanup-vm-files.yaml
+- include: create-base-ci-file.yaml
+- include: create-base-vm-files.yaml 
+- include: configure-default-kvm-net.yaml
+- include: configure-kvm-hosts-file.yaml
+- include: start-base-vms.yaml
+#- include: configure-ansible.yaml

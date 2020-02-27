@@ -1,0 +1,18 @@
+---
+#ansible way of copying cerebrus key from kvm host to seed node
+
+- name: copy cerebrus key
+  copy:
+    src: "{{ item }}"
+    dest: .ssh
+    mode: "u+rw,g-rwx,o-rwx"
+  with_items:
+    - "{{ key_the_source }}"
+
+- name: copy config file
+  copy:
+    src: "{{ item }}"
+    dest: .ssh
+    mode: "u+rw,g-rwx,o-rwx"
+  with_items:
+    - "{{ ssh_config }}"

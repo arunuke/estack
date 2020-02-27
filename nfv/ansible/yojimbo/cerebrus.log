@@ -1,0 +1,8 @@
+./roles/common/files/cerebrus_rsa
+./roles/ansible-user/files/cerebrus_rsa
+./roles/seed-node/files/cerebrus_rsa
+./roles/multi-nic-vhost/files/cerebrus_rsa
+./roles/base-host/files/all-nodes/cerebrus_rsa
+./roles/base-host/files/cerebrus_rsa
+./roles/git-client/files/cerebrus_rsa
+./roles/base-vm/files/cerebrus_rsa

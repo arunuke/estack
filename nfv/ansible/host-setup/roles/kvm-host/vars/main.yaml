@@ -1,0 +1,41 @@
+---
+kvm_host_packages:
+  - qemu-kvm
+  - libvirt-bin
+  - ubuntu-vm-builder
+  - bridge-utils
+  - virtinst
+kvm_host_networking_packages:
+  - openvswitch-switch
+kvm_host_locking_packages:
+  - sanlock
+  - libsanlock-client1
+kvm_host_cloud_packages:
+  - cloud-utils
+  - genisoimage
+  - sysfsutils
+kvm_host_python_packages:
+  - python-lxml
+  - python-libvirt  
+kvm_host_misc_packages:
+  - attr
+  - apache2
+host_ovs_bridge: br-ovs-vhost
+vhost_lb_bridge: br-lb-vhost
+vhost_lab: /home/arunt/lab
+vhost_nest_dom: nest-1 
+vhost_nest_vm: nest-1.qcow2
+vhost_nest_ci: nest-1-ud.qcow2
+vhost_nest_path: "{{ vhost_lab }}//{{ vhost_nest_vm }}"
+vhost_nest_path_ci: "{{ vhost_lab }}//{{ vhost_nest_ci }}"
+vhost_nest_ci_local: "{{ vhost_xml_path }}//{{ vhost_nest_ci }}"
+vhost_nest_ci_remote: "{{ vhost_lab }}//{{ vhost_nest_ci }}"
+vhost_nest_net: nest-net
+vhost_nest_net_dom: "{{ vhost_nest_net }}.xml"
+vhost_nest_ram: 512
+vhost_nest_vcpu: 2
+vhost_qemu_user: arunt
+vhost_qemu_group: arunt
+vhost_qemu_lock_mgr: lockd
+vhost_user_data: nested-user-data
+

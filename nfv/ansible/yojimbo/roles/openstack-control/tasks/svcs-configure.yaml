@@ -1,0 +1,17 @@
+---
+
+- name: svcs-configure install packages
+  apt:
+    name: "{{ item.value.pkgs }}"
+    state: present
+  with_dict: "{{ openstack_services_db }}"
+
+
+- name: svcs-configure set permissions
+  file:
+    path: "{{ item.value.home_dir }}"
+    owner: "{{ item.value.primary_own }}"
+    group: "{{ item.value.primary_own }}"
+  with_dict: "{{ openstack_services_db }}"
+  become: true
+

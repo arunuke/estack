@@ -1,0 +1,8 @@
+---
+
+- name: add host to /etc/hosts file
+  lineinfile:
+    dest: /etc/hosts
+    line: '{{ item.value.def_net_ip }}  {{ item.value.name }}'
+  become: true
+  with_dict: "{{ dict_var }}"

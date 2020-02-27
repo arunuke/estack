@@ -1,0 +1,35 @@
+---
+
+- name: remove current ansible version
+  apt: 
+    name: ansible
+    state: absent
+  become: true
+
+- name: install pip tools
+  apt: 
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - python-pip
+    - libssl-dev
+    - make
+    - gcc
+
+- name: pip install tools
+  pip: 
+    name: "{{ item }}"
+  become: true
+  with_items: 
+    - pip 
+    - setuptools
+    - wheel
+
+- name: pip install tools
+  pip: 
+    name: ansible
+  become: true
+
+
+

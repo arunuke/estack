@@ -1,0 +1,134 @@
+--- 
+
+#path variables
+git_path: /home/arunt/git-files/nfv-tools-git
+libvirt_path: "{{ git_path }}/libvirt-files"
+net_xml_path: "{{ libvirt_path }}/networking"
+stack_xml_path: "{{ libvirt_path }}/openstack-xmls"
+gluster_xml_path: "{{ libvirt_path }}/gluster-xmls"
+master_xml_path: "{{ libvirt_path }}/xmls"
+
+#git variables
+git_username: arun.thulasi
+git_dest: /home/arunt/tst_git
+token: 5b024cc089401460f7a05ae3caec9f072edc08ba
+
+#image variables
+ubuntu_img_url: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img 
+rfc_url: https://www.ietf.org/rfc/rfc791.txt
+ubuntu_img_dir: /home/arunt/lab/image-repo
+openstack_dir: /home/arunt/lab/openstack
+gluster_dir: /home/arunt/lab/gluster
+
+ubuntu_img_dst: ubuntu-1604.img.distro
+ubuntu_img_dst_xpand: ubuntu-1604.img.xpand
+ubuntu_img_dst_base: ubuntu-1604.img.base
+test_dir: "{{ ubuntu_img_dir }}/test_dir_vbl"
+
+
+#network variables
+net_vars:
+  data_net: 
+    location: "{{ net_xml_path }}/data.xml"
+    name: data
+  ext_net: 
+    location: "{{ net_xml_path }}/external.xml"
+    name: external
+  mgmt_net: 
+    location: "{{ net_xml_path }}/mgmt.xml"
+    name: mgmt
+
+#VM variables
+test_vm_vars:
+  control:
+    local_dom: "{{ stack_xml_path }}/control.xml"
+    remote_dom: "{{ openstack_dir }}/control.xml"
+    local_cl_init: "{{ stack_xml_path }}/control.img"
+    remote_cl_init: "{{ openstack_dir }}/control.img"
+    image: control.qcow2 
+    name: control
+gluster_vars:
+  gluster-1:
+    local_dom: "{{ gluster_xml_path }}/gluster-1.xml"
+    remote_dom: "{{ gluster_dir }}/gluster-1.xml"
+    local_cl_init: "{{ gluster_xml_path }}/gluster-1-ud.qcow2"
+    remote_cl_init: "{{ gluster_dir }}/gluster-1-ud.qcow2"
+    image: gluster-1.qcow2 
+    name: gluster-1
+  gluster-2:
+    local_dom: "{{ gluster_xml_path }}/gluster-2.xml"
+    remote_dom: "{{ gluster_dir }}/gluster-2.xml"
+    local_cl_init: "{{ gluster_xml_path }}/gluster-2-ud.qcow2"
+    remote_cl_init: "{{ gluster_dir }}/gluster-2-ud.qcow2"
+    image: gluster-2.qcow2 
+    name: gluster-2
+  gluster-3:
+    local_dom: "{{ gluster_xml_path }}/gluster-3.xml"
+    remote_dom: "{{ gluster_dir }}/gluster-3.xml"
+    local_cl_init: "{{ gluster_xml_path }}/gluster-3-ud.qcow2"
+    remote_cl_init: "{{ gluster_dir }}/gluster-3-ud.qcow2"
+    image: gluster-3.qcow2 
+    name: gluster-3
+vm_vars:
+  control:
+    local_dom: "{{ stack_xml_path }}/control.xml"
+    remote_dom: "{{ openstack_dir }}/control.xml"
+    local_cl_init: "{{ stack_xml_path }}/control.img"
+    remote_cl_init: "{{ openstack_dir }}/control.img"
+    image: control.qcow2 
+    name: control
+  network:
+    local_dom: "{{ stack_xml_path }}/network.xml"
+    remote_dom: "{{ openstack_dir }}/network.xml"
+    local_cl_init: "{{ stack_xml_path }}/network.img"
+    remote_cl_init: "{{ openstack_dir }}/network.img"
+    image: network.qcow2 
+    name: network
+  compute-1:
+    local_dom: "{{ stack_xml_path }}/compute-1.xml"
+    remote_dom: "{{ openstack_dir }}/compute-1.xml"
+    local_cl_init: "{{ stack_xml_path }}/compute-1.img"
+    remote_cl_init: "{{ openstack_dir }}/compute-1.img"
+    image: compute-1.qcow2 
+    name: compute-1
+  compute-2:
+    local_dom: "{{ stack_xml_path }}/compute-2.xml"
+    remote_dom: "{{ openstack_dir }}/compute-2.xml"
+    local_cl_init: "{{ stack_xml_path }}/compute-2.img"
+    remote_cl_init: "{{ openstack_dir }}/compute-2.img"
+    image: compute-2.qcow2 
+    name: compute-2
+
+#storage variables
+gluster_backend: /dev/sdc
+gluster_mnt: /mnt/gluster-data
+gluster_fstype: ext4
+gluster_brick: "{{ gluster_mnt }}/vms"
+gluster_replicas: 3
+gluster_cluster: "gluster-2, gluster-3"
+
+#package variables
+sys_packages:
+  - apache2
+  - python-lxml
+  - python-libvirt
+  - kvm
+  - cloud-utils
+  - genisoimage
+  - attr
+
+lxd_packages:
+  - lxd
+  - zfsutils-linux
+  - btrfs-tools
+
+#openstack controller backing files
+qcow2list:
+  - v1.qcow2
+  - control.qcow2
+  - network.qcow2
+  - compute-1.qcow2
+  - compute-2.qcow2
+
+#system variables
+system_proxy: https://16.85.88.10:8080
