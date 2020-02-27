@@ -1,0 +1,20 @@
+---
+
+
+- name: Copy file with owner and permissions
+  copy:
+    src: "{{ item }}"
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - zookeeper.service
+    - kafka.service
+
+- name: kafka service
+  systemd:
+    state: started
+    name: kafka
+
+

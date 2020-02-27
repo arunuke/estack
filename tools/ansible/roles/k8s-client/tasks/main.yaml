@@ -1,0 +1,15 @@
+---
+
+- name: Install K8s CLI
+  import_tasks: kafka-dload.yaml
+  become: yes
+  become_user: kafka
+
+- name: Importing kafka configuration tasks
+  import_tasks: kafka-config-file.yaml
+  become: yes
+
+     
+
+
+

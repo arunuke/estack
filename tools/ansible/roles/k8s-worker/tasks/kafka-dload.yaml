@@ -1,0 +1,19 @@
+---
+
+  - name: Untar Kafka binaries 
+    unarchive: 
+      src: "{{ KAFKA_URL }}"
+      dest: "{{ KAFKA_DST }}"
+      remote_src: yes
+      extra_opts:
+      - --strip-components=1
+
+  - name: Configure kafka server - allow delete topic
+    lineinfile:  
+      path: "{{ KAFKA_CONFIG }}"
+      line: delete.topic.enable = true 
+
+
+
+
+
