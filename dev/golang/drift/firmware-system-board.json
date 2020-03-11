@@ -1,0 +1,28 @@
+{
+   "@odata.etag" : "W/\"5E16BFA8\"",
+   "@odata.context" : "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory",
+   "Status" : {
+      "Health" : "OK",
+      "State" : "Enabled"
+   },
+   "@odata.type" : "#SoftwareInventory.v1_0_0.SoftwareInventory",
+   "Name" : "System ROM",
+   "Version" : "U32 v1.36 (02/14/2018)",
+   "Id" : "2",
+   "Description" : "SystemRomActive",
+   "@odata.id" : "/redfish/v1/UpdateService/FirmwareInventory/2/",
+   "Oem" : {
+      "Hpe" : {
+         "@odata.context" : "/redfish/v1/$metadata#HpeiLOSoftwareInventory.HpeiLOSoftwareInventory",
+         "Targets" : [
+            "00000000-0000-0000-0000-000000000204",
+            "00000000-0000-0000-0000-000001553332",
+            "00000000-0000-0000-0000-0000018c3d8a",
+            "00000000-0000-0000-0000-000001553332"
+         ],
+         "DeviceClass" : "aa148d2e-6e09-453e-bc6f-63baa5f5ccc4",
+         "DeviceContext" : "System Board",
+         "@odata.type" : "#HpeiLOSoftwareInventory.v2_0_0.HpeiLOSoftwareInventory"
+      }
+   }
+}

@@ -1,0 +1,20 @@
+{
+
+	"Resource": "Server",
+	"Description": "Array of servers monitored",
+	"ListServers": [
+		{
+			"IP":"10.15.0.16",
+			"User": "admin",
+			"Password": "HP1nvent"
+		},
+		{
+			"IP":"10.15.0.9",
+			"User": "admin",
+			"Password": "HP1nvent"
+		}
+	],
+	"GoldenConfig": "ComputeGoldenConfig.json",
+	"ItemCount": "5"
+
+}
