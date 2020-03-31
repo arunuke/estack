@@ -1,0 +1,36 @@
+{
+
+	"Players" : {
+		[
+		  {
+		    "Name": "Tom Brady",
+		    "Position": "QB",
+		    "Stats": {
+		              [
+				{
+				  "GameId": "1",	
+		                  "PassYd": "300",
+				  "RushYd": "12",
+				  "PassTd": "3",
+				  "RushTd": "0"
+				},
+				{
+				  "GameId": "2",	
+		                  "PassYd": "200",
+				  "RushYd": "9",
+				  "PassTd": "1",
+				  "RushTd": "0"
+				},
+				{
+				  "GameId": "3",	
+		                  "PassYd": "300",
+				  "RushYd": "12",
+				  "PassTd": "3",
+				  "RushTd": "0"
+				}
+			      ]
+			    }
+		  }
+
+		]
+}

@@ -123,7 +123,8 @@ func main() {
 	vBiosGC, _ := ioutil.ReadAll(vBiosGCFile)
 	var vGCOutput map[string]interface{}
 	json.Unmarshal([]byte(vBiosGC), &vGCOutput)
-	fmt.Println("From Golden Config",vGCOutput["Attributes"])
+	fmt.Println("From Golden Config -> Attributes: ",vGCOutput["Attributes"])
+	fmt.Println("From Golden Config -> sriov",vGCOutput["Sriov"])
 
 
 // Read inputs from golden config JSON file specified in the arguments and store in a map

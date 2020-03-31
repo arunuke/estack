@@ -1,0 +1,692 @@
+    1  ls
+    2  vi vagrant-install.bash 
+    3  vi virtualbox-install.bash 
+    4  bash virtualbox-install.bash 
+    5  vi virtualbox-install.bash 
+    6  bash virtualbox-install.bash 
+    7  vi virtualbox-install.bash 
+    8  bash virtualbox-install.bash 
+    9  vi virtualbox-install.bash 
+   10  bash virtualbox-install.bash 
+   11  sudo vi /etc/resolv.conf 
+   12  bash virtualbox-install.bash 
+   13  sudo apt-get update
+   14  sudo vi /etc/apt/sources.list
+   15  ls
+   16  vi virtualbox-install.bash 
+   17  cat /etc/apt/sources.list
+   18  cat /etc/apt/sources.list | grep -i virtual
+   19  ls
+   20  cat virtualbox-install.bash 
+   21  echo "deb https://download.virtualbox.org/virtualbox/debian bionic contrib" >> sudo tee -a /etc/apt/sources.list
+   22  cat virtualbox-install.bash 
+   23  cat /etc/apt/sources.list | grep -i virtual
+   24  vi virtualbox-install.bash 
+   25  bash virtualbox-install.bash 
+   26  cat /etc/apt/sources.list | grep -i virtual
+   27  vi virtualbox-install.bash 
+   28  bash virtualbox-install.bash 
+   29  ls
+   30  vi vagrant-install.bash 
+   31  ls
+   32  cat vagrant-configure.bash 
+   33  bash vagrant-install.bash 
+   34  ls
+   35  ls -larth
+   36  rm sudo 
+   37  ls
+   38  sudo apt-get unzip
+   39  sudo apt-get install unzip
+   40  sudo apt-get install zip
+   41  vi vagrant-install.bash 
+   42  bash vagrant-install.bash 
+   43  ls
+   44  vagrant
+   45  ls
+   46  mkdir vagrant
+   47  rm -Rf vagrant
+   48  mkdir test
+   49  cd test
+   50  vagrant init hashicorp/bionic64
+   51  ls
+   52  vagrant up
+   53  ls
+   54  vagrant ssh default
+   55  exit
+   56  clear
+   57  ls
+   58  ip a
+   59  cd estack/
+   60  ls
+   61  git status
+   62  ls
+   63  cd dev/vagrant/
+   64  ls
+   65  cd newk8s/
+   66  ls
+   67  vi Vagrantfile 
+   68  cd
+   69  cd .ssh
+   70  ls
+   71  cp ../estack/keys/vagrant_vms* .
+   72  ls
+   73  cp vagrant_vms id_rsa
+   74  cp vagrant_vms.pub id_rsa.pub
+   75  cd
+   76  cd estack/tools/ansible/
+   77  ls
+   78  cd ../bash/
+   79  ls
+   80  vi ansible-configure.bash
+   81  bash ansible-install.bash 
+   82  sudo vi /etc/ansible/hosts 
+   83  ansible -m ping all
+   84  ssh 192.168.50.32
+   85  ssh 192.168.50.33
+   86  ansible -m ping all
+   87  vi /etc/ansible/hosts 
+   88  sudo vi /etc/ansible/hosts 
+   89  ansible -m ping all
+   90  cp /etc/ansible/hosts ~/estack/files/hosts.ansible.k8s
+   91  sudo vi /etc/ansible/hosts 
+   92  ansible -m ping bootstrap
+   93  cp /etc/ansible/hosts ~/estack/files/hosts.ansible.k8s
+   94  cd ../ansible/
+   95  ls
+   96  cd roles/
+   97  ls
+   98  cd k8s-client/
+   99  ls
+  100  cd tasks
+  101  ls
+  102  vi main.yaml 
+  103  ls
+  104  vagrant
+  105  ls
+  106  git clone https://github.com/arunuke/estack.git
+  107  ls
+  108  cd estack/
+  109  ls
+  110  git checkout -b estack-01oct2019 
+  111  ls
+  112  git checkout  estack-01oct2019 
+  113  ls
+  114  cd ..
+  115  rm -Rf estack/
+  116  git clone https://github.com/arunuke/estack.git
+  117  cd estack/
+  118  git checkout  estack-01oct2019 
+  119  ls
+  120  cd dev
+  121  ls
+  122  cd ../dev
+  123  cd ../dev-golang/
+  124  ls
+  125  pwd
+  126  cd ..
+  127  ls
+  128  cd dev
+  129  ls
+  130  cd golang/
+  131  ls
+  132  cd ..
+  133  ls
+  134  cd ..
+  135  ls
+  136  cd ..
+  137  rm -Rf estack/
+  138  git clone https://github.com/arunuke/estack.git
+  139  cd estack/
+  140  ls
+  141  git checkout  estack-01oct2019 
+  142  ls
+  143  rm -Rf dev-golang
+  144  rm -Rf dev-vagrant/
+  145  ls
+  146  git status
+  147  git add *
+  148  git status
+  149  git commit -m "removed directories"
+  150  git rm dev-vagrant/*
+  151  git rm dev-golang/*
+  152  git status
+  153  git commit -m "removed directories"
+  154  git push origin estack-01oct2019 
+  155  ls
+  156  cd tools/
+  157  ls
+  158  cd ansible/
+  159  ls
+  160  cd roles/
+  161  ls
+  162  cd k8s-client/
+  163  ls
+  164  cd tasks
+  165  ls
+  166  vi main.yaml 
+  167  cd ..
+  168  cd
+  169  ls
+  170  cd estack/
+  171  ls
+  172  de
+  173  ls
+  174  cd dev
+  175  ls
+  176  cd vagrant
+  177  ls
+  178  cd k8s
+  179  ls
+  180  vi Vagrantfile 
+  181  vagrant up
+  182  vagrant status
+  183  ls
+  184  cd ..
+  185  mkdir newk8s
+  186  cp k8s/Vagrantfile newk8s/
+  187  ls
+  188  cd newk8s/
+  189  ls
+  190  vi Vagrantfile 
+  191  vagrant up
+  192  ls
+  193  vagrant ssh bootstrap
+  194  ls
+  195  cat Vagrantfile 
+  196  ssh 192.168.50.31
+  197  vagrant ssh bootstrap
+  198  ssh 192.168.50.31
+  199  chmod 600 ~/.ssh/id_rsa*
+  200  ssh 192.168.50.31
+  201  ls
+  202  vi Vagrantfile 
+  203  clear
+  204  cd estack/dev/vagrant/newk8s/
+  205  ls
+  206  vagrant status
+  207  pwd
+  208  cd estack/
+  209  ls
+  210  cd dev/vagrant/
+  211  ls
+  212  cd newk8s/
+  213  ls
+  214  cd ../
+  215  ls
+  216  cd k8s
+  217  ls
+  218  cd ..
+  219  ls
+  220  cd newk8s/
+  221  ls
+  222  vagrant ssh bootstrap
+  223  ls
+  224  cd esta
+  225  ls
+  226  cd estack/
+  227  ls
+  228  cd tools/
+  229  ls
+  230  cd ansible/
+  231  ls
+  232  cd roles/
+  233  ls
+  234  cd k8s-client/
+  235  ls
+  236  cd estack/
+  237  ls
+  238  git status
+  239  cd dev
+  240  ls
+  241  cd ..
+  242  ls
+  243  cd tools
+  244  ls
+  245  cd ..
+  246  cd dev
+  247  ls
+  248  cd golang
+  249  ls
+  250  mkdir exercise
+  251  mkdir drift
+  252  mv *.go exercise/
+  253  cd drift
+  254  vi drift.go
+  255  vi drift-input.json
+  256  sudo apt-get install jsonlint
+  257  sudo vi /etc/resolv.conf 
+  258  sudo apt-get install jsonlint
+  259  jsonlint
+  260  whereis jsonlint
+  261  jsonlint-php drift-input.json 
+  262  vi drift-input.json 
+  263  mv drift-input.json input-drift.json
+  264  jsonlint-php input-drift.json 
+  265  vi input-drift.json 
+  266  jsonlint-php input-drift.json 
+  267  vi input-drift.json 
+  268  jsonlint-php input-drift.json 
+  269  vi input-drift.json 
+  270  jsonlint-php input-drift.json 
+  271  vi input-drift.json 
+  272  jsonlint-php input-drift.json 
+  273  vi input-drift.json 
+  274  cd estack/
+  275  ls
+  276  cd dev/
+  277  lsw
+  278  ls
+  279  cd golang/
+  280  ls
+  281  cd drift/
+  282  ls
+  283  vi drift.go 
+  284  cd estack/dev/golang/
+  285  ls
+  286  cd drift/
+  287  ls
+  288  vi drift.go 
+  289  rm .drift.go.swp 
+  290  vi drift.go 
+  291  sudo apt-get install golang
+  292  go build drift.go 
+  293  go run drift.go 
+  294  go run drift.go a b
+  295  go run drift.go a a
+  296  ./drift 1 2
+  297  ./drift 1 
+  298  vi drift.go 
+  299  cd estack/
+  300  ls
+  301  cd dev
+  302  cd golang/
+  303  ls
+  304  cd drift/
+  305  ls
+  306  vi drift.go 
+  307  go build drift.go
+  308  vi drift.go
+  309  go build drift.go
+  310  vi drift.go
+  311  cd estack/dev/golang/drift/
+  312  ls
+  313  vi drift.go 
+  314  go build drift.go
+  315  vi drift
+  316  vi drift.go
+  317  go build drift.go
+  318  vi drift.go 
+  319  go build drift.go
+  320  vi drift.go 
+  321  go build drift.go
+  322  go run drift.go 
+  323  vi drift.go 
+  324  go run drift.go 
+  325  go run drift.go 1 2 3 4
+  326  go run drift.go 10.15.0.9 admin HP1nvent goldenconfig.json
+  327  vi drift.go 
+  328  go run drift.go 10.15.0.9 admin HP1nvent goldenconfig.json
+  329  curl https://10.15.0.16/redfish/v1/ -i --insecure -u admin:HP1nvent -L
+  330  curl https://10.15.0.16/redfish/v1/ -i --insecure -u admin:HP1nvent -L | json_pp
+  331  curl https://10.15.0.16/redfish/v1/ -i --insecure -u admin:HP1nvent -L > redfish.log
+  332  cat redfish.log | json_pp
+  333  vi redfish.log 
+  334  cat redfish.log | json_pp
+  335  curl https://10.15.0.16/redfish/v1/  --insecure -u admin:HP1nvent -L 
+  336  curl https://10.15.0.16/redfish/v1/  --insecure -u admin:HP1nvent -L | json_pp
+  337  curl https://10.15.0.16/redfish/v1/Systems  --insecure -u admin:HP1nvent -L | json_pp
+  338  curl https://10.15.0.16/redfish/v1/Systems/1/  --insecure -u admin:HP1nvent -L | json_pp
+  339  curl https://10.15.0.16/redfish/v1/Systems/1/bios/  --insecure -u admin:HP1nvent -L | json_pp
+  340  curl https://10.15.0.16/redfish/v1/Systems/1/bios/  --insecure -u admin:HP1nvent -L | json_pp > bios-config.json
+  341  vi bios-config.json 
+  342  curl https://10.15.0.16/redfish/v1/UpdateService  --insecure -u admin:HP1nvent -L | json_pp > bios-config.json
+  343  curl https://10.15.0.16/redfish/v1/Systems/1/bios/  --insecure -u admin:HP1nvent -L | json_pp > bios-config.json
+  344  curl https://10.15.0.16/redfish/v1/UpdateService  --insecure -u admin:HP1nvent -L | json_pp
+  345  curl https://10.15.0.16/redfish/v1/UpdateService/FirmwareInventory  --insecure -u admin:HP1nvent -L | json_pp
+  346  curl https://10.15.0.16/redfish/v1/UpdateService/FirmwareInventory/1  --insecure -u admin:HP1nvent -L | json_pp
+  347  curl https://10.15.0.16/redfish/v1/UpdateService/FirmwareInventory/2  --insecure -u admin:HP1nvent -L | json_pp
+  348  curl https://10.15.0.16/redfish/v1/UpdateService/FirmwareInventory/2  --insecure -u admin:HP1nvent -L | json_pp > firmware-system-board.json
+  349  vi drift.go 
+  350  ls
+  351  go run drift.go 10.15.0.9 admin HP1nvent bios-config.json
+  352  vi drift.go 
+  353  go run drift.go 10.15.0.9 admin HP1nvent bios-config.json
+  354  vi drift.go 
+  355  go run drift.go 10.15.0.9 admin HP1nvent bios-config.json
+  356  cd estack/dev/golang/drift/
+  357  vi drift.go
+  358  rm .drift.go.swp 
+  359  vi drift.go
+  360  go build drift.go
+  361  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  362  vi drift.go
+  363  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  364  vi drift.go
+  365  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  366  vi drift.go
+  367  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  368  vi drift.go
+  369  curl https://10.15.0.16/redfish/v1/Systems/1/bios/ -u admin:HP1nvent
+  370  curl https://10.15.0.16/redfish/v1/Systems/1/bios/ -u admin:HP1nvent -L
+  371  curl --insecure https://10.15.0.16/redfish/v1/Systems/1/bios/ -u admin:HP1nvent -L
+  372  curl http://10.15.0.16/redfish/v1/Systems/1/bios/ -u admin:HP1nvent -L
+  373  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  374  curl https://10.15.0.16/redfish/v1/Systems/1/bios/ -u admin:HP1nvent -L
+  375  curl --insecure https://10.15.0.16/redfish/v1/Systems/1/bios/ -u admin:HP1nvent -L
+  376  clear
+  377  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  378  curl  http://10.15.0.16/redfish/v1/Systems/1/bios/ -u admin:HP1nvent -L
+  379  curl  http://10.15.0.16:80/redfish/v1/Systems/1/bios/ -u admin:HP1nvent -L
+  380  curl  https://10.15.0.16:80/redfish/v1/Systems/1/bios/ -u admin:HP1nvent -L
+  381  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  382  go build drift.go
+  383  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  384  go build drift.go
+  385  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  386  curl https://10.15.0.16/redfish/v1/Systems/1/bios/ --insecure -u admin:HP1nvent
+  387  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  388  curl https://10.15.0.16/redfish/v1/Systems/1/bios/ --insecure -u admin:HP1nvent
+  389  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  390  go build drift.go
+  391  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  392  cd estack/dev/golang/drift/
+  393  go build drift.go
+  394  vi drift.go 
+  395  go build drift.go
+  396  vi drift.go 
+  397  go build drift.go
+  398  vi drift.go 
+  399  cd estack/dev/golang/drift/
+  400  go build drift.go
+  401  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  402  ls
+  403  gretp bios-config.json 
+  404  cat bios-config.json 
+  405  cat bios-config.json | more
+  406  go build drift.go
+  407  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  408  cd estack/dev/
+  409  ls
+  410  cd golang/
+  411  ls
+  412  cd drift/
+  413  ls
+  414  vi drift.go
+  415  cd estack/dev/golang/exercise/
+  416  go run json-tests.go 
+  417  go build json-tests.go 
+  418  vi json-tests.go 
+  419  go build json-tests.go 
+  420  go run json-tests.go 
+  421  go build json-tests.go 
+  422  go run json-tests.go 
+  423  ls
+  424  cd ../drift/
+  425  ls
+  426  vi drift.go 
+  427  vi bios-config.json 
+  428  vi firmware-system-board.json 
+  429  vi bios-config.json 
+  430  cd estack/dev/golang/
+  431  ls
+  432  cd exer
+  433  cd exercise/
+  434  ls
+  435  vi json-tests.go
+  436  go build json-tests.go 
+  437  vi json-tests.go 
+  438  go build json-tests.go 
+  439  vi json-tests.go 
+  440  go build json-tests.go 
+  441  go run json-tests
+  442  go run json-tests.go 
+  443  vi json-tests.go 
+  444  go run json-tests.go 
+  445  vi json-tests.go 
+  446  cd estack/dev/golang/
+  447  cd drift/
+  448  ls
+  449  vi bios-config.json 
+  450  cd
+  451  cd estack/
+  452  ls
+  453  git status
+  454  git add *
+  455  git status
+  456  git commit -m "drift v0.1"
+  457  git push origin estack-01oct2019 
+  458  git status
+  459  ls
+  460  cd dev/golang/exercise/
+  461  cd estack/dev/golang/
+  462  ls
+  463  cd drift/
+  464  ls
+  465  vi drift.go
+  466  clear
+  467  ls
+  468  cd ../exercise/
+  469  cd estack/dev/golang/drift/
+  470  go build drift.go
+  471  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  472  go build drift.go
+  473  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  474  cd ../exercise/
+  475  ls
+  476  vi json-tests.go 
+  477  go run json-tests.go
+  478  vi json-tests.go 
+  479  cd estack/dev/golang/drift/
+  480  ls
+  481  vi bios-config.json 
+  482  cd estack/dev/golang/drift/
+  483  ls
+  484  go run drift.go 10.15.0.16 admin HP1nvent bios-config.json
+  485  cd ../exercise/
+  486  go run json-tests.go
+  487  go build json-tests
+  488  go build json-tests.go
+  489  go run json-tests.go
+  490  go build json-tests.go
+  491  go run json-tests.go
+  492  clear
+  493  go run json-tests.go
+  494  cd estack/dev/golang
+  495  ls
+  496  cd exercise/
+  497  ;s
+  498  ls
+  499  vi nfl.json
+  500  cd estack/
+  501  ls
+  502  cd cd ..
+  503  cd ..
+  504  cd estack/dev/golang/drift/
+  505  ls
+  506  vi drift.go 
+  507  vi bios-config.json 
+  508  vi drift.go 
+  509  cd ../exercise/
+  510  ls
+  511  vi json-tests.go
+  512  curl https://10.15.0.16/redfish/v1/systems --insecure -u admin:HP1nvent -l
+  513  curl https://10.15.0.16/redfish/v1/systems --insecure -u admin:HP1nvent -L
+  514  curl https://10.15.0.16/redfish/v1/systems --insecure -u admin:HP1nvent -L | json_pp
+  515  curl https://10.15.0.16/redfish/v1/Systems --insecure -u admin:HP1nvent -L | json_pp
+  516  curl https://10.15.0.16/redfish/v1/Systems/1 --insecure -u admin:HP1nvent -L | json_pp
+  517  curl https://10.15.0.16/redfish/v1/Systems/1 --insecure -u admin:HP1nvent -L | json_pp | more
+  518  curl https://10.15.0.16/redfish/v1/Systems/1 --insecure -u admin:HP1nvent -L | json_pp | grep -i telemetry
+  519  curl https://10.15.0.16/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp | grep -i telemetry
+  520  curl https://10.15.0.16/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp 
+  521  curl https://10.15.0.16/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp > s16.log
+  522  vi s16.log 
+  523  curl https://10.15.0.16/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp > s16.log
+  524  vi s16.log 
+  525  exit
+  526  cd estack/dev/golang/exercise/
+  527  ls
+  528  cp json-tests.go basic-json.go
+  529  vi json-tests.go
+  530  cd estack/dev/golang/exercise/
+  531  ls
+  532  vi json-tests.go
+  533  ls
+  534  vi s17.log 
+  535  grep RedfishVersion ManagerFirmwareVersion s17.log
+  536  grep Version s17.log
+  537  grep Manager s17.log
+  538  grep Version s17.log r8s7dl380.log 
+  539  grep Manager s17.log r8s7dl380.log 
+  540  grep ManagerType s17.log r8s7dl380.log 
+  541  grep Telemetry s17.log r8s7dl380.log 
+  542  curl https://10.15.0.17/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp > s17.log
+  543  vi s17.log 
+  544  ping 10.8.0.6
+  545  curl https://10.8.0.6/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp > r8s6dl380.log
+  546  vi r8s6dl380.log 
+  547  curl https://10.8.0.7/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp > r8s7dl380.log
+  548  curl https://10.8.0.8/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp > r8s8dl380.log
+  549  vi r8s*
+  550  ls
+  551  grep RedfishVersion s17.log
+  552  grep Telemetry s17.log
+  553  vi s17.log 
+  554  curl https://10.15.0.17/redfish/v1/ --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry.log
+  555  vi s17-telemetry.log 
+  556  curl https://10.15.0.17/redfish/v1/TelemetryService --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry.log
+  557  vi s17-telemetry.log 
+  558  curl https://10.15.0.17/redfish/v1/TelemetryService/Triggers --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry-triggers.log
+  559  vi s17-telemetry-triggers.log 
+  560  curl https://10.15.0.17/redfish/v1/TelemetryService/Triggers/CPUUtilTriggers --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry-triggers-cpu.log
+  561  vi s17-telemetry-triggers-cpu.log
+  562  vi s17-telemetry-triggers.log
+  563  vi s17-telemetry-triggers-cpu.log
+  564  vi s17-telemetry-triggers.log 
+  565  curl https://10.15.0.17/redfish/v1/TelemetryService/Triggers/CPUICUtilTriggers --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry-triggers-cpu.log
+  566  curl https://10.15.0.17/redfish/v1/TelemetryService/Triggers/CPUICUtilTriggers --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry-triggers-cpu-iu.log
+  567  curl https://10.15.0.17/redfish/v1/TelemetryService/Triggers/CPUUtilTriggers --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry-triggers-cpu.log
+  568  vi s17-telemetry-triggers-cpu-iu.log s17-telemetry-triggers-cpu.log
+  569  vi s17-telemetry.log
+  570  curl https://10.15.0.17//redfish/v1/TelemetryService/MetricReportDefinitions --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry-metric-report-definitions.log
+  571  curl https://10.15.0.17/redfish/v1/TelemetryService/MetricReportDefinitions --insecure -u admin:HP1nvent -L | json_pp > s17-telemetry-metric-report-definitions.log
+  572  vi s17-telemetry-metric-report-definitions.log
+  573  ls
+  574  mkdir telemetry
+  575  cd telemetry/
+  576  mv ../*.log .
+  577  cd estack/dev/golang/exercise/
+  578  ls
+  579  go build json-tests.go
+  580  go run json-tests.go
+  581  cd estack/dev/golang/drift/
+  582  cd ../exercise/
+  583  ls
+  584  vi json-tests.go 
+  585  cd estack/dev/golang/exercise/
+  586  go build json-tests.go 
+  587  go run json-tests.go
+  588  cd estack/dev/golang/exercise/
+  589  ls
+  590  ls .*
+  591  rm .json-tests.go.swp 
+  592  vi json-tests.go 
+  593  cd 
+  594  cd estack/dev/golang/exercise/
+  595  ls
+  596  vi json-tests.go
+  597  clear
+  598  cd estack/dev/golang/exercise/
+  599  ls
+  600  vi json-tests.go 
+  601  rm .json-tests.go.swp 
+  602  vi json-tests
+  603  vi json-tests.go 
+  604  ls
+  605  cd telemetry/
+  606  ls
+  607  grep RedFish *.log
+  608  grep Redfish *.log
+  609  vi s17.log 
+  610  vi ~/.bashrc
+  611  exit
+  612  cd estack/dev/golang/exercise/
+  613  go run json-tests.go 
+  614  cd estack/dev/golang/exercise/
+  615  ls
+  616  vi json-tests.go
+  617  ls
+  618  vi json-tests.go 
+  619  rm .json-tests.go.swp 
+  620  vi json-tests.go 
+  621  cd estack/dev/golang/exercise/
+  622  go run json-tests.go 
+  623  clear
+  624  ls
+  625  vi json-tests.go 
+  626  rm .json-tests.go.swp 
+  627  vi json-tests.go 
+  628  mv json-tests.go maps-slices.go
+  629  rm json-tests 
+  630  vi json-tests.go
+  631  vi json-tests.go maps-slices.go 
+  632  vi json-tests.go 
+  633  cd
+  634  cd telemetry/
+  635  ls
+  636  cd -
+  637  exit
+  638  go run json-tests.go 
+  639  go run json-tests.go in out cred 10.15.0.16
+  640  go run json-tests.go 
+  641  go run json-tests.go input output credentials 15
+  642  ls
+  643  vi json-tests.go 
+  644  go build json-tests.go 
+  645  go run json-tests.go
+  646  cd ../
+  647  cd drift/
+  648  ls
+  649  vi bios-config.json 
+  650  cp bios-config.json ../exercise/
+  651  ls
+  652  cd ../exercise/
+  653  ls
+  654  vi json-tests.go 
+  655  cp bios-config.json orig-bios.json
+  656  vi bios-config.json 
+  657  vi json-tests.go 
+  658  clear
+  659  ls
+  660  vi json-tests.go
+  661  rm .json-tests.go.swp 
+  662  vi json-tests.go 
+  663  go run json-tests.go 
+  664  clear
+  665  go run json-tests.go 
+  666  ls
+  667  vi bios-config.json 
+  668  ls
+  669  go build json-tests.go
+  670  go run json-tests.go
+  671  go build json-tests.go
+  672  go run json-tests.go
+  673  vi json-tests.go 
+  674  ls
+  675  vi reflect-test.go
+  676  go build reflect-test.go 
+  677  go run reflect-test.go
+  678  vi bios-config.json 
+  679  ls
+  680  vi json-tests.go
+  681  rm .json-tests.go.swp 
+  682  vi json-tests.go 
+  683  vi json-tests.go
+  684  clear
+  685  vi ../drift/drift.go 
+  686  ls 
+  687  ls -larth
+  688  rm .json-tests.go.swp 
+  689  vi json-tests.go 
+  690  go build json-tests.go
+  691  history
+  692  history > h.log
