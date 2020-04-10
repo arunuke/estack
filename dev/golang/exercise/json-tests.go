@@ -9,8 +9,10 @@
 /* Code Flow
 
 # Read credentials from a file
-# 
-# Read schema from a file 
+# List down key criteria to check for golden config
+# Look up said value for criteria for golden config from a file
+# Compare with value received from the server
+# Notify compliance or lack thereof
 #
 
 
@@ -34,7 +36,7 @@ type Creds struct {
 	Ipaddr string `json:"ipaddr"`
 	User string `json:"user"`
 	Pw string `json:"pw"`
-	Url string `json:"url"`//url to check for golden config. can be a slice 
+	Url string `json:"url"`
 	Attr []string `json:"attr"` // slice of attributes to check
 
 }
@@ -193,31 +195,30 @@ func PrintCreds(res Resource) {
 
 func CheckAttr(res Resource) {
 	//Check attributes for the array of resources
-	const proto,redfishRoot,biosRoot,firmwareRoot = "https://","/redfish/v1", "/systems/1/bios","/UpdateService/FirmwareInventory/1"
+	const proto,redfishRoot,biosRoot,firmwareRoot = "https://","/redfish/v1", "/Systems/1/bios","/UpdateService/FirmwareInventory/1"
 
-	qstr := proto 
 
 	for _,val := range res.Resources {
 		// Iterating on resources
-		qstr += val.Ipaddr + val.Url
+		qstr := proto + val.Ipaddr + val.Url
 		for _,lcal := range val.Attr {
 			// Convert attribute to lower case later
+			var tgtstr string
 			switch lcal  {
 				case "bios" :
-					qstr += biosRoot
+					tgtstr = qstr + biosRoot
 				case "firmware" :
-					qstr += firmwareRoot
+					tgtstr = qstr + firmwareRoot
 				default :
 					fmt.Println("CheckAttr switch - shouldn't be in default")
 			}
-			fmt.Println("Querying "+ qstr + " for " + val.User + " / " + val.Pw)
+			// Create query string
+			fmt.Println("Querying "+ tgtstr + " for " + val.User + " / " + val.Pw)
+			// Receive unstructured data
 			GetFromSvr(qstr,val.User,val.Pw)
 		}
-		// Create query string
 
-		// Perform Query
 
-		// Receive unstructured data
 	}
 
 }
@@ -243,7 +244,7 @@ func main () {
 
 	// Read Credentials
 	res := ReadCreds(CredFile)
-	PrintCreds(res)
+	//PrintCreds(res)
 
 	// Check list of attributes to be compared for each resource
 	CheckAttr(res)
