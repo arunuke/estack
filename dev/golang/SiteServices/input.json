@@ -1,0 +1,32 @@
+{
+	"Cmds": [ 
+		{
+			"Name": "Host Name",
+			"Path": "/bin/hostname",
+			"Options": "-f",
+			"TgtAddr": "",
+			"StdOutput": null,
+			"StdError": null
+		}
+	],
+	"Svcs": [
+		{
+			"Name": "Echo",
+			"Url": "https://postman-echo.com",
+			"User":"",
+			"Passwd":"",
+			"Bufs": 
+				{
+					"StdOut": null,
+					"StdErr": null
+				}
+		}
+	],
+	"Envs": [
+		{
+			"Name": "Mail",
+			"Variable": "MAIL",
+		       	"Value": "/var/email/ubuntu"
+		}
+	]
+}

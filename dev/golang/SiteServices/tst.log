@@ -1,0 +1,26 @@
+ 6 May 08:19:45 ntpdate[27573]: ntpdate 4.2.8p10@1.3728-o (1)
+Looking for host 216.239.35.0 and service ntp
+216.239.35.0 reversed to time1.google.com
+transmit(216.239.35.0)
+receive(216.239.35.0)
+transmit(216.239.35.0)
+receive(216.239.35.0)
+transmit(216.239.35.0)
+receive(216.239.35.0)
+transmit(216.239.35.0)
+receive(216.239.35.0)
+server 216.239.35.0, port 123
+stratum 1, precision -20, leap 00, trust 000
+refid [GOOG], delay 0.04930, dispersion 0.00003
+transmitted 4, in filter 4
+reference time:    e25cf1a8.0f71c5cb  Wed, May  6 2020  8:19:52.060
+originate timestamp: e25cf1a8.0f71c5ce  Wed, May  6 2020  8:19:52.060
+transmit timestamp:  e25cf1a8.0c5fd1f8  Wed, May  6 2020  8:19:52.048
+filter delay:  0.04939  0.04930  0.04990  0.04930 
+         0.00000  0.00000  0.00000  0.00000 
+filter offset: 0.000168 0.000136 -0.00018 0.000145
+         0.000000 0.000000 0.000000 0.000000
+delay 0.04930, dispersion 0.00003
+offset 0.000136
+
+ 6 May 08:19:52 ntpdate[27573]: adjust time server 216.239.35.0 offset 0.000136 sec
