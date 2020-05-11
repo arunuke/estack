@@ -1,10 +1,10 @@
 {
 	"Cmds": [ 
 		{
-			"Name": "Host Name",
-			"Path": "/bin/hostname",
-			"Options": "-f",
-			"TgtAddr": "",
+			"Name": "Input: Wget",
+			"Path": "/usr/bin/wget",
+			"Options": "-v",
+			"TgtAddr": "www.ietf.org/rfc/rfc791.txt",
 			"StdOutput": null,
 			"StdError": null
 		}

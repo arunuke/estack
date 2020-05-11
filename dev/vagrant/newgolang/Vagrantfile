@@ -1,0 +1,8 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.define "survey" do |survey|
+    survey.vm.box = "ubuntu/bionic64"
+    survey.vm.hostname = "apiserver"
+    survey.vm.provision "shell", inline: "sudo apt-get update; sudo apt-get upgrade; sudo apt-get install iperf"
+  end
+end

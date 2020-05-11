@@ -81,17 +81,22 @@ func (g *GlCommand) Validate() {
 	if g.StdError == nil {
 		g.StdError = new(bytes.Buffer)
 	}
+	/*
+	cmdOpts := g.Options +" "+ g.TgtAddr
 	var cmd *exec.Cmd
 	if g.Options != "" {
 		cmd = exec.Command("sudo", g.Path, g.Options, g.TgtAddr)
 	} else {
 		cmd = exec.Command("sudo", g.Path, g.TgtAddr)
 	}
+	*/
+	fmt.Println("Validate() : About to execute :",g)
+	cmd := exec.Command("sudo", g.Path, g.Options, g.TgtAddr)
 	cmd.Stdout = g.StdOutput
 	cmd.Stderr = g.StdError
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println("err : ", err)
+		fmt.Println("err in Cmd: ", err, g.Path,g.Options, g.TgtAddr)
 	} else {
 		prettyPrint(g)
 	}
@@ -182,7 +187,7 @@ func processInputFile(fname *string) (GlInFile) {
 		fmt.Println("File Reading error", err)
 		os.Exit(1)
 	}
-	fmt.Println("Buf has: ",buf, len(buf))
+	//fmt.Println("Buf has: ",buf, len(buf))
 	var vInF GlInFile
         err = json.Unmarshal([]byte(buf),&vInF)
 	if err != nil {
@@ -191,11 +196,29 @@ func processInputFile(fname *string) (GlInFile) {
 	}
         //fmt.Println("Inf has members ->",len(vInF))
 
-	fmt.Println("Inf has: ",vInF)
+	//fmt.Println("Inf has: ",vInF)
+
         return vInF
 
-
 }
+
+func addEnv(arr *[]GlEnvVariables, items []GlEnvVariables) () {
+	for _,v := range items {
+		*arr = append(*arr, v)
+	}
+}
+func addSvc(arr *[]GlWebService, items []GlWebService) () {
+	for _,v := range items {
+		*arr = append(*arr, v)
+	}
+}
+func addCmd(arr *[]GlCommand, items []GlCommand) () {
+	for _,v := range items {
+		*arr = append(*arr, v)
+	}
+}
+
+
 func main() {
 
 
@@ -220,17 +243,20 @@ func main() {
 		GlWebService{ Name: "Shop", Url: "https://www.amazon.com:443" } }
 	var glSiteCmds = []GlCommand { 
 		GlCommand { "NTP Service", "/usr/sbin/ntpdate", "-vd", "216.239.35.0", nil, nil },
-		GlCommand { "DNS Service", "/usr/bin/nslookup","", "www.hpe.com", nil, nil } ,
-		GlCommand { "Benchmark Service", "/usr/bin/iperf","-c", "speedtest.serverius.net", nil, nil } ,
+		GlCommand { "DNS Service", "/usr/bin/nslookup","-debug", "www.hpe.com", nil, nil } ,
+		GlCommand { "Benchmark Service", "/usr/bin/iperf","-P 10 -c", "speedtest.serverius.net", nil, nil } ,
+		GlCommand { "Wget Service", "/usr/bin/wget","-v", "www.ietf.org/rfc/rfc791.txt", nil, nil },
 		GlCommand { "Ping Service", "/bin/ping","-c 3", "www.google.com", nil, nil } }
 
 	// Command line options with defaults
 	cl, inpf, outf := processCommandLine()
 	if inpf != nil { // read inputfile and add to current list
-		fmt.Println("Read input file")
-		infile := processInputFile(inpf)
-		fmt.Println("Infile", infile)
-		os.Exit(1)
+		inParams := processInputFile(inpf)
+
+		addEnv(&glEnvVars, inParams.Envs)
+		addSvc(&glWebSvcs, inParams.Svcs)
+		addCmd(&glSiteCmds, inParams.Cmds)
+
 	}
 	if outf != nil { // read inputfile and add to current list
 		fmt.Println("Write to output file")
@@ -239,17 +265,17 @@ func main() {
 
 
 	// Individual options run as required
-	if cl != nil && *cl == "svc" || *cl == "all" {
-		for _,vgl := range glWebSvcs {
-			vgl.Connect()
-		}
-	}
-
-
 	if cl != nil && *cl == "cmd" || *cl == "all" {
 
 		for _,vgl := range glSiteCmds {
 			vgl.Validate()
+		}
+	}
+
+
+	if cl != nil && *cl == "svc" || *cl == "all" {
+		for _,vgl := range glWebSvcs {
+			vgl.Connect()
 		}
 	}
 
